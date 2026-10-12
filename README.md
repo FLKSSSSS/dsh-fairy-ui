@@ -6,7 +6,7 @@
 
 ## 安装
 
-1. 从本仓库 [Releases](../../releases) 下载 `DSH-Fairy界面插件-1.0.0.zip` 并完整解压。
+1. 从本仓库 [Releases](https://github.com/FLKSSSSS/dsh-fairy-ui/releases/latest) 下载 `DSH-Fairy界面插件-1.0.0.zip` 并完整解压。
 2. 如已启用旧 `dsh-fairy-visual`，先在 DSH 中禁用；其他冲突皮肤也建议先禁用。
 3. 完全退出 DSH，包括托盘，然后双击解压目录的 `安装插件.cmd`。
 4. 重启原版 DSH。设置 → 语音模型设置 → **安装语音模型**。
