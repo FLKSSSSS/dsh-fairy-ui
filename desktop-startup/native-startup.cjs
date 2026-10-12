@@ -4,10 +4,11 @@ const path=require('node:path');
 const {pathToFileURL}=require('node:url');
 const {StartupGate}=require('./startup-gate.cjs');
 const GEOMETRY=require('./window-geometry.cjs');
+const {normalizeStartupPreferences}=require('./startup-preferences.cjs');
 const PREF_KEY='dsh.fairyUi.startup.v2';
 function createNativeStartup({app,BrowserWindow,ipcMain}){
  let splash=null,target=null,disposed=false,started=false,enabled=true;
- let poll=null,watchdog=null,requested=null,preferences={enabled:true,muted:true,speed:1};
+ let poll=null,watchdog=null,requested=null,preferences=normalizeStartupPreferences();
  const eventLog=[];
  const record=(event,extra={})=>{
   const row={event,elapsedMs:Date.now()-startedAt,...extra};eventLog.push(row);
@@ -19,7 +20,7 @@ function createNativeStartup({app,BrowserWindow,ipcMain}){
   if(!target||target.isDestroyed())return;
   target.webContents.executeJavaScript(`(()=>{try{return JSON.parse(localStorage.getItem(${JSON.stringify(PREF_KEY)})||'null')}catch{return null}})()`).then(v=>{
    if(!v||typeof v!=='object')return;
-   const next={enabled:v.enabled!==false,muted:v.muted!==false,speed:[0.5,1,1.5,2].includes(v.speed)?v.speed:1};
+   const next=normalizeStartupPreferences(v);
    const file=path.join(app.getPath('userData'),'fairy-ui-startup.json');const tmp=file+'.tmp';
    try{fs.writeFileSync(tmp,JSON.stringify(next,null,2));fs.renameSync(tmp,file)}catch{}
   }).catch(()=>{});
@@ -60,15 +61,14 @@ function createNativeStartup({app,BrowserWindow,ipcMain}){
   if(splash&&!splash.isDestroyed())splash.webContents.executeJavaScript("document.getElementById('animation').pause();document.getElementById('status').textContent='动画已跳过，正在等待 DSH 准备就绪…'").catch(()=>{});
  });
  ipcMain.handle('fairy-ui-native:playback-state',(event,state)=>{
-  if(!senderAllowed(event)||!['waiting','playing'].includes(state))throw Error('Rejected playback state');
+  if(!senderAllowed(event)||state!=='playing')throw Error('Rejected playback state');
   if(gate.playbackDone)return;
-  record(state==='waiting'?'video-paused-at-checkpoint':'video-playing');
-  // A healthy video waiting on DSH must not be treated as a damaged video.
-  if(state==='waiting')clearTimeout(watchdog);else armWatchdog();
+  record('video-playing');
+  armWatchdog();
  });
  function open(){
   if(started||disposed)return;started=true;startedAt=Date.now();
-  try{const v=JSON.parse(fs.readFileSync(path.join(app.getPath('userData'),'fairy-ui-startup.json'),'utf8'));preferences={enabled:v.enabled!==false,muted:v.muted!==false,speed:[0.5,1,1.5,2].includes(v.speed)?v.speed:1}}catch{}
+  try{const v=JSON.parse(fs.readFileSync(path.join(app.getPath('userData'),'fairy-ui-startup.json'),'utf8'));preferences=normalizeStartupPreferences(v)}catch{}
   enabled=preferences.enabled;
   if(!enabled){gate.finishPlayback();return;}
   const w=new BrowserWindow({...GEOMETRY,show:false,frame:false,transparent:true,roundedCorners:true,hasShadow:true,resizable:true,backgroundColor:'#05090d',title:'Fairy 正在启动',autoHideMenuBar:true,webPreferences:{preload:path.join(__dirname,'startup-preload.cjs'),contextIsolation:true,sandbox:true,nodeIntegration:false,webSecurity:true,backgroundThrottling:false,autoplayPolicy:'no-user-gesture-required'}});

@@ -1,6 +1,6 @@
 {
   "name": "dsh-fairy-ui",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Fairy HDD UI and preserved speech settings for DSH Desktop, with a separately installed reversible native startup adapter.",
   "type": "module",
   "main": "./lib/index.js",
@@ -162,6 +162,6 @@
     "micromark-extension-gfm-task-list-item"
   ],
   "scripts": {
-    "test": "node --test test/*.test.cjs"
+    "test": "node --test test/*.test.cjs desktop-startup/*.test.cjs"
   }
 }

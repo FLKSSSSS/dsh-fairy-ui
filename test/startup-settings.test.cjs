@@ -1,0 +1,15 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict'),{test}=require('node:test');
+function harness(initial={}){
+ const source=fs.readFileSync(__dirname+'/../lib/client.js','utf8');
+ const start=source.indexOf('function normalizeStartupPreferences('),end=source.indexOf("return { name: 'dsh-fairy-ui'",start);
+ const state=[];let cursor=0,component,stored=JSON.stringify(initial);const dom=[],body={append(node){dom.push(node)}};
+ const React={createElement:(type,props,...children)=>({type,props:props||{},children}),useState:init=>{const i=cursor++;if(!(i in state))state[i]=typeof init==='function'?init():init;return [state[i],v=>state[i]=v]}};
+ const make=tag=>({tag,style:{},children:[],isConnected:true,setAttribute(){},append(...nodes){this.children.push(...nodes)},focus(){},pause(){this.paused=true},removeAttribute(){},load(){},remove(){this.removed=true},play(){return Promise.resolve()}});
+ const context={localStorage:{getItem:()=>stored,setItem:(_k,v)=>stored=v},document:{createElement:make,body,activeElement:null},React,ctx:{slots:{inject:(_slot,f)=>f(),register:(_meta,c)=>component=c},effect(){}}};
+ vm.runInNewContext(source.slice(start,end)+';createStartupSurface(React,ctx)',context);
+ const render=()=>{cursor=0;return component()},find=(tree,predicate)=>{if(!tree||typeof tree!=='object')return;return predicate(tree)?tree:tree.children?.map(c=>find(c,predicate)).find(Boolean)};
+ return {render,find,stored:()=>JSON.parse(stored),dom};
+}
+test('startup settings expose ratio, scaling and fitting controls',()=>{const h=harness(),tree=h.render();const ratio=h.find(tree,n=>n.type==='select'&&n.props.value==='auto');assert.deepEqual(ratio.children.map(n=>n.props.value),['auto','16:9','16:10','4:3','1:1']);const slider=h.find(tree,n=>n.type==='input'&&n.props.type==='range');assert.equal(slider.props.min,50);assert.equal(slider.props.max,150);assert.equal(slider.props.value,100);assert(h.find(tree,n=>n.type==='select'&&n.props.value==='cover'))});
+test('display changes persist and reset preserves playback preferences',()=>{const h=harness({enabled:false,muted:false,speed:2});let tree=h.render();h.find(tree,n=>n.type==='select'&&n.props.value==='auto').props.onChange({target:{value:'16:9'}});tree=h.render();h.find(tree,n=>n.props.type==='range').props.onChange({target:{value:'75'}});assert.equal(h.stored().aspectRatio,'16:9');assert.equal(h.stored().scale,75);tree=h.render();h.find(tree,n=>n.type==='button'&&n.children[0]==='恢复默认画面比例').props.onClick();assert.equal(h.stored().aspectRatio,'auto');assert.equal(h.stored().scale,100);assert.equal(h.stored().enabled,false);assert.equal(h.stored().speed,2)});
+test('manual preview uses saved display options and does not loop',()=>{const h=harness({aspectRatio:'4:3',scale:80,fit:'contain'}),tree=h.render();h.find(tree,n=>n.type==='button'&&n.children[0]==='预览启动动画').props.onClick();const overlay=h.dom[0],video=overlay.children[0];assert.match(video.style.cssText,/object-fit:contain/);assert.match(video.style.cssText,/scale\(0.8\)/);assert.equal(video.loop,false);video.onended();assert.equal(overlay.removed,true)});

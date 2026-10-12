@@ -1,0 +1,55 @@
+{
+  "version": "1.1.1",
+  "isolated": true,
+  "elapsedMs": 23056,
+  "mainPageFairyReadyVerified": true,
+  "mainPageFairyVisualVerified": true,
+  "noAutomaticWebOverlay": true,
+  "targets": [
+    {
+      "title": "DeepSeek Harness",
+      "url": "dsh-app://app/"
+    }
+  ],
+  "events": [
+    {
+      "event": "splash-created",
+      "elapsedMs": 49
+    },
+    {
+      "event": "splash-shown",
+      "elapsedMs": 328
+    },
+    {
+      "event": "video-playing",
+      "elapsedMs": 583
+    },
+    {
+      "event": "main-show-requested",
+      "elapsedMs": 5925
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 5930
+    },
+    {
+      "event": "main-show-requested",
+      "elapsedMs": 7284
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 7327
+    },
+    {
+      "event": "video-ended",
+      "elapsedMs": 13644
+    },
+    {
+      "event": "main-shown",
+      "elapsedMs": 13650,
+      "playbackDone": true,
+      "mainReady": true
+    }
+  ],
+  "shutdown": "isolated test process tree terminated after successful checks"
+}

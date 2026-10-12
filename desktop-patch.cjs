@@ -6,7 +6,7 @@ const path=require('node:path');
 const crypto=require('node:crypto');
 const ORIGINAL_SHA='983ca71114e6dfd353fc79af5a1f9481a250ee64c2a3c757673029b811b23bc2';
 const MAIN_SHA='10325004a1ddbd8118ed0607ea28d50a7b0d692dcaeb25a67a7d8aea9165019d';
-const VERSION='1.1.0';
+const VERSION='1.1.1';
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 function parseAsar(bytes){
  if(bytes.length<16||bytes.readUInt32LE(0)!==4)throw Error('Unsupported ASAR header');
@@ -66,7 +66,7 @@ function validate(root){
 function install(root){
  const p=validate(root);
  if(p.stateData&&p.hash===p.stateData.patchedSha256){
-  if(p.stateData.version!==VERSION)throw Error('Another adapter version is installed; restore it first');
+  if(p.stateData.version!==VERSION)throw Error('Another adapter version is installed; run RestoreNative (恢复原版启动.cmd) first, then install this version');
   for(const [name,hash] of Object.entries(p.stateData.assetHashes)){
    const f=path.join(p.assets,name);if(!fs.existsSync(f)||sha(fs.readFileSync(f))!==hash)throw Error('Installed startup resources changed; restore the adapter before reinstalling');
   }

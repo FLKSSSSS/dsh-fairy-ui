@@ -1,4 +1,4 @@
-﻿# dsh-fairy-ui 1.1.0
+﻿# dsh-fairy-ui 1.1.1
 
 适用于用户提供的 **DeepSeek Harness 0.2.0-rc.2 Windows 原版构建**。保留原版账号、模型、语音设置、会话、权限及 Agent 预设；提供 Fairy / HDD 视觉界面及“安装语音模型”提示词按钮。
 
@@ -6,14 +6,14 @@
 
 - 修复 1.0.0 只能在插件加载后播放网页覆盖层、启动动画不出现/出现过晚的问题。原生独立启动窗口在 DSH 后端加载前打开，与加载并行。
 - 使用来源 Fairy 完整包的原始视频、CSS、HTML 与窗口尺寸策略（1320×900，最小 920×620，视频 `object-fit: cover`）；不重新编码素材。高 DPI 屏幕像素可能存在系统缩放取整。
-- **视频到约第 5 秒，DSH 未就绪则暂停保持该帧；就绪后从原位置续播剩余内容，播完才切换到 DSH。**第 5 秒前已就绪则连续播放。
-- 每次程序启动仅播放一轮，不循环、不重设源、不从头重播。5 秒等待不受损坏视频 watchdog 强制放行。
+- **移除第 5 秒暂停：视频连续播放至结束。若 DSH 尚未就绪，保持最后一帧等待；就绪后显示主界面。**提前就绪也会等待动画完整播完。
+- 每次程序启动仅播放一轮，不循环、不重设源、不从头重播。视频正常结束后取消媒体 watchdog，等待加载不会触发重播或超时跳过。
 - 删除网页自动启动覆盖层，避免加载完成后再播放一次；保留手动预览。
 - 加入宿主备份、哈希锁定、恢复原生入口，以及媒体失败/跳过/原版错误界面降级处理。
 
 ## 安装/升级
 
-[下载 1.1.0 Windows 完整安装包](https://github.com/FLKSSSSS/dsh-fairy-ui/releases/download/v1.1.0/dsh-fairy-ui-1.1.0-windows.zip) · [版本发布说明](https://github.com/FLKSSSSS/dsh-fairy-ui/releases/tag/v1.1.0)
+[下载 1.1.1 Windows 完整安装包](https://github.com/FLKSSSSS/dsh-fairy-ui/releases/download/v1.1.1/dsh-fairy-ui-1.1.1-windows.zip) · [版本发布说明](https://github.com/FLKSSSSS/dsh-fairy-ui/releases/tag/v1.1.1)
 
 1. 若原版从未启动过，先启动一次以初始化 desktop profile，再完全退出。
 2. 完全退出 DSH（包括系统托盘）。安装脚本检测目标正在运行时会拒绝修改，不会强制结束进程。
@@ -24,7 +24,7 @@
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File "完整路径\install-plugin.ps1" -DshRoot "你的DSH目录"
 ```
 
-从 1.0.0 升级直接运行新包脚本；旧包不要删除（其他 profile 可能仍引用）。若安装过未发布的原生适配器版本，先恢复原版启动再安装本版。
+从 1.1.0 或其他已安装原生适配器的版本升级：完全退出 DSH，先运行新包 **恢复原版启动.cmd**，再运行 **安装插件.cmd**。恢复启动不会移除视觉插件或改动语音设置。从仅安装网页插件的 1.0.0 升级可直接安装；旧包不要删除（其他 profile 可能仍引用）。
 若启用了 dsh-fairy-visual 老皮肤，先禁用它；其他修改同一视觉的皮肤也建议禁用。脚本不会擅自修改人格或其他插件。
 脚本可指定 `-Profile desktop -DshHome "独立数据目录"`。默认遵循 DSH_HOME，未设置时为 `%USERPROFILE%\.dsh`，不自动切换至 Fairy 便携数据目录。
 
@@ -35,7 +35,12 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File "完整路径\install-pl
 适配器只修改 `resources\app.asar` 的 Electron 主入口，外置资源放在 `resources\fairy-ui-startup`。备份：`resources\app.asar.fairy-ui-original`；状态：`resources\fairy-ui-startup-state.json`。不替换 exe、不禁用安全 fuse、不改账号、权限、模型配置；不分发原版完整 archive/入口。
 安装前校验交付文件及原版 archive/入口 SHA256；相同版本号但构建不同也会拒绝。官方更新前建议先卸载/恢复，绝不能用旧备份强行覆盖已更新宿主。
 原生适配对指定桌面安装整体生效；视觉插件按 profile 安装。
-动画不再等待插件 HTTP 服务，但**不保证其他后台插件、网络、磁盘的加载耗时都缩短**。有意保留约 13 秒动画；加载较慢时加上第 5 秒处的等待。
+动画不再等待插件 HTTP 服务，但**不保证其他后台插件、网络、磁盘的加载耗时都缩短**。有意保留约 13 秒动画；加载较慢时在视频结束后保持最后一帧等待，不在中途暂停。
+
+## 启动动画比例设置
+
+设置 → **Fairy 启动动画**：画面比例可选跟随窗口（默认）、16:9、16:10、4:3、1:1；画面缩放范围为 50%–150%，可选择填满画面或完整显示。支持恢复默认和立即预览；默认跟随窗口、100%、填满画面，与原显示效果一致。比例仅改变动画区域，不改变主窗口尺寸。缩放超过 100% 或使用填满模式时可能裁剪，完整显示可能产生黑边，不拉伸视频。
+更改会保存到本机。请通过正常退出 DSH（包括托盘）使偏好同步到原生启动资源；下次启动生效。强制结束进程可能使本次设置未同步。手动预览立即使用已保存设置。
 
 ## 卸载/恢复
 

@@ -1,0 +1,112 @@
+{
+  "case": "slow",
+  "version": "1.1.1",
+  "at6s": {
+    "t": 6.025822,
+    "duration": 13.002993,
+    "paused": false,
+    "ended": false,
+    "loop": false,
+    "fit": "cover",
+    "transform": "matrix(1, 0, 0, 1, -660.667, -450)",
+    "rect": {
+      "width": 1321.3333740234375,
+      "height": 900
+    },
+    "width": 1321,
+    "height": 900,
+    "status": "正在启动 Fairy，请稍候…"
+  },
+  "at8s": {
+    "t": 7.535932,
+    "duration": 13.002993,
+    "paused": false,
+    "ended": false,
+    "loop": false,
+    "fit": "cover",
+    "transform": "matrix(1, 0, 0, 1, -660.667, -450)",
+    "rect": {
+      "width": 1321.3333740234375,
+      "height": 900
+    },
+    "width": 1321,
+    "height": 900,
+    "status": "正在启动 Fairy，请稍候…"
+  },
+  "at14s": {
+    "t": 13.002993,
+    "duration": 13.002993,
+    "paused": true,
+    "ended": true,
+    "loop": false,
+    "fit": "cover",
+    "transform": "matrix(1, 0, 0, 1, -660.667, -450)",
+    "rect": {
+      "width": 1321.3333740234375,
+      "height": 900
+    },
+    "width": 1321,
+    "height": 900,
+    "status": "动画已播放完，正在等待 DSH 加载完成…"
+  },
+  "frameA": "fdf773bb4923a2b568928bdbffb011b144d5720d45db569c7502ef87ccd3aec4",
+  "at16s": {
+    "t": 13.002993,
+    "duration": 13.002993,
+    "paused": true,
+    "ended": true,
+    "loop": false,
+    "fit": "cover",
+    "transform": "matrix(1, 0, 0, 1, -660.667, -450)",
+    "rect": {
+      "width": 1321.3333740234375,
+      "height": 900
+    },
+    "width": 1321,
+    "height": 900,
+    "status": "动画已播放完，正在等待 DSH 加载完成…"
+  },
+  "frameB": "fdf773bb4923a2b568928bdbffb011b144d5720d45db569c7502ef87ccd3aec4",
+  "finalFrameHeld": true,
+  "entered": true,
+  "mainVisible": true,
+  "splashClosed": true,
+  "bounds": {
+    "x": 193,
+    "y": 6,
+    "width": 1322,
+    "height": 900
+  },
+  "events": [
+    {
+      "event": "splash-created",
+      "elapsedMs": 74
+    },
+    {
+      "event": "main-show-requested",
+      "elapsedMs": 349
+    },
+    {
+      "event": "splash-shown",
+      "elapsedMs": 423
+    },
+    {
+      "event": "video-playing",
+      "elapsedMs": 674
+    },
+    {
+      "event": "video-ended",
+      "elapsedMs": 13735
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 21493
+    },
+    {
+      "event": "main-shown",
+      "elapsedMs": 21499,
+      "playbackDone": true,
+      "mainReady": true
+    }
+  ]
+}

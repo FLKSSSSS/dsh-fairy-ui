@@ -1,0 +1,15 @@
+{
+  "version": "1.1.1",
+  "originalArchiveRestored": true,
+  "originalArchiveSha256": "983ca71114e6dfd353fc79af5a1f9481a250ee64c2a3c757673029b811b23bc2",
+  "pluginRemovedFromProfile": true,
+  "sessionSentinelPreserved": true,
+  "userPatchPreserved": true,
+  "nativeBackupAndStateRemoved": true,
+  "unsupportedHostRejected": true,
+  "providedOriginalHostUnchanged": true,
+  "upgradeFrom110Validated": true,
+  "upgradeProcedure": "restore native adapter then install 1.1.1",
+  "removeExplicitOfflineConfigValidated": true,
+  "removeExplicitOfflineConfig": "--config.offline=true --config.update-notifier=false"
+}

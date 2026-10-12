@@ -1,11 +1,17 @@
 {
-  "version": "1.1.0",
+  "version": "1.1.1",
   "date": "2026-10-12",
-  "passed": 26,
+  "passed": 37,
   "failed": 0,
-  "areas": {
-    "pluginAndVoice": 14,
-    "nativeAndRenderer": 12
-  },
-  "command": "node --test test/*.test.cjs desktop-startup/*.test.cjs"
+  "command": "node --test test/*.test.cjs desktop-startup/*.test.cjs",
+  "covers": [
+    "single playback",
+    "no five-second pause",
+    "hold final frame",
+    "aspect ratio and scale",
+    "preview settings",
+    "native preference persistence",
+    "voice draft preservation",
+    "offline dependencies"
+  ]
 }

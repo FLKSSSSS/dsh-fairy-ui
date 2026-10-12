@@ -1,0 +1,10 @@
+{
+  "version": "1.1.1",
+  "archiveOriginalHash": "983ca71114e6dfd353fc79af5a1f9481a250ee64c2a3c757673029b811b23bc2",
+  "archivePatchedHash": "a474fcf3b9926908d128d86f3296d2340086bb2550182dbfad9003f13c250a8f",
+  "entries": 12967,
+  "allOtherHeadersUnchanged": true,
+  "allOriginalDataBytesPreserved": true,
+  "mainMatchesExactPatches": true,
+  "idempotentInstall": true
+}

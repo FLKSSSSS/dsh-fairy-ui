@@ -53,18 +53,18 @@ try {
     $patchResult = & $node $patcher install $root 2>&1
     if ($LASTEXITCODE -ne 0) { throw "Native Fairy startup install failed: $patchResult" }
     $patchInstalled = !$nativeWasInstalled
-    $package = Join-Path $PSScriptRoot 'dsh-fairy-ui-1.1.0.tgz'
+    $package = Join-Path $PSScriptRoot 'dsh-fairy-ui-1.1.1.tgz'
     $checksumsPath = Join-Path $PSScriptRoot 'checksums.json'
     $checksums = Get-Content -LiteralPath $checksumsPath -Raw -Encoding UTF8 | ConvertFrom-Json
-    $expected = $checksums.'dsh-fairy-ui-1.1.0.tgz'
+    $expected = $checksums.'dsh-fairy-ui-1.1.1.tgz'
     if (!$expected -or (Get-FileHash -LiteralPath $package -Algorithm SHA256).Hash.ToLowerInvariant() -ne $expected) { throw 'Plugin package checksum mismatch. Do not install a modified or incomplete archive.' }
     & $cli plugin --profile $Profile add $package --offline
     if ($LASTEXITCODE -ne 0) { throw "DSH plugin command failed (exit $LASTEXITCODE)." }
-    Write-Host "Done: Install dsh-fairy-ui 1.1.0; profile=$Profile; DSH_HOME=$dshDataHome"
-    Write-Host 'Native startup is backed up and hash-locked. Video pauses near 5 seconds until DSH is ready, then resumes once to its end.'
+    Write-Host "Done: Install dsh-fairy-ui 1.1.1; profile=$Profile; DSH_HOME=$dshDataHome"
+    Write-Host 'Native startup is backed up and hash-locked. Video plays once continuously; after ending, its final frame is held until DSH is ready.'
     Write-Host 'Voice model settings are preserved; the model is not bundled or downloaded automatically.'
   } else {
-    & $cli plugin --profile $Profile remove dsh-fairy-ui
+    & $cli plugin --profile $Profile remove dsh-fairy-ui --config.offline=true --config.update-notifier=false
     if ($LASTEXITCODE -ne 0) { throw "DSH plugin command failed (exit $LASTEXITCODE)." }
     $restoreResult = & $node $patcher restore $root 2>&1
     if ($LASTEXITCODE -ne 0) { throw "Native Fairy startup restore failed: $restoreResult" }

@@ -89,13 +89,36 @@
     "resources/app/startup.css": "b6c8a7cbcb1aaf77af964d095fbc204707e4f52788dc56d25828416dc1c9f063",
     "resources/app/startup.html": "6fa2e490a787fdb371b9811e2e38d63cb43c2036a6640d6aefe5a02fbcbdb8dd"
   },
-  "version": "1.1.0",
+  "version": "1.1.1",
   "startupPolicy": {
-    "checkpointSeconds": 5,
-    "waitWhenNotReady": true,
-    "resumeFromSameTime": true,
+    "pauseDuringPlayback": false,
+    "playOnce": true,
+    "holdFinalFrameUntilReady": true,
     "loops": false,
     "enterAfterPlaybackAndReady": true
   },
-  "hostOriginalAsarSha256": "983ca71114e6dfd353fc79af5a1f9481a250ee64c2a3c757673029b811b23bc2"
+  "hostOriginalAsarSha256": "983ca71114e6dfd353fc79af5a1f9481a250ee64c2a3c757673029b811b23bc2",
+  "startupDisplay": {
+    "aspectRatios": [
+      "auto",
+      "16:9",
+      "16:10",
+      "4:3",
+      "1:1"
+    ],
+    "scalePercentRange": [
+      50,
+      150
+    ],
+    "default": {
+      "aspectRatio": "auto",
+      "scale": 100,
+      "fit": "cover"
+    },
+    "fits": [
+      "cover",
+      "contain"
+    ],
+    "affectsMainWindowSize": false
+  }
 }
