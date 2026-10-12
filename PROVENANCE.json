@@ -5,7 +5,8 @@
   "included": [
     "Fairy visual client",
     "speech UI and local speech proxy",
-    "default startup animation as in-page overlay",
+    "original Fairy startup video, CSS, HTML and geometry",
+    "reversible hash-locked native desktop startup adapter",
     "reference audio (seed only when absent)"
   ],
   "excluded": [
@@ -15,8 +16,8 @@
     "permission and sandbox overrides",
     "API credentials",
     "sessions and histories",
-    "custom Electron shell",
-    "voice models and Python runtime"
+    "voice models and Python runtime",
+    "complete original Electron main entry, app.asar and executable"
   ],
   "dependencies": {
     "@deepseek-ai/schemastery": "3.18.4",
@@ -84,6 +85,17 @@
   "sourceFiles": {
     "resources/app/media/startup-default.mp4": "9200e4c6a94346315234f514e9817340e72531d62f27ff42624642233cf66c73",
     "resources/homes/1-original/fairy-visual/dsh-fairy-visual/lib/client.js": "60400b352e5ab2fdc3f304e9ff32def3413bb9f66253bfc5c0e39ce292cd1bcc",
-    "resources/homes/1-original/fairy-voice/dsh-fairy-voice/lib/client.js": "d6ce8871e749123a4caed615e411dcde0f47bda027f75b0178003d696fcf845a"
-  }
+    "resources/homes/1-original/fairy-voice/dsh-fairy-voice/lib/client.js": "d6ce8871e749123a4caed615e411dcde0f47bda027f75b0178003d696fcf845a",
+    "resources/app/startup.css": "b6c8a7cbcb1aaf77af964d095fbc204707e4f52788dc56d25828416dc1c9f063",
+    "resources/app/startup.html": "6fa2e490a787fdb371b9811e2e38d63cb43c2036a6640d6aefe5a02fbcbdb8dd"
+  },
+  "version": "1.1.0",
+  "startupPolicy": {
+    "checkpointSeconds": 5,
+    "waitWhenNotReady": true,
+    "resumeFromSameTime": true,
+    "loops": false,
+    "enterAfterPlaybackAndReady": true
+  },
+  "hostOriginalAsarSha256": "983ca71114e6dfd353fc79af5a1f9481a250ee64c2a3c757673029b811b23bc2"
 }

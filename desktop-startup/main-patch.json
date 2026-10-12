@@ -1,0 +1,34 @@
+[
+  {
+    "old": "import { REMOTE_STREAM_MUX_PATH, parseRemoteStreamServerMessage } from \"@deepseek-ai/dsh-api-gateway/stream-protocol\";\n//#region ../../packages/util/home-paths/lib/index.js\n",
+    "new": "import { REMOTE_STREAM_MUX_PATH, parseRemoteStreamServerMessage } from \"@deepseek-ai/dsh-api-gateway/stream-protocol\";\n// Fairy UI startup integration (installed as an external, reversible resource).\nconst FAIRY_STARTUP_RESOURCE = join(process.resourcesPath, \"fairy-ui-startup\");\nlet fairyStartup;\nfunction initializeFairyStartup() {\n\tif (fairyStartup !== void 0 || !app.isPackaged) return;\n\tconst modulePath = join(FAIRY_STARTUP_RESOURCE, \"native-startup.cjs\");\n\tif (!existsSync(modulePath)) return;\n\ttry {\n\t\tconst { createNativeStartup } = createRequire(import.meta.url)(modulePath);\n\t\tfairyStartup = createNativeStartup({ app, BrowserWindow, ipcMain });\n\t\tfairyStartup.open();\n\t\tconsole.info(\"[fairy-ui-startup] native startup enabled\");\n\t} catch (error) {\n\t\tconsole.warn(\"[fairy-ui-startup] native startup disabled:\", error);\n\t\tfairyStartup = void 0;\n\t}\n}\n\n//#region ../../packages/util/home-paths/lib/index.js\n"
+  },
+  {
+    "old": "\tif (active && !window.isDestroyed()) {\n\t\twindow.show();\n\t\toperations.analytics?.(\"auth_page_view\", {});\n",
+    "new": "\tif (active && !window.isDestroyed()) {\n\t\tif (fairyStartup !== void 0) fairyStartup.requestShow(window, true);\n\t\telse window.show();\n\t\toperations.analytics?.(\"auth_page_view\", {});\n"
+  },
+  {
+    "old": "\t\tmainWindow = window;\n\t\tbrowserGuests.bind(window, (guest, name) => shortcuts.attachGuest(window, guest, name));\n",
+    "new": "\t\tmainWindow = window;\n\t\tfairyStartup?.attach(window);\n\t\tbrowserGuests.bind(window, (guest, name) => shortcuts.attachGuest(window, guest, name));\n"
+  },
+  {
+    "old": "\t\tif (isQuitting() || recovery.active || window.isDestroyed()) return;\n\t\tif (activate) window.show();\n\t\telse window.showInactive();\n",
+    "new": "\t\tif (isQuitting() || recovery.active || window.isDestroyed()) return;\n\t\tif (fairyStartup !== void 0) fairyStartup.requestShow(window, activate);\n\t\telse if (activate) window.show();\n\t\telse window.showInactive();\n"
+  },
+  {
+    "old": "\tfocusPrimaryWindow();\n})) app.whenReady().then(main).catch(async (error) => {\n\tconst message = error instanceof Error ? error.message : String(error);\n",
+    "new": "\tfocusPrimaryWindow();\n})) app.whenReady().then(() => {\n\tinitializeFairyStartup();\n\treturn main();\n}).catch(async (error) => {\n\tconst message = error instanceof Error ? error.message : String(error);\n"
+  },
+  {
+    "old": "\t\tif (window === mainWindow && !enteredWorkspace) return;\n\t\tif (window.isMinimized()) window.restore();\n\t\twindow.show();\n\t\twindow.focus();\n",
+    "new": "\t\tif (window === mainWindow && !enteredWorkspace) return;\n\t\tif (window.isMinimized()) window.restore();\n\t\tif (fairyStartup !== void 0) fairyStartup.requestShow(window, true);\n\t\telse { window.show(); window.focus(); }\n"
+  },
+  {
+    "old": "\t\tif (state.phase === \"error\") reportFatal(state.failure, \"host\");\n\t\telse if (!shuttingDown) backendReady = state.phase === \"ready\";\n",
+    "new": "\t\tif (state.phase === \"error\") { fairyStartup?.dispose(); reportFatal(state.failure, \"host\"); }\n\t\telse if (!shuttingDown) backendReady = state.phase === \"ready\";\n"
+  },
+  {
+    "old": "\t\t\tif (!welcomeWindow.isVisible()) track(\"auth_page_view\", {});\n\t\t\twelcomeWindow.show();\n\t\t\twelcomeWindow.focus();\n",
+    "new": "\t\t\tif (!welcomeWindow.isVisible()) track(\"auth_page_view\", {});\n\t\t\tif (fairyStartup !== void 0) fairyStartup.requestShow(welcomeWindow, true);\n\t\t\telse { welcomeWindow.show(); welcomeWindow.focus(); }\n"
+  }
+]

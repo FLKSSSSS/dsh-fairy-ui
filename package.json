@@ -1,7 +1,7 @@
 {
   "name": "dsh-fairy-ui",
-  "version": "1.0.0",
-  "description": "Fairy HDD visual skin and preserved speech settings for unmodified DSH Desktop; no persona or permission changes.",
+  "version": "1.1.0",
+  "description": "Fairy HDD UI and preserved speech settings for DSH Desktop, with a separately installed reversible native startup adapter.",
   "type": "module",
   "main": "./lib/index.js",
   "exports": {

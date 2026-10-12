@@ -1,0 +1,45 @@
+{
+  "case": "fast",
+  "version": "1.1.0",
+  "entered": true,
+  "mainVisible": true,
+  "splashClosed": true,
+  "bounds": {
+    "x": 193,
+    "y": 6,
+    "width": 1322,
+    "height": 900
+  },
+  "events": [
+    {
+      "event": "splash-created",
+      "elapsedMs": 52
+    },
+    {
+      "event": "main-show-requested",
+      "elapsedMs": 270
+    },
+    {
+      "event": "splash-shown",
+      "elapsedMs": 306
+    },
+    {
+      "event": "video-playing",
+      "elapsedMs": 535
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 1478
+    },
+    {
+      "event": "video-ended",
+      "elapsedMs": 13596
+    },
+    {
+      "event": "main-shown",
+      "elapsedMs": 13601,
+      "playbackDone": true,
+      "mainReady": true
+    }
+  ]
+}

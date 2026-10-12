@@ -1,0 +1,74 @@
+{
+  "case": "skip",
+  "version": "1.1.0",
+  "at6s": {
+    "t": 5.015376,
+    "duration": 13.002993,
+    "paused": true,
+    "ended": false,
+    "loop": false,
+    "fit": "cover",
+    "width": 1321,
+    "height": 900,
+    "src": "file:///[isolated-test]/media/startup-default.mp4"
+  },
+  "hiddenWhileWaiting": true,
+  "frameA": "3c57084352b2a14a23a73af6d2fee81df7c49d18ec4d11a29bc9851ba6a62f34",
+  "at8s": {
+    "t": 5.015376,
+    "duration": 13.002993,
+    "paused": true,
+    "ended": false,
+    "loop": false,
+    "fit": "cover",
+    "width": 1321,
+    "height": 900,
+    "src": "file:///[isolated-test]/media/startup-default.mp4"
+  },
+  "frameB": "3c57084352b2a14a23a73af6d2fee81df7c49d18ec4d11a29bc9851ba6a62f34",
+  "entered": true,
+  "mainVisible": true,
+  "splashClosed": true,
+  "bounds": {
+    "x": 193,
+    "y": 6,
+    "width": 1322,
+    "height": 900
+  },
+  "events": [
+    {
+      "event": "splash-created",
+      "elapsedMs": 68
+    },
+    {
+      "event": "main-show-requested",
+      "elapsedMs": 286
+    },
+    {
+      "event": "splash-shown",
+      "elapsedMs": 309
+    },
+    {
+      "event": "video-playing",
+      "elapsedMs": 513
+    },
+    {
+      "event": "video-paused-at-checkpoint",
+      "elapsedMs": 5570
+    },
+    {
+      "event": "user-skipped",
+      "elapsedMs": 8941
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 9347
+    },
+    {
+      "event": "main-shown",
+      "elapsedMs": 9353,
+      "playbackDone": true,
+      "mainReady": true
+    }
+  ]
+}

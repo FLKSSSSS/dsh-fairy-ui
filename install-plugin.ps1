@@ -1,7 +1,7 @@
 ﻿[CmdletBinding()]
 param(
   [string]$DshRoot = 'F:\Fairy测试\DSH原版对照',
-  [ValidateSet('Install', 'Remove')][string]$Action = 'Install',
+  [ValidateSet('Install', 'Remove', 'RestoreNative')][string]$Action = 'Install',
   [string]$Profile = 'desktop',
   [string]$DshHome
 )
@@ -10,11 +10,37 @@ if ($Profile -notmatch '^[A-Za-z0-9_-]+$') { throw 'Invalid profile name.' }
 $root = (Resolve-Path -LiteralPath $DshRoot).Path
 $exe = Join-Path $root 'DeepSeek Harness.exe'
 $cli = Join-Path $root 'resources\runtime\cli\bin\dsh.cmd'
-if (!(Test-Path -LiteralPath $exe -PathType Leaf) -or !(Test-Path -LiteralPath $cli -PathType Leaf)) { throw "Not a supported DSH Desktop directory: $root" }
+$node = Join-Path $root 'resources\runtime\primary-runtime\dependencies\node\bin\node.exe'
+$patcher = Join-Path $PSScriptRoot 'desktop-patch.cjs'
+if (!(Test-Path -LiteralPath $exe -PathType Leaf) -or !(Test-Path -LiteralPath $cli -PathType Leaf) -or !(Test-Path -LiteralPath $node -PathType Leaf)) { throw "Not a supported DSH Desktop directory: $root" }
+if (!(Test-Path -LiteralPath $patcher -PathType Leaf)) { throw "Missing patcher: $patcher" }
 $running = @(Get-CimInstance Win32_Process -Filter "Name='DeepSeek Harness.exe'" | Where-Object { $_.ExecutablePath -and [string]::Equals($_.ExecutablePath, $exe, [StringComparison]::OrdinalIgnoreCase) })
-if ($running.Count -gt 0) { throw 'Please fully quit DSH (including its system tray) before installing or removing this plugin.' }
+if ($running.Count -gt 0) { throw '请先完全退出 DSH（包括系统托盘），再安装或卸载。当前运行中的 DSH 未被修改。' }
+# Validate every distributed file before any change (checksums are not a signature).
+if ($Action -eq 'Install') {
+  $checksums = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'checksums.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+  foreach ($entry in $checksums.PSObject.Properties) {
+    $file = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot $entry.Name))
+    if (!$file.StartsWith($PSScriptRoot + [IO.Path]::DirectorySeparatorChar, [StringComparison]::OrdinalIgnoreCase)) { throw 'Invalid checksum path.' }
+    if (!(Test-Path -LiteralPath $file -PathType Leaf) -or (Get-FileHash -LiteralPath $file -Algorithm SHA256).Hash.ToLowerInvariant() -ne $entry.Value) { throw "Delivery checksum mismatch: $($entry.Name)" }
+  }
+}
+$nativeCheck = & $node $patcher check $root 2>&1
+if ($LASTEXITCODE -ne 0) { throw "Unsupported or changed desktop host: $nativeCheck" }
+$nativeWasInstalled = ($nativeCheck | Out-String | ConvertFrom-Json).installed
+if ($Action -eq 'RestoreNative') {
+  & $node $patcher restore $root
+  if ($LASTEXITCODE -ne 0) { throw 'Native startup restore failed.' }
+  Write-Host 'Original desktop startup restored. The UI plugin and voice settings are unchanged.'
+  return
+}
 $previousHome = $env:DSH_HOME
+$previousOffline = $env:npm_config_offline
+$previousUpdateNotifier = $env:npm_config_update_notifier
+$patchInstalled = $false
 try {
+  $env:npm_config_offline = 'true'
+  $env:npm_config_update_notifier = 'false'
   if ($DshHome) { $env:DSH_HOME = [IO.Path]::GetFullPath($DshHome) }
   $dshDataHome = if (![string]::IsNullOrWhiteSpace($env:DSH_HOME)) { $env:DSH_HOME } else { Join-Path $env:USERPROFILE '.dsh' }
   $manifestPath = Join-Path $dshDataHome "profiles\$Profile\package.json"
@@ -23,18 +49,34 @@ try {
   if ($LASTEXITCODE -ne 0 -or $version -ne '0.2.0-rc.2') { throw "Tested DSH version is 0.2.0-rc.2. Found: $version . Installation stopped without changing this profile." }
   $manifest = Get-Content -LiteralPath $manifestPath -Raw -Encoding UTF8 | ConvertFrom-Json
   if ($Action -eq 'Install') {
-    if (@($manifest.dsh.profile.bundles) -contains 'dsh-fairy-visual') { throw 'An older dsh-fairy-visual bundle is enabled. Disable that old visual bundle in DSH first; this installer will not change its persona or settings for you.' }
-    $package = Join-Path $PSScriptRoot 'dsh-fairy-ui-1.0.0.tgz'
-    $checksums = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'checksums.json') -Raw -Encoding UTF8 | ConvertFrom-Json
-    $expected = $checksums.'dsh-fairy-ui-1.0.0.tgz'
+    if (@($manifest.dsh.profile.bundles) -contains 'dsh-fairy-visual') { throw 'An older dsh-fairy-visual bundle is enabled. Disable that old visual bundle first; this installer will not change persona or settings.' }
+    $patchResult = & $node $patcher install $root 2>&1
+    if ($LASTEXITCODE -ne 0) { throw "Native Fairy startup install failed: $patchResult" }
+    $patchInstalled = !$nativeWasInstalled
+    $package = Join-Path $PSScriptRoot 'dsh-fairy-ui-1.1.0.tgz'
+    $checksumsPath = Join-Path $PSScriptRoot 'checksums.json'
+    $checksums = Get-Content -LiteralPath $checksumsPath -Raw -Encoding UTF8 | ConvertFrom-Json
+    $expected = $checksums.'dsh-fairy-ui-1.1.0.tgz'
     if (!$expected -or (Get-FileHash -LiteralPath $package -Algorithm SHA256).Hash.ToLowerInvariant() -ne $expected) { throw 'Plugin package checksum mismatch. Do not install a modified or incomplete archive.' }
     & $cli plugin --profile $Profile add $package --offline
+    if ($LASTEXITCODE -ne 0) { throw "DSH plugin command failed (exit $LASTEXITCODE)." }
+    Write-Host "Done: Install dsh-fairy-ui 1.1.0; profile=$Profile; DSH_HOME=$dshDataHome"
+    Write-Host 'Native startup is backed up and hash-locked. Video pauses near 5 seconds until DSH is ready, then resumes once to its end.'
+    Write-Host 'Voice model settings are preserved; the model is not bundled or downloaded automatically.'
   } else {
     & $cli plugin --profile $Profile remove dsh-fairy-ui
+    if ($LASTEXITCODE -ne 0) { throw "DSH plugin command failed (exit $LASTEXITCODE)." }
+    $restoreResult = & $node $patcher restore $root 2>&1
+    if ($LASTEXITCODE -ne 0) { throw "Native Fairy startup restore failed: $restoreResult" }
+    Write-Host "Done: Remove dsh-fairy-ui and restore original DSH startup; profile=$Profile"
   }
-  if ($LASTEXITCODE -ne 0) { throw "DSH plugin command failed (exit $LASTEXITCODE). Read its diagnostic log; this script does not bypass checks or patch app.asar." }
-  Write-Host "Done: $Action dsh-fairy-ui; profile=$Profile; DSH_HOME=$dshDataHome"
-  Write-Host 'Restart DSH. Voice models are not included and are not downloaded by this installer.'
+} catch {
+  if ($Action -eq 'Install' -and $patchInstalled) {
+    try { & $node $patcher restore $root *> $null; if ($LASTEXITCODE -ne 0) { throw 'Native rollback returned an error; use RestoreNative after inspecting the host.' } } catch { Write-Warning "Automatic native startup rollback failed: $($_.Exception.Message)" }
+  }
+  throw
 } finally {
   $env:DSH_HOME = $previousHome
+  $env:npm_config_offline = $previousOffline
+  $env:npm_config_update_notifier = $previousUpdateNotifier
 }

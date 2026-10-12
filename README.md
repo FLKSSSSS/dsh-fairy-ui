@@ -1,57 +1,57 @@
-# dsh-fairy-ui
+# dsh-fairy-ui 1.1.0
 
-适用于 **DeepSeek Harness (DSH) 0.2.0-rc.2 / Windows** 的 Fairy / HDD 视觉界面插件。
+适用于用户提供的 **DeepSeek Harness 0.2.0-rc.2 Windows 原版构建**。保留原版账号、模型、语音设置、会话、权限及 Agent 预设；提供 Fairy / HDD 视觉界面及“安装语音模型”提示词按钮。
 
-只移植视觉及语音设置，不替换原版 `app.asar`、exe，不迁移人格、Agent 预设、聊天模型、API Key、权限或历史会话。
+## 本版修复
 
-## 安装
+- 修复 1.0.0 只能在插件加载后播放网页覆盖层、启动动画不出现/出现过晚的问题。原生独立启动窗口在 DSH 后端加载前打开，与加载并行。
+- 使用来源 Fairy 完整包的原始视频、CSS、HTML 与窗口尺寸策略（1320×900，最小 920×620，视频 `object-fit: cover`）；不重新编码素材。高 DPI 屏幕像素可能存在系统缩放取整。
+- **视频到约第 5 秒，DSH 未就绪则暂停保持该帧；就绪后从原位置续播剩余内容，播完才切换到 DSH。**第 5 秒前已就绪则连续播放。
+- 每次程序启动仅播放一轮，不循环、不重设源、不从头重播。5 秒等待不受损坏视频 watchdog 强制放行。
+- 删除网页自动启动覆盖层，避免加载完成后再播放一次；保留手动预览。
+- 加入宿主备份、哈希锁定、恢复原生入口，以及媒体失败/跳过/原版错误界面降级处理。
 
-1. 从本仓库 [Releases](https://github.com/FLKSSSSS/dsh-fairy-ui/releases/latest) 下载 `dsh-fairy-ui-1.0.0-windows.zip` 并完整解压。
-2. 如已启用旧 `dsh-fairy-visual`，先在 DSH 中禁用；其他冲突皮肤也建议先禁用。
-3. 完全退出 DSH，包括托盘，然后双击解压目录的 `安装插件.cmd`。
-4. 重启原版 DSH。设置 → 语音模型设置 → **安装语音模型**。
+## 安装/升级
 
-安装脚本默认定位 `F:\Fairy测试\DSH原版对照`。可传参指定自己的原版目录：
+[下载 1.1.0 Windows 完整安装包](https://github.com/FLKSSSSS/dsh-fairy-ui/releases/download/v1.1.0/dsh-fairy-ui-1.1.0-windows.zip) · [版本发布说明](https://github.com/FLKSSSSS/dsh-fairy-ui/releases/tag/v1.1.0)
+
+1. 若原版从未启动过，先启动一次以初始化 desktop profile，再完全退出。
+2. 完全退出 DSH（包括系统托盘）。安装脚本检测目标正在运行时会拒绝修改，不会强制结束进程。
+3. 解压完整 Windows 包到固定目录，双击 **安装插件.cmd**。默认目标：`F:\Fairy测试\DSH原版对照`。
+4. 其他目录使用下列命令；安装后重启原版 DSH。请保留安装目录和 tgz，profile 会引用本地包路径。
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\install-plugin.ps1 -DshRoot "你的DSH目录"
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File "完整路径\install-plugin.ps1" -DshRoot "你的DSH目录"
 ```
 
-保留完整解压目录及 tgz 文件：原版 profile 的插件依赖会引用此本地包。
+从 1.0.0 升级直接运行新包脚本；旧包不要删除（其他 profile 可能仍引用）。若安装过未发布的原生适配器版本，先恢复原版启动再安装本版。
+若启用了 dsh-fairy-visual 老皮肤，先禁用它；其他修改同一视觉的皮肤也建议禁用。脚本不会擅自修改人格或其他插件。
+脚本可指定 `-Profile desktop -DshHome "独立数据目录"`。默认遵循 DSH_HOME，未设置时为 `%USERPROFILE%\.dsh`，不自动切换至 Fairy 便携数据目录。
 
-## 功能
+## 原生接入与兼容边界
 
-- Fairy / HDD 主视觉、侧栏、输入区、深浅色、低功耗和动画设置。
-- 保留自动朗读、参考音频与文本、语音状态及可选云端摘要。
-- “安装语音模型”通过 DSH 的真实输入状态填入安装提示词，追加保留已有文本草稿，并防止重复插入。**不会自动发送**；关闭设置、审阅后发送，由 DSH 遵循当前审批规则执行。
-- 启动视频保持比例、完整播放，可跳过。它是页面加载后的覆盖层，不替换 Electron 原生启动窗口，不改原版窗口尺寸。
+**只在 DSH 插件管理安装 tgz，不能得到后端启动前的原生动画。**tgz 只负责网页视觉、语音设置和手动预览，完整脚本还会执行可恢复的桌面适配。
 
-## 语音模型说明
+适配器只修改 `resources\app.asar` 的 Electron 主入口，外置资源放在 `resources\fairy-ui-startup`。备份：`resources\app.asar.fairy-ui-original`；状态：`resources\fairy-ui-startup-state.json`。不替换 exe、不禁用安全 fuse、不改账号、权限、模型配置；不分发原版完整 archive/入口。
+安装前校验交付文件及原版 archive/入口 SHA256；相同版本号但构建不同也会拒绝。官方更新前建议先卸载/恢复，绝不能用旧备份强行覆盖已更新宿主。
+原生适配对指定桌面安装整体生效；视觉插件按 profile 安装。
+动画不再等待插件 HTTP 服务，但**不保证其他后台插件、网络、磁盘的加载耗时都缩短**。有意保留约 13 秒动画；加载较慢时加上第 5 秒处的等待。
 
-插件不包含 Python、GPT-SoVITS 或语音模型权重。参考 WAV 不是模型。Fairy 专用音色需提供有权使用的 `.ckpt/.pth` 文件或可信授权来源。
+## 卸载/恢复
 
-安装提示词要求只在 DSH_HOME 下的插件语音目录部署，核验来源、保留原版配置、仅监听 `127.0.0.1:9880`，真实检查后才报告安装完成。UI 测试通过不代表语音模型已安装。
+完全退出 DSH，运行 **卸载插件.cmd**，移除所选 profile 插件并恢复原版入口。
+仅恢复启动且保留视觉插件：运行 **恢复原版启动.cmd**，不要求 profile 存在；也可使用 `-Action RestoreNative -DshRoot "目标路径"`。
+恢复仅清理记录哈希仍匹配的自有资源，保留用户改动/新增文件。宿主或备份无法验证时拒绝覆盖。
 
-## 卸载
+## 安装语音模型按钮
 
-退出 DSH 后运行 `卸载插件.cmd`。语音数据、参考音频及本机偏好不自动删除；另行部署的语音服务需用其自身脚本停止。
+设置 → 语音模型设置 → **安装语音模型**。按钮将安装提示词填入当前对话的真实草稿，保留已有文本、重复点击去重；不自动发送、不创建/切换会话。关闭设置、审阅提示词后点击原版发送，让 DSH 按你的网络、模型和审批权限执行安装。
+没有活动对话时先进入对话；不支持的输入接口提供“复制安装提示词”兜底。
+提示词限定本机 DSH_HOME/fairy-voice-data/voice-runtime 部署、核验可信来源、不改系统 Python/PATH、保留账号/人格/权限/历史、服务仅监听本机。
+不捆绑 Python 或语音模型权重，不保证模型源可用；Fairy 专用音色需你有权使用的权重，不把通用音色冒充 Fairy。
+保留自动朗读、语音状态、本地代理、参考音频/文本及可选云端摘要。默认参考 WAV 只在缺失时写入，不覆盖已有文件；新安装默认关闭自动朗读，已有明确偏好不强制覆盖。
 
-## 源码与验证
+## 验证、来源与开发
 
-- `lib/`：插件前后端代码。
-- `cordis.patch.yml`：单项附加插件注册。
-- `test/`：14 项自动测试。
-- `验证/`：原版客户端实测截图及隔离安装/卸载结果。
-- `PROVENANCE.json`、`对比与验证说明.md`：来源及移植边界。
-- `checksums.json`、`SHA256.txt`：Release 安装文件校验。
-
-仓库不提交 `node_modules`。Release tgz 已捆绑运行依赖，可离线安装插件。源码测试需先安装依赖：
-
-```sh
-npm install
-npm test
-```
-
-本次测试未对真实用户 profile 安装、未下载语音权重、未执行真实 TTS 合成。仅适配已验证的 DSH 版本。
-
-来源代码、媒体和依赖的权利与许可保持原状；此仓库上传不代表对第三方素材授予新的授权。
+Git 仓库布局下执行：`node --test test/*.test.cjs desktop-startup/*.test.cjs`。插件包内已 bundled 61 项自身运行依赖，安装无需在线拉取它们。原版依赖需宿主本身完整。
+完整交付包附净化验证记录，不含账号密钥、真实用户配置、会话或完整宿主副本。来源与哈希见 PROVENANCE.json；素材复用不代表获授媒体/商标/模型再许可，使用者需遵守来源授权。
