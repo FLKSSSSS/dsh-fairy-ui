@@ -1,0 +1,34 @@
+{
+  "testedVersion": "0.2.0-rc.2",
+  "environment": "Original DSH CLI, isolated web profile, Chromium headless",
+  "startupVideo": {
+    "durationSeconds": 13.002993,
+    "objectFit": "contain",
+    "loop": false,
+    "completedWithoutTimeout": true
+  },
+  "voiceSettings": {
+    "installButton": true,
+    "autoRead": false,
+    "reference": true,
+    "cloudSummary": true
+  },
+  "prompt": {
+    "existingDraft": "保留原有草稿：请勿覆盖。",
+    "preserved": true,
+    "filled": true,
+    "repeatUnchanged": true,
+    "status": "已追加到原草稿后。 请关闭设置检查提示词，再发送让 DSH 安装。",
+    "repeatStatus": "安装提示词已在输入框中，没有重复添加。请关闭设置后发送。",
+    "autoSend": false
+  },
+  "visualToggle": {
+    "initial": true,
+    "disabled": true,
+    "restored": true
+  },
+  "browserExceptionsAndErrors": [],
+  "voiceModelDownloaded": false,
+  "realTtsTestPerformed": false,
+  "note": "Existing draft was entered with browser execCommand insertText; no backend API model request was sent."
+}

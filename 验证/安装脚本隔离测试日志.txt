@@ -1,0 +1,22 @@
+✓ Lockfile passes supply-chain policies (verified 1m ago)
+Progress: resolved 0, reused 1, downloaded 0, added 0
+Packages: +1
++
+Progress: resolved 1, reused 1, downloaded 0, added 0, done
+
+dependencies:
++ dsh-fairy-ui 1.0.0
+
+Done in 1.2s using pnpm v11.7.0
+Done: Install dsh-fairy-ui; profile=desktop; DSH_HOME=F:\Codex\2026-10-12\dui\work\desktop-install-home
+Restart DSH. Voice models are not included and are not downloaded by this installer.
+✓ Lockfile passes supply-chain policies (verified 1s ago)
+Packages: -1
+-
+
+dependencies:
+- dsh-fairy-ui 1.0.0
+
+Done in 600ms using pnpm v11.7.0
+Done: Remove dsh-fairy-ui; profile=desktop; DSH_HOME=F:\Codex\2026-10-12\dui\work\desktop-install-home
+Restart DSH. Voice models are not included and are not downloaded by this installer.

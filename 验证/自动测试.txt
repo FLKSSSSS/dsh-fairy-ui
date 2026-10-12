@@ -1,0 +1,22 @@
+✔ finds retained main-view session, not unrelated session (1.2906ms)
+✔ supports older current selector fallback (0.2513ms)
+✔ fills empty draft through DSH input API without sending (0.4521ms)
+✔ preserves an existing text draft (0.1593ms)
+✔ does not duplicate prompt on a repeat click (0.2461ms)
+✔ supports state snapshot face (0.3188ms)
+✔ no session fails safely without switching or creating sessions (0.6824ms)
+✔ unsupported input API fails with explicit copy fallback (0.2681ms)
+✔ prompt protects native model, persona, credentials and approvals (0.3511ms)
+✔ bundle is a single additive UI plugin with no base overrides (0.8662ms)
+✔ browser bundle parses and has only declared browser imports (13.8732ms)
+✔ all dependencies are bundled with package manifests and no links (26.5619ms)
+✔ reference audio seed does not overwrite user files (25.4761ms)
+✔ startup video supports HTTP ranges and rejects invalid requests (123.5657ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 403.7431

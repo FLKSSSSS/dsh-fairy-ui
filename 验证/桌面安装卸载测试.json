@@ -1,0 +1,18 @@
+{
+  "version": "0.2.0-rc.2",
+  "profile": "desktop",
+  "isolatedHome": true,
+  "originalCliOfflineInstall": "passed",
+  "originalCliRemove": "passed",
+  "productionInstallerRunningProcessGuard": "passed: refused while user DSH was running; no user process terminated",
+  "installerInstallRemoveBranches": "passed in isolated DSH_HOME; process enumeration mocked only in test harness because user original DSH remained open",
+  "productionInstallerProcessGuardRemainsEnabled": true,
+  "cordisPatchUnchanged": true,
+  "historySentinelUnchanged": true,
+  "appAsarUnchangedDuringDesktopTest": true,
+  "baseBundlesAndProfileMetadataRestored": true,
+  "manifestDifferenceAfterRemove": "Original CLI omitted the empty dependencies object; remaining configuration equals baseline.",
+  "actualUserProfileInstalled": false,
+  "testedArchiveSha256": "efa060c9baa51d9913d8ea48bcb1d282e0a03f2f279224f69229ed35be637df2",
+  "testedInstallerSha256": "37462ff3ac374adcb6b442d46b77d722c9cf0e5bb5f13f55c355745e9f05e67c"
+}

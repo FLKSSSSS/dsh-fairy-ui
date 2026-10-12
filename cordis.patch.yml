@@ -1,0 +1,4 @@
+- insert:
+    - id: fairy-visual
+      name: dsh-fairy-ui
+      inject: [clientModules]
