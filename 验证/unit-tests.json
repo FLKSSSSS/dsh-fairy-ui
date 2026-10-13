@@ -1,17 +1,7 @@
 {
-  "version": "1.3.0",
   "date": "2026-10-13",
-  "command": "node --test test/*.test.cjs desktop-startup/*.test.cjs",
-  "tests": 57,
-  "pass": 57,
-  "fail": 0,
-  "isolated": true,
-  "scope": [
-    "classic/archive settings persistence",
-    "native/preview shared skin identity",
-    "no playback control by decorations",
-    "video-clock phases and frozen end state",
-    "legacy classic defaults",
-    "all prior unit regressions"
-  ]
+  "version": "1.4.0",
+  "tests": 63,
+  "pass": 63,
+  "fail": 0
 }

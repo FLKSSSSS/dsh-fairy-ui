@@ -53,15 +53,15 @@ try {
     $patchResult = & $node $patcher install $root 2>&1
     if ($LASTEXITCODE -ne 0) { throw "Native Fairy startup install failed: $patchResult" }
     $patchInstalled = !$nativeWasInstalled
-    $package = Join-Path $PSScriptRoot 'dsh-fairy-ui-1.3.0.tgz'
+    $package = Join-Path $PSScriptRoot 'dsh-fairy-ui-1.4.0.tgz'
     $checksumsPath = Join-Path $PSScriptRoot 'checksums.json'
     $checksums = Get-Content -LiteralPath $checksumsPath -Raw -Encoding UTF8 | ConvertFrom-Json
-    $expected = $checksums.'dsh-fairy-ui-1.3.0.tgz'
+    $expected = $checksums.'dsh-fairy-ui-1.4.0.tgz'
     if (!$expected -or (Get-FileHash -LiteralPath $package -Algorithm SHA256).Hash.ToLowerInvariant() -ne $expected) { throw 'Plugin package checksum mismatch. Do not install a modified or incomplete archive.' }
     & $cli plugin --profile $Profile add $package --offline
     if ($LASTEXITCODE -ne 0) { throw "DSH plugin command failed (exit $LASTEXITCODE)." }
-    Write-Host "Done: Install dsh-fairy-ui 1.3.0; profile=$Profile; DSH_HOME=$dshDataHome"
-    Write-Host 'Native startup is backed up and hash-locked. The host loads visibly beneath its owned overlay. Video plays once; its final frame is held until DSH is ready.'
+    Write-Host "Done: Install dsh-fairy-ui 1.4.0; profile=$Profile; DSH_HOME=$dshDataHome"
+    Write-Host 'Native startup is backed up and hash-locked. The host loads visibly beneath its owned overlay. Selected startup runs once; the final visual state is held until DSH is ready. The new HDD/Fairy screen is interactive and video-free.'
     Write-Host 'Fairy is added as an optional Agent preset; existing presets and the default selection are preserved.'
     Write-Host 'Voice model settings are preserved; the model is not bundled or downloaded automatically.'
   } else {

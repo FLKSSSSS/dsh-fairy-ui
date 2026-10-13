@@ -1,0 +1,217 @@
+{
+  "version": "1.4.0",
+  "isolated": true,
+  "options": [
+    {
+      "value": "classic",
+      "text": "旧版（经典 Fairy 视频）"
+    },
+    {
+      "value": "archive",
+      "text": "新版（HDD / Fairy · 无视频）"
+    }
+  ],
+  "classicSwitch": true,
+  "saved": {
+    "enabled": true,
+    "muted": true,
+    "speed": 1,
+    "aspectRatio": "auto",
+    "scale": 100,
+    "fit": "cover",
+    "variant": "archive"
+  },
+  "permission": {
+    "state": "permission",
+    "videos": 0,
+    "brand": "HDD",
+    "identity": "身份名称法厄同身份编号0000权限等级3",
+    "images": [
+      {
+        "width": 629,
+        "src": "/fairy-ui/hdd-mark.png"
+      },
+      {
+        "width": 1223,
+        "src": "/fairy-ui/hdd-wordmark.png"
+      }
+    ],
+    "button": {
+      "left": 530.96875,
+      "top": 528.7604370117188,
+      "right": 790.3645935058594,
+      "bottom": 566.7604370117188
+    },
+    "footer": {
+      "left": 24,
+      "top": 836,
+      "right": 1297.3333740234375,
+      "bottom": 888
+    },
+    "width": 1321,
+    "height": 900
+  },
+  "awakening": {
+    "state": "awakening",
+    "videos": 0,
+    "brand": "FAIRY",
+    "identity": "身份名称法厄同身份编号0000权限等级3",
+    "images": [
+      {
+        "width": 629,
+        "src": "/fairy-ui/hdd-mark.png"
+      },
+      {
+        "width": 1223,
+        "src": "/fairy-ui/hdd-wordmark.png"
+      }
+    ],
+    "button": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "footer": {
+      "left": 24,
+      "top": 836,
+      "right": 1297.3333740234375,
+      "bottom": 888
+    },
+    "width": 1321,
+    "height": 900
+  },
+  "identity": {
+    "state": "identity",
+    "videos": 0,
+    "brand": "FAIRY",
+    "identity": "身份名称\n法厄同\n身份编号\n0000\n权限等级\n3",
+    "images": [
+      {
+        "width": 629,
+        "src": "/fairy-ui/hdd-mark.png"
+      },
+      {
+        "width": 1223,
+        "src": "/fairy-ui/hdd-wordmark.png"
+      }
+    ],
+    "button": {
+      "left": 532.3021240234375,
+      "top": 658.09375,
+      "right": 789.0313110351562,
+      "bottom": 696.09375
+    },
+    "footer": {
+      "left": 24,
+      "top": 836,
+      "right": 1297.3333740234375,
+      "bottom": 888
+    },
+    "width": 1321,
+    "height": 900
+  },
+  "final": {
+    "state": "ended",
+    "videos": 0,
+    "brand": "FAIRY",
+    "identity": "身份名称法厄同身份编号0000权限等级3",
+    "images": [
+      {
+        "width": 629,
+        "src": "/fairy-ui/hdd-mark.png"
+      },
+      {
+        "width": 1223,
+        "src": "/fairy-ui/hdd-wordmark.png"
+      }
+    ],
+    "button": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0
+    },
+    "footer": {
+      "left": 24,
+      "top": 836,
+      "right": 1297.3333740234375,
+      "bottom": 888
+    },
+    "width": 1321,
+    "height": 900
+  },
+  "cleanup": true,
+  "responsive": [
+    {
+      "state": "identity",
+      "videos": 0,
+      "brand": "FAIRY",
+      "identity": "身份名称\n法厄同\n身份编号\n0000\n权限等级\n3",
+      "images": [
+        {
+          "width": 629,
+          "src": "/fairy-ui/hdd-mark.png"
+        },
+        {
+          "width": 1223,
+          "src": "/fairy-ui/hdd-wordmark.png"
+        }
+      ],
+      "button": {
+        "left": 181.6354217529297,
+        "top": 492.29168701171875,
+        "right": 438.36460876464844,
+        "bottom": 530.2916870117188
+      },
+      "footer": {
+        "left": 24,
+        "top": 556,
+        "right": 596,
+        "bottom": 608
+      },
+      "width": 620,
+      "height": 620
+    },
+    {
+      "state": "identity",
+      "videos": 0,
+      "brand": "FAIRY",
+      "identity": "身份名称\n法厄同\n身份编号\n0000\n权限等级\n3",
+      "images": [
+        {
+          "width": 629,
+          "src": "/fairy-ui/hdd-mark.png"
+        },
+        {
+          "width": 1223,
+          "src": "/fairy-ui/hdd-wordmark.png"
+        }
+      ],
+      "button": {
+        "left": 331.63543701171875,
+        "top": 373.69793701171875,
+        "right": 588.3646240234375,
+        "bottom": 411.69793701171875
+      },
+      "footer": {
+        "left": 24,
+        "top": 456,
+        "right": 896,
+        "bottom": 508
+      },
+      "width": 920,
+      "height": 520
+    }
+  ],
+  "nativeSaved": {
+    "enabled": true,
+    "muted": true,
+    "speed": 1,
+    "aspectRatio": "auto",
+    "scale": 100,
+    "fit": "cover",
+    "variant": "archive"
+  },
+  "normalClosePreferenceSync": true
+}

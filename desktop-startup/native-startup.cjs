@@ -17,15 +17,18 @@ function createNativeStartup({app,BrowserWindow,ipcMain}){
   if(process.env.FAIRY_UI_STARTUP_TEST_REPORT){try{fs.writeFileSync(process.env.FAIRY_UI_STARTUP_TEST_REPORT,JSON.stringify(eventLog,null,2))}catch{}}
  };
  let startedAt=Date.now();
- const savePreferences=()=>{
-  if(!target||target.isDestroyed())return;
-  target.webContents.executeJavaScript(`(()=>{try{return JSON.parse(localStorage.getItem(${JSON.stringify(PREF_KEY)})||'null')}catch{return null}})()`).then(v=>{
+ let savedPreferences=null;
+ const savePreferences=(window=target)=>{
+  if(!window||window.isDestroyed())return;
+  window.webContents.executeJavaScript(`(()=>{try{return JSON.parse(localStorage.getItem(${JSON.stringify(PREF_KEY)})||'null')}catch{return null}})()`).then(v=>{
    if(!v||typeof v!=='object')return;
-   const next=normalizeStartupPreferences(v);
+   const next=normalizeStartupPreferences(v);const serialized=JSON.stringify(next,null,2);if(serialized===savedPreferences)return;
    const file=path.join(app.getPath('userData'),'fairy-ui-startup.json');const tmp=file+'.tmp';
-   try{fs.writeFileSync(tmp,JSON.stringify(next,null,2));fs.renameSync(tmp,file)}catch{}
+   try{fs.writeFileSync(tmp,serialized);fs.renameSync(tmp,file);savedPreferences=serialized}catch{}
   }).catch(()=>{});
  };
+ // Save changes while the renderer is alive; quit may destroy it before async close handlers settle.
+ const preferencePoll=setInterval(()=>savePreferences(),1000);preferencePoll.unref?.();
  const closeSplash=()=>{unbindOverlay();unbindOverlay=()=>{};const w=splash;splash=null;if(w&&!w.isDestroyed()){w.setParentWindow(null);w.destroy()}};
  const enter=()=>{
   clearInterval(poll);poll=null;clearTimeout(watchdog);
@@ -53,24 +56,24 @@ function createNativeStartup({app,BrowserWindow,ipcMain}){
  const senderAllowed=event=>splash&&!splash.isDestroyed()&&event.sender===splash.webContents&&event.senderFrame===splash.webContents.mainFrame;
  ipcMain.handle('fairy-ui-native:data',event=>{
   if(!senderAllowed(event))throw Error('Rejected startup animation request');
-  return {...preferences,mainReady:gate.mainReady,url:pathToFileURL(path.join(__dirname,'media/startup-default.mp4')).href};
+  return {...preferences,mainReady:gate.mainReady,...(preferences.variant==='classic'?{url:pathToFileURL(path.join(__dirname,'media/startup-default.mp4')).href}:{})};
  });
  ipcMain.handle('fairy-ui-native:finished',(event,reason)=>{
   if(!senderAllowed(event))throw Error('Rejected playback completion');
   if(!['ended','failed'].includes(reason))throw Error('Invalid completion reason');
-  clearTimeout(watchdog);record(reason==='ended'?'video-ended':'video-failed');gate.finishPlayback();
+  clearTimeout(watchdog);record(preferences.variant==='archive'?(reason==='ended'?'sequence-ended':'sequence-failed'):(reason==='ended'?'video-ended':'video-failed'));gate.finishPlayback();
  });
  ipcMain.handle('fairy-ui-native:dismiss',event=>{
   if(!senderAllowed(event))throw Error('Rejected startup dismissal');
   clearTimeout(watchdog);record('user-skipped');gate.finishPlayback();
   // Skip the video, not DSH's readiness. Continue to display the loading screen.
-  if(splash&&!splash.isDestroyed())splash.webContents.executeJavaScript("document.getElementById('animation').pause();document.getElementById('status').textContent='动画已跳过，正在等待 DSH 准备就绪…'").catch(()=>{});
+  if(splash&&!splash.isDestroyed())splash.webContents.executeJavaScript("document.getElementById('animation')?.pause();document.getElementById('status').textContent='动画已跳过，正在等待 DSH 准备就绪…'").catch(()=>{});
  });
  ipcMain.handle('fairy-ui-native:playback-state',(event,state)=>{
-  if(!senderAllowed(event)||state!=='playing')throw Error('Rejected playback state');
+  if(!senderAllowed(event)||(preferences.variant==='archive'?!['sequence-running','awaiting-input'].includes(state):state!=='playing'))throw Error('Rejected playback state');
   if(gate.playbackDone)return;
-  record('video-playing');
-  armWatchdog();
+  if(state==='awaiting-input'){clearTimeout(watchdog);record('sequence-awaiting-input');return;}
+  record(preferences.variant==='archive'?'sequence-running':'video-playing');armWatchdog();
  });
  function open(){
   if(started||disposed)return;started=true;startedAt=Date.now();
@@ -126,7 +129,7 @@ function createNativeStartup({app,BrowserWindow,ipcMain}){
  }
  function attach(window){
   if(window.isDestroyed())return;
-  window.on('close',savePreferences);
+  window.on('close',()=>savePreferences(window));
   if(gate.entered||!enabled)return;window.webContents.setBackgroundThrottling(false);
   bindOverlay(window);
   window.webContents.on('did-finish-load',()=>{if(target===window)startReadinessPoll(window)});
@@ -150,7 +153,7 @@ function createNativeStartup({app,BrowserWindow,ipcMain}){
   requested={window,activate};target=window;
   record('main-show-requested');startReadinessPoll(window);
  }
- function dispose(){if(disposed)return;disposed=true;gate.dispose();if(target&&!target.isDestroyed())target.webContents.setBackgroundThrottling(true);clearInterval(poll);clearTimeout(watchdog);closeSplash();for(const c of ['fairy-ui-native:data','fairy-ui-native:finished','fairy-ui-native:dismiss','fairy-ui-native:playback-state'])ipcMain.removeHandler(c)}
+ function dispose(){if(disposed)return;disposed=true;clearInterval(preferencePoll);gate.dispose();if(target&&!target.isDestroyed())target.webContents.setBackgroundThrottling(true);clearInterval(poll);clearTimeout(watchdog);closeSplash();for(const c of ['fairy-ui-native:data','fairy-ui-native:finished','fairy-ui-native:dismiss','fairy-ui-native:playback-state'])ipcMain.removeHandler(c)}
  app.on('before-quit',dispose);
  return {open,attach,requestShow,dispose,gate};
 }

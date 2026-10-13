@@ -35,7 +35,13 @@ async function apply(settings){
  if(initialized||stopped)return;initialized=true;
  // An event may have arrived while the initial IPC request was in flight.
  mainReady=mainReady||settings.mainReady===true;
- const prefs=normalizeStartupPreferences(settings);
+ const prefs=normalizeStartupPreferences(settings);document.getElementById('startup-screen').tabIndex=-1;
+ if(prefs.variant==='archive'){
+  video.remove();fallback.hidden=true;status.textContent='本地启动界面 · 等待访问许可';
+  skin=mountStartupSkin(document.getElementById('startup-screen'),null,prefs,{stylesLoaded:true,
+   onState:report,onComplete:()=>{if(stopped)return;completed=true;stopped=true;updateCompletedStatus();window.fairyStartup.finished('ended').catch(()=>{})}});
+  return;
+ }
  skin=mountStartupSkin(document.getElementById('startup-screen'),video,prefs,{stylesLoaded:true});
  video.style.cssText=startupVideoStyle(prefs);updateSkin();
  video.loop=false;video.muted=prefs.muted;video.defaultPlaybackRate=prefs.speed;video.playbackRate=prefs.speed;

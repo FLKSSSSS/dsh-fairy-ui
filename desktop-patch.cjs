@@ -6,7 +6,7 @@ const path=require('node:path');
 const crypto=require('node:crypto');
 const ORIGINAL_SHA='983ca71114e6dfd353fc79af5a1f9481a250ee64c2a3c757673029b811b23bc2';
 const MAIN_SHA='10325004a1ddbd8118ed0607ea28d50a7b0d692dcaeb25a67a7d8aea9165019d';
-const VERSION='1.3.0';
+const VERSION='1.4.0';
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 function parseAsar(bytes){
  if(bytes.length<16||bytes.readUInt32LE(0)!==4)throw Error('Unsupported ASAR header');

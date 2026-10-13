@@ -1,7 +1,7 @@
 {
   "name": "dsh-fairy-ui",
-  "version": "1.3.0",
-  "description": "Fairy HDD UI, selectable classic/archive startup overlay and optional Fairy Agent preset for DSH Desktop.",
+  "version": "1.4.0",
+  "description": "Fairy HDD UI with classic video or video-free interactive HDD/Fairy startup overlay and optional Fairy Agent preset.",
   "type": "module",
   "main": "./lib/index.js",
   "exports": {

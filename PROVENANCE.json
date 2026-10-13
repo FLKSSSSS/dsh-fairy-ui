@@ -169,13 +169,33 @@
     "license": "MIT",
     "copyright": "Copyright (c) 2026 沈宏宏",
     "notice": "THIRD-PARTY-NOTICES.txt",
-    "adaptation": "archive typography, warm gray/orange palette and reticle; original Fairy video unchanged",
+    "adaptation": "local interactive authorization/identity, downstream copy/order/timing, welcome glitch/bloom; deep blue/black recoloring, no video/audio in archive",
     "excluded": [
-      "reference host code",
-      "reference identity flow",
-      "reference voice/TTS services",
+      "reference backend/host code",
+      "real identity/authorization operations",
+      "reference audio and voice/TTS services",
       "reference settings implementation"
     ],
-    "motionClock": "original video.currentTime / duration; frozen at end"
+    "motionClock": "local timers for automatic effects; indefinite user confirmation wait; all effects stop at final state"
+  },
+  "interactiveStartup": {
+    "version": "1.4.0",
+    "identity": "法厄同",
+    "identityId": "0000",
+    "accessLevel": "3",
+    "authorizationIsVisualOnly": true,
+    "eye": "SVG geometry and gradients reused from this plugin chat mascot, with local CSS motion",
+    "artwork": [
+      {
+        "name": "hdd-mark.png",
+        "sha256": "4a50c075af56980bca80b47aa97e5445fcf4ac6f0fcd5759020df028565225f8",
+        "source": "user-provided reference image; background removed and monochrome alpha preserved; no independent relicensing assertion"
+      },
+      {
+        "name": "hdd-wordmark.png",
+        "sha256": "a994830a50bf312a3d324dc0e0873ff573798df62f1784f25c013c472dbdb8c1",
+        "source": "user-provided reference image; background removed and monochrome alpha preserved; no independent relicensing assertion"
+      }
+    ]
   }
 }
