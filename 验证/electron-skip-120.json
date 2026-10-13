@@ -1,0 +1,88 @@
+{
+  "case": "skip",
+  "version": "1.2.0",
+  "at6s": {
+    "t": 6.175737,
+    "duration": 13.002993,
+    "paused": false,
+    "ended": false,
+    "loop": false,
+    "fit": "cover",
+    "transform": "matrix(1, 0, 0, 1, -660.667, -450)",
+    "rect": {
+      "width": 1321.3333740234375,
+      "height": 900
+    },
+    "width": 1321,
+    "height": 900,
+    "status": "正在启动 Fairy，请稍候…"
+  },
+  "at8s": {
+    "t": 7.677549,
+    "duration": 13.002993,
+    "paused": false,
+    "ended": false,
+    "loop": false,
+    "fit": "cover",
+    "transform": "matrix(1, 0, 0, 1, -660.667, -450)",
+    "rect": {
+      "width": 1321.3333740234375,
+      "height": 900
+    },
+    "width": 1321,
+    "height": 900,
+    "status": "正在启动 Fairy，请稍候…"
+  },
+  "entered": true,
+  "mainVisible": true,
+  "splashClosed": true,
+  "bounds": {
+    "x": 193,
+    "y": 6,
+    "width": 1322,
+    "height": 900
+  },
+  "events": [
+    {
+      "event": "splash-created",
+      "elapsedMs": 33
+    },
+    {
+      "event": "overlay-bound",
+      "elapsedMs": 58
+    },
+    {
+      "event": "main-shown",
+      "elapsedMs": 140,
+      "playbackDone": false,
+      "mainReady": false,
+      "covered": true
+    },
+    {
+      "event": "splash-shown",
+      "elapsedMs": 157
+    },
+    {
+      "event": "main-show-requested",
+      "elapsedMs": 159
+    },
+    {
+      "event": "video-playing",
+      "elapsedMs": 261
+    },
+    {
+      "event": "user-skipped",
+      "elapsedMs": 7978
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 10255
+    },
+    {
+      "event": "overlay-removed",
+      "elapsedMs": 10266,
+      "playbackDone": true,
+      "mainReady": true
+    }
+  ]
+}

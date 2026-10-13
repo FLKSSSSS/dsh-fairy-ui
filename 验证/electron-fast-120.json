@@ -1,0 +1,56 @@
+{
+  "case": "fast",
+  "version": "1.2.0",
+  "entered": true,
+  "mainVisible": true,
+  "splashClosed": true,
+  "bounds": {
+    "x": 193,
+    "y": 6,
+    "width": 1322,
+    "height": 900
+  },
+  "events": [
+    {
+      "event": "splash-created",
+      "elapsedMs": 43
+    },
+    {
+      "event": "overlay-bound",
+      "elapsedMs": 67
+    },
+    {
+      "event": "main-shown",
+      "elapsedMs": 152,
+      "playbackDone": false,
+      "mainReady": false,
+      "covered": true
+    },
+    {
+      "event": "splash-shown",
+      "elapsedMs": 171
+    },
+    {
+      "event": "main-show-requested",
+      "elapsedMs": 176
+    },
+    {
+      "event": "video-playing",
+      "elapsedMs": 287
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 1209
+    },
+    {
+      "event": "video-ended",
+      "elapsedMs": 13347
+    },
+    {
+      "event": "overlay-removed",
+      "elapsedMs": 13358,
+      "playbackDone": true,
+      "mainReady": true
+    }
+  ]
+}

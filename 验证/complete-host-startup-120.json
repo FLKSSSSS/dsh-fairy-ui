@@ -1,0 +1,339 @@
+{
+  "version": "1.2.0",
+  "isolated": true,
+  "elapsedMs": 23256,
+  "preset": {
+    "roster": {
+      "presets": [
+        {
+          "id": "standard",
+          "order": 1,
+          "isDefault": true
+        },
+        {
+          "id": "ptc",
+          "order": 2,
+          "isDefault": false
+        },
+        {
+          "id": "minimal",
+          "order": 3,
+          "isDefault": false
+        },
+        {
+          "id": "cordis",
+          "order": 4,
+          "isDefault": false
+        },
+        {
+          "id": "fairy",
+          "name": "Fairy",
+          "description": "Fairy 人格、语料驱动的表达与 DSH 标准工具。可选预设，不修改模型或审批策略。",
+          "isDefault": false
+        }
+      ]
+    },
+    "fairy": {
+      "id": "fairy"
+    },
+    "snapshots": {
+      "fairy": [
+        {
+          "name": "harness:identity",
+          "containsFairy": false
+        },
+        {
+          "name": "deployment:persona-prefix",
+          "containsFairy": false
+        },
+        {
+          "name": "deployment:persona-suffix",
+          "containsFairy": false
+        },
+        {
+          "name": "mcp-resource-servers",
+          "containsFairy": false
+        },
+        {
+          "name": "harness:source",
+          "containsFairy": false
+        },
+        {
+          "name": "app:web-surface",
+          "containsFairy": false
+        },
+        {
+          "name": "ui:deliverable-file-references",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:pwsh",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:read",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:write",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:edit",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:glob",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:grep",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:jobs",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:web_search",
+          "containsFairy": false
+        },
+        {
+          "name": "fairy-voice-core",
+          "containsFairy": true
+        },
+        {
+          "name": "fairy-safety-gate",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:goal",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:workflow",
+          "containsFairy": false
+        },
+        {
+          "name": "plan:policy",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:subagent",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:subagent_fork",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:ralph",
+          "containsFairy": false
+        }
+      ],
+      "standard": [
+        {
+          "name": "harness:identity",
+          "containsFairy": false
+        },
+        {
+          "name": "deployment:persona-prefix",
+          "containsFairy": false
+        },
+        {
+          "name": "deployment:persona-suffix",
+          "containsFairy": false
+        },
+        {
+          "name": "mcp-resource-servers",
+          "containsFairy": false
+        },
+        {
+          "name": "harness:source",
+          "containsFairy": false
+        },
+        {
+          "name": "app:web-surface",
+          "containsFairy": false
+        },
+        {
+          "name": "ui:deliverable-file-references",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:pwsh",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:read",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:write",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:edit",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:glob",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:grep",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:jobs",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:web_search",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:web_fetch",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:workflow",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:goal",
+          "containsFairy": false
+        },
+        {
+          "name": "plan:policy",
+          "containsFairy": false
+        },
+        {
+          "name": "tool:subagent_fork",
+          "containsFairy": false
+        }
+      ]
+    },
+    "compositionSummary": [
+      {
+        "id": "standard",
+        "rowCount": 29,
+        "enabledRowCount": 24,
+        "allEnabledRowsActive": true
+      },
+      {
+        "id": "ptc",
+        "rowCount": 30,
+        "enabledRowCount": 23,
+        "allEnabledRowsActive": true
+      },
+      {
+        "id": "minimal",
+        "rowCount": 6,
+        "enabledRowCount": 4,
+        "allEnabledRowsActive": true
+      },
+      {
+        "id": "cordis",
+        "rowCount": 30,
+        "enabledRowCount": 26,
+        "allEnabledRowsActive": true
+      },
+      {
+        "id": "fairy",
+        "rowCount": 28,
+        "enabledRowCount": 25,
+        "allEnabledRowsActive": true
+      }
+    ]
+  },
+  "mainPageFairyReadyVerified": true,
+  "mainPageFairyVisualVerified": true,
+  "noAutomaticWebOverlay": true,
+  "targets": [
+    {
+      "title": "DeepSeek Harness",
+      "url": "dsh-app://app/"
+    }
+  ],
+  "events": [
+    {
+      "event": "splash-created",
+      "elapsedMs": 24
+    },
+    {
+      "event": "overlay-bound",
+      "elapsedMs": 69
+    },
+    {
+      "event": "main-shown",
+      "elapsedMs": 169,
+      "playbackDone": false,
+      "mainReady": false,
+      "covered": true
+    },
+    {
+      "event": "splash-shown",
+      "elapsedMs": 196
+    },
+    {
+      "event": "video-playing",
+      "elapsedMs": 367
+    },
+    {
+      "event": "overlay-bound",
+      "elapsedMs": 2366
+    },
+    {
+      "event": "main-shown",
+      "elapsedMs": 2369,
+      "playbackDone": false,
+      "mainReady": false,
+      "covered": true
+    },
+    {
+      "event": "main-show-requested",
+      "elapsedMs": 2485
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 2489
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 2490
+    },
+    {
+      "event": "overlay-bound",
+      "elapsedMs": 7392
+    },
+    {
+      "event": "main-shown",
+      "elapsedMs": 7394,
+      "playbackDone": false,
+      "mainReady": false,
+      "covered": true
+    },
+    {
+      "event": "main-show-requested",
+      "elapsedMs": 7395
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 7397
+    },
+    {
+      "event": "video-ended",
+      "elapsedMs": 13428
+    },
+    {
+      "event": "overlay-removed",
+      "elapsedMs": 13438,
+      "playbackDone": true,
+      "mainReady": true
+    }
+  ],
+  "shutdown": "isolated test process tree terminated after successful checks",
+  "installedPluginClientSha256": "22a7cc22e8fe6a38ad3a7b25d9de581399ae7bb4522ccda0a3c4f13df13953c4",
+  "installedNativeSha256": "0e4fff9d0564f631163a1df30b188bd9506928080517c3cc04321ab14bb286a3"
+}

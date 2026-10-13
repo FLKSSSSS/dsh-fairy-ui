@@ -1,17 +1,16 @@
 {
-  "version": "1.1.1",
-  "date": "2026-10-12",
-  "passed": 37,
+  "version": "1.2.0",
+  "date": "2026-10-13",
+  "passed": 47,
   "failed": 0,
   "command": "node --test test/*.test.cjs desktop-startup/*.test.cjs",
   "covers": [
-    "single playback",
-    "no five-second pause",
-    "hold final frame",
-    "aspect ratio and scale",
-    "preview settings",
-    "native preference persistence",
-    "voice draft preservation",
-    "offline dependencies"
+    "owned overlay",
+    "window switch without replay",
+    "pre-show renderer failure recovery",
+    "single playback, final frame, ratios",
+    "composer layer and modal guard",
+    "Fairy preset registration and duplicate preservation",
+    "voice draft and offline dependencies"
   ]
 }

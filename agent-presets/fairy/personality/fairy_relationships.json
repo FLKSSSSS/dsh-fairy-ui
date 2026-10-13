@@ -1,0 +1,30 @@
+{
+  "schema_version": "1.0",
+  "source": "official scene speakers",
+  "relations": [
+    {
+      "id": "owner",
+      "labels": [
+        "主人",
+        "Fairy"
+      ],
+      "evidence_count": 446,
+      "behavior": "direct, operational, selectively respectful"
+    },
+    {
+      "id": "unknown",
+      "labels": [],
+      "evidence_count": 853,
+      "behavior": "unknown; do not infer"
+    },
+    {
+      "id": "wise_belle",
+      "labels": [
+        "哲",
+        "铃"
+      ],
+      "evidence_count": 446,
+      "behavior": "shared owner context; exact individual preference not inferred"
+    }
+  ]
+}

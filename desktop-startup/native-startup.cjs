@@ -7,8 +7,9 @@ const GEOMETRY=require('./window-geometry.cjs');
 const {normalizeStartupPreferences}=require('./startup-preferences.cjs');
 const PREF_KEY='dsh.fairyUi.startup.v2';
 function createNativeStartup({app,BrowserWindow,ipcMain}){
- let splash=null,target=null,disposed=false,started=false,enabled=true;
+ let splash=null,target=null,disposed=false,started=false,enabled=true,overlayReady=false;
  let poll=null,watchdog=null,requested=null,preferences=normalizeStartupPreferences();
+ let unbindOverlay=()=>{};
  const eventLog=[];
  const record=(event,extra={})=>{
   const row={event,elapsedMs:Date.now()-startedAt,...extra};eventLog.push(row);
@@ -25,16 +26,21 @@ function createNativeStartup({app,BrowserWindow,ipcMain}){
    try{fs.writeFileSync(tmp,JSON.stringify(next,null,2));fs.renameSync(tmp,file)}catch{}
   }).catch(()=>{});
  };
- const closeSplash=()=>{const w=splash;splash=null;if(w&&!w.isDestroyed())w.destroy()};
+ const closeSplash=()=>{unbindOverlay();unbindOverlay=()=>{};const w=splash;splash=null;if(w&&!w.isDestroyed()){w.setParentWindow(null);w.destroy()}};
  const enter=()=>{
   clearInterval(poll);poll=null;clearTimeout(watchdog);
   if(disposed||!requested?.window||requested.window.isDestroyed()){closeSplash();return;}
   const {window,activate}=requested;
-  if(splash&&!splash.isDestroyed())window.setBounds(splash.getBounds());
-  record('main-shown',{playbackDone:gate.playbackDone,mainReady:gate.mainReady});
-  activate?window.show():window.showInactive();
+  // Normal startup only removes the overlay; recover visibility if its renderer failed
+  // before ready-to-show. Never leave a loaded host hidden behind a failed overlay.
+  if(!window.isVisible()){
+   window.showInactive();
+   record('main-shown',{playbackDone:gate.playbackDone,mainReady:gate.mainReady,covered:false,recovery:true});
+  }
+  closeSplash();
+  record('overlay-removed',{playbackDone:gate.playbackDone,mainReady:gate.mainReady});
   if(activate)window.focus();
-  closeSplash();window.webContents.setBackgroundThrottling(true);
+  window.webContents.setBackgroundThrottling(true);
   savePreferences();
  };
  const gate=new StartupGate(enter);
@@ -71,20 +77,58 @@ function createNativeStartup({app,BrowserWindow,ipcMain}){
   try{const v=JSON.parse(fs.readFileSync(path.join(app.getPath('userData'),'fairy-ui-startup.json'),'utf8'));preferences=normalizeStartupPreferences(v)}catch{}
   enabled=preferences.enabled;
   if(!enabled){gate.finishPlayback();return;}
-  const w=new BrowserWindow({...GEOMETRY,show:false,frame:false,transparent:true,roundedCorners:true,hasShadow:true,resizable:true,backgroundColor:'#05090d',title:'Fairy 正在启动',autoHideMenuBar:true,webPreferences:{preload:path.join(__dirname,'startup-preload.cjs'),contextIsolation:true,sandbox:true,nodeIntegration:false,webSecurity:true,backgroundThrottling:false,autoplayPolicy:'no-user-gesture-required'}});
+  const w=new BrowserWindow({...GEOMETRY,show:false,frame:false,transparent:true,roundedCorners:true,hasShadow:true,resizable:true,backgroundColor:'#05090d',title:'Fairy 正在启动',skipTaskbar:true,autoHideMenuBar:true,webPreferences:{preload:path.join(__dirname,'startup-preload.cjs'),contextIsolation:true,sandbox:true,nodeIntegration:false,webSecurity:true,backgroundThrottling:false,autoplayPolicy:'no-user-gesture-required'}});
   splash=w;record('splash-created');
   w.webContents.setWindowOpenHandler(()=>({action:'deny'}));w.webContents.on('will-navigate',e=>e.preventDefault());
-  w.once('ready-to-show',()=>{if(!disposed&&!w.isDestroyed()){w.show();record('splash-shown')}});
+  w.once('ready-to-show',()=>{if(!disposed&&!w.isDestroyed()){overlayReady=true;showUnderlay();w.show();record('splash-shown')}});
   w.on('close',e=>{if(!disposed&&splash===w&&!gate.entered){e.preventDefault();record('user-close');gate.finishPlayback();app.quit()}});
   w.webContents.on('render-process-gone',()=>{record('splash-renderer-failed');gate.finishPlayback();closeSplash()});
   w.loadFile(path.join(__dirname,'startup.html')).catch(()=>{record('splash-load-failed');gate.finishPlayback();closeSplash()});
   // A broken video cannot force an infinite wait. This is NOT a normal playback timeout.
   armWatchdog();
  }
+ // Keep the same video renderer alive when binding/switching the host. No reload/play here.
+ function showUnderlay(){
+  if(!overlayReady||!target||target.isDestroyed()||target.isVisible())return;
+  target.showInactive();
+  record('main-shown',{playbackDone:gate.playbackDone,mainReady:gate.mainReady,covered:true});
+ }
+ function bindOverlay(window,activate=false){
+  const overlay=splash;
+  if(!overlay||overlay.isDestroyed()||window.isDestroyed())return;
+  if(target!==window){
+   unbindOverlay();unbindOverlay=()=>{};
+   gate.mainReady=false;notifyReady();
+   const bounds=overlay.getBounds();
+   target=window;requested={window,activate:requested?.activate??true};
+   overlay.setParentWindow(window);
+   window.setBounds(bounds);
+   const listeners=[];let syncing=false;
+   const listen=(w,event,fn)=>{w.on(event,fn);listeners.push(()=>w.removeListener(event,fn))};
+   const sync=(from,to)=>{
+    if(syncing||from.isDestroyed()||to.isDestroyed())return;
+    const a=from.getBounds(),b=to.getBounds();
+    // Windows fractional DPI can round setBounds by 1–2 DIP. Do not feed that back.
+    if(['x','y','width','height'].every(k=>Math.abs(a[k]-b[k])<=2))return;
+    syncing=true;try{to.setBounds(a)}finally{syncing=false}
+   };
+   for(const event of ['move','resize']){
+    listen(window,event,()=>sync(window,overlay));
+    listen(overlay,event,()=>sync(overlay,window));
+   }
+   // Native child ownership handles minimize/restore and stays above only its own host.
+   listen(window,'closed',()=>{if(target===window&&!gate.entered){record('overlay-host-closed');closeSplash();gate.finishPlayback()}});
+   unbindOverlay=()=>{for(const remove of listeners)remove()};
+   record('overlay-bound');
+  }
+  showUnderlay();
+  if(overlay.isVisible())activate?overlay.show():overlay.showInactive();
+ }
  function attach(window){
   if(window.isDestroyed())return;
   window.on('close',savePreferences);
   if(gate.entered||!enabled)return;window.webContents.setBackgroundThrottling(false);
+  bindOverlay(window);
   window.webContents.on('did-finish-load',()=>{if(target===window)startReadinessPoll(window)});
  }
  let checking=false;
@@ -102,7 +146,8 @@ function createNativeStartup({app,BrowserWindow,ipcMain}){
  }
  function requestShow(window,activate=true){
   if(disposed||gate.entered||!enabled){target=window;window.webContents.setBackgroundThrottling(true);activate?window.show():window.showInactive();if(activate)window.focus();return;}
-  if(target!==window){gate.mainReady=false;notifyReady();}requested={window,activate};target=window;
+  bindOverlay(window,activate);
+  requested={window,activate};target=window;
   record('main-show-requested');startReadinessPoll(window);
  }
  function dispose(){if(disposed)return;disposed=true;gate.dispose();if(target&&!target.isDestroyed())target.webContents.setBackgroundThrottling(true);clearInterval(poll);clearTimeout(watchdog);closeSplash();for(const c of ['fairy-ui-native:data','fairy-ui-native:finished','fairy-ui-native:dismiss','fairy-ui-native:playback-state'])ipcMain.removeHandler(c)}

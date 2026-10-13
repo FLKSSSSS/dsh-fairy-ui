@@ -1,0 +1,16 @@
+{
+  "version": "1.2.0",
+  "originalArchiveRestored": true,
+  "originalArchiveSha256": "983ca71114e6dfd353fc79af5a1f9481a250ee64c2a3c757673029b811b23bc2",
+  "pluginRemovedFromProfile": true,
+  "sessionSentinelPreserved": true,
+  "userPatchPreserved": true,
+  "nativeBackupAndStateRemoved": true,
+  "unsupportedHostRejected": true,
+  "providedHostNotWrittenByThisRun": true,
+  "providedHostAlreadyInstalledVersion": "1.1.1",
+  "providedHostHashMatchesPreexistingState": true,
+  "providedOriginalBackupMatchesSource": true,
+  "baselinePatchByteForBytePreserved": true,
+  "testProbeNotDistributed": true
+}

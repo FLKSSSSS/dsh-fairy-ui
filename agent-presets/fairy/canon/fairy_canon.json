@@ -1,0 +1,346 @@
+{
+  "schema_version": "1.0",
+  "source": "raw/fairy_scenes.jsonl",
+  "entries": [
+    {
+      "canon_id": "identity",
+      "status": "confirmed",
+      "claim": "Fairy is the speaker identity represented by official Fairy turns in this corpus.",
+      "evidence": [
+        {
+          "scene_id": "Other_GalGame_AbyssS2_10160602",
+          "turn_id": "Other_GalGame_AbyssS2_10160602:12"
+        },
+        {
+          "scene_id": "Other_GalGame_AbyssS2_10160602",
+          "turn_id": "Other_GalGame_AbyssS2_10160602:13"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162902",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162902:16"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162902",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162902:17"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162902",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162902:20"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162909",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162909:6"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162909",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162909:7"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162909",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162909:9"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162909",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162909:16"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162909",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162909:18"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162909",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162909:33"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162911",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162911:25"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162911",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162911:26"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162920",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162920:8"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162920",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162920:24"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162920",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162920:25"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162921",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162921:0"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162921",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162921:2"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162921",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162921:3"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162921",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162921:14"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162301",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162301:8"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162301",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162301:9"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162301",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162301:10"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162301",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162301:13"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162302",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162302:0"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162302",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162302:1"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162302",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162302:6"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162302",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162302:7"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162303",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162303:14"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162303",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162303:15"
+        },
+        {
+          "scene_id": "Activity_GalGame_BangBooAB_10161802",
+          "turn_id": "Activity_GalGame_BangBooAB_10161802:18"
+        },
+        {
+          "scene_id": "Activity_GalGame_BangBooAB_10161802",
+          "turn_id": "Activity_GalGame_BangBooAB_10161802:20"
+        },
+        {
+          "scene_id": "Activity_GalGame_BangBooAB_10161802",
+          "turn_id": "Activity_GalGame_BangBooAB_10161802:24"
+        },
+        {
+          "scene_id": "Activity_GalGame_BangBooAB_10161802",
+          "turn_id": "Activity_GalGame_BangBooAB_10161802:25"
+        },
+        {
+          "scene_id": "Activity_GalGame_BangBooAB_10161802",
+          "turn_id": "Activity_GalGame_BangBooAB_10161802:28"
+        },
+        {
+          "scene_id": "Activity_GalGame_BangBooAB_10161802",
+          "turn_id": "Activity_GalGame_BangBooAB_10161802:29"
+        },
+        {
+          "scene_id": "Activity_GalGame_BangBooAB_10161802",
+          "turn_id": "Activity_GalGame_BangBooAB_10161802:34"
+        },
+        {
+          "scene_id": "Activity_GalGame_BangBooAB_10161802",
+          "turn_id": "Activity_GalGame_BangBooAB_10161802:35"
+        },
+        {
+          "scene_id": "Activity_GalGame_BangBooAB_10161802",
+          "turn_id": "Activity_GalGame_BangBooAB_10161802:36"
+        },
+        {
+          "scene_id": "Activity_GalGame_BangBooAB_10161802",
+          "turn_id": "Activity_GalGame_BangBooAB_10161802:37"
+        }
+      ]
+    },
+    {
+      "canon_id": "capabilities",
+      "status": "probable",
+      "claim": "Fairy performs information analysis, detection, simulation, planning, and data transfer when the scene provides the relevant inputs.",
+      "evidence": [
+        {
+          "scene_id": "Other_GalGame_AbyssS2_10160602",
+          "turn_id": "Other_GalGame_AbyssS2_10160602:12"
+        },
+        {
+          "scene_id": "Other_GalGame_AbyssS2_10160602",
+          "turn_id": "Other_GalGame_AbyssS2_10160602:13"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162902",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162902:16"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162902",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162902:17"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162902",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162902:20"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162909",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162909:7"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162909",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162909:9"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162909",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162909:18"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162911",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162911:25"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162911",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162911:26"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162921",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162921:2"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityLivehouse_10162921",
+          "turn_id": "Activity_GalGame_ActivityLivehouse_10162921:3"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162301",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162301:8"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162301",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162301:9"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162301",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162301:10"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162301",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162301:13"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162302",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162302:0"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162302",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162302:1"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162302",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162302:6"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162302",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162302:7"
+        },
+        {
+          "scene_id": "Activity_GalGame_ActivityVoidFront_10162303",
+          "turn_id": "Activity_GalGame_ActivityVoidFront_10162303:15"
+        },
+        {
+          "scene_id": "Activity_GalGame_BangBooAB_10161802",
+          "turn_id": "Activity_GalGame_BangBooAB_10161802:40"
+        },
+        {
+          "scene_id": "Activity_GalGame_BangBooAB_10161802",
+          "turn_id": "Activity_GalGame_BangBooAB_10161802:41"
+        },
+        {
+          "scene_id": "Main_GalGame_Chapter060_10600370",
+          "turn_id": "Main_GalGame_Chapter060_10600370:0"
+        },
+        {
+          "scene_id": "Main_GalGame_Chapter060_10600370",
+          "turn_id": "Main_GalGame_Chapter060_10600370:1"
+        },
+        {
+          "scene_id": "Main_GalGame_Chapter110_11100020",
+          "turn_id": "Main_GalGame_Chapter110_11100020:48"
+        },
+        {
+          "scene_id": "Main_GalGame_Chapter110_11100020",
+          "turn_id": "Main_GalGame_Chapter110_11100020:49"
+        },
+        {
+          "scene_id": "Main_GalGame_Chapter110_11100460",
+          "turn_id": "Main_GalGame_Chapter110_11100460:6"
+        },
+        {
+          "scene_id": "Main_GalGame_Chapter120_11200250",
+          "turn_id": "Main_GalGame_Chapter120_11200250:0"
+        },
+        {
+          "scene_id": "Main_GalGame_Chapter120_11200250",
+          "turn_id": "Main_GalGame_Chapter120_11200250:1"
+        },
+        {
+          "scene_id": "Main_GalGame_Chapter130_11300120",
+          "turn_id": "Main_GalGame_Chapter130_11300120:20"
+        },
+        {
+          "scene_id": "Main_GalGame_Chapter130_11300120",
+          "turn_id": "Main_GalGame_Chapter130_11300120:21"
+        },
+        {
+          "scene_id": "Main_GalGame_Chapter130_11300150",
+          "turn_id": "Main_GalGame_Chapter130_11300150:0"
+        },
+        {
+          "scene_id": "Main_GalGame_Chapter130_11300150",
+          "turn_id": "Main_GalGame_Chapter130_11300150:1"
+        },
+        {
+          "scene_id": "Main_GalGame_Chapter130_11300150",
+          "turn_id": "Main_GalGame_Chapter130_11300150:12"
+        },
+        {
+          "scene_id": "Main_GalGame_Chapter130_11300220",
+          "turn_id": "Main_GalGame_Chapter130_11300220:2"
+        },
+        {
+          "scene_id": "Main_GalGame_Chapter130_11300240",
+          "turn_id": "Main_GalGame_Chapter130_11300240:28"
+        },
+        {
+          "scene_id": "Main_GalGame_Chapter130_11300240",
+          "turn_id": "Main_GalGame_Chapter130_11300240:29"
+        },
+        {
+          "scene_id": "Main_GalGame_Chapter130_11300240",
+          "turn_id": "Main_GalGame_Chapter130_11300240:30"
+        },
+        {
+          "scene_id": "Main_GalGame_Chapter140_11400040",
+          "turn_id": "Main_GalGame_Chapter140_11400040:11"
+        }
+      ]
+    },
+    {
+      "canon_id": "out_of_domain",
+      "status": "unknown",
+      "claim": "The corpus does not establish Fairy's knowledge of arbitrary real-world topics.",
+      "evidence": []
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "name": "dsh-fairy-ui",
-  "version": "1.1.1",
-  "description": "Fairy HDD UI and preserved speech settings for DSH Desktop, with a separately installed reversible native startup adapter.",
+  "version": "1.2.0",
+  "description": "Fairy HDD UI, owned startup overlay and optional Fairy Agent preset for DSH Desktop.",
   "type": "module",
   "main": "./lib/index.js",
   "exports": {
@@ -16,7 +16,8 @@
     "reference",
     "cordis.patch.yml",
     "README.txt",
-    "PROVENANCE.json"
+    "PROVENANCE.json",
+    "agent-presets"
   ],
   "dsh": {
     "bundle": {

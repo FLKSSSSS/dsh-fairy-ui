@@ -1,0 +1,43 @@
+{
+  "version": "1.2.0",
+  "isolated": true,
+  "host": "real DSH 0.2.0-rc.2",
+  "fixture": "Original CodeBlock CSS and DOM within native conversation scrollport, no model request",
+  "installedDockZ": "7",
+  "enlargedComposerWins": true,
+  "enlargedHeight": 420,
+  "modalDockZ": "1",
+  "oldDockZ": 1,
+  "nativeCodeHeaderZ": "6",
+  "fixedDockZ": 7,
+  "beforeCodeWins": true,
+  "afterComposerWins": true,
+  "stickyCopyHit": true,
+  "copyCount": 1,
+  "longLineScrolls": true,
+  "bodyUnchanged": true,
+  "composerHeight": 132,
+  "overlapPoint": {
+    "x": 800.5,
+    "y": 776
+  },
+  "codeHeaderBounds": {
+    "top": 754,
+    "bottom": 802
+  },
+  "composerTop": 768,
+  "scrollBounds": {
+    "top": 80,
+    "bottom": 900
+  },
+  "viewTop": -678,
+  "scrollTop": 758,
+  "scrollHeight": 2421,
+  "clientHeight": 820,
+  "copyBounds": {
+    "top": 95,
+    "bottom": 113,
+    "left": 1278.666748046875,
+    "right": 1300.666748046875
+  }
+}

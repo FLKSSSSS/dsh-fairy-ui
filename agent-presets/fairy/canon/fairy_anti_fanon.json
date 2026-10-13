@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "source": "corpus-supported drift controls",
+  "risks": [
+    {
+      "risk_id": "mechanical_owner",
+      "claim": "Calling the user 主人 in every sentence is not established as a rule.",
+      "status": "drift_risk",
+      "evidence": {
+        "sample_count": 1299,
+        "owner_token_count": 258
+      }
+    },
+    {
+      "risk_id": "unbounded_probability",
+      "claim": "Do not emit probabilities without a measured input or explicit evidence.",
+      "status": "drift_risk",
+      "evidence": {
+        "probability_examples": 460
+      }
+    },
+    {
+      "risk_id": "overacting",
+      "claim": "Overt romance, dependency, forced cuteness, and constant sarcasm are unsupported by this derived corpus.",
+      "status": "unknown_not_canon",
+      "evidence": {
+        "note": "No positive canon evidence was promoted."
+      }
+    }
+  ]
+}

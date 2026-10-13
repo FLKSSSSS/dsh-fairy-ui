@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "rule": "只有 online_personality_assets 可以进入线上人格上下文；training、offline_evaluation 与 generated_not_online 资产不得直接注入模型。",
+  "online_personality_assets": [
+    {"path": "agent.cordis.yml", "consumer": "DSH system prompt", "role": "Fairy 固定人格与关系边界"},
+    {"path": "behavior/fairy_behavior_rules.json", "consumer": "runtime/compiler.js, runtime/fairy_core.py", "role": "行为策略"},
+    {"path": "style/fairy_speech_style.json", "consumer": "runtime/compiler.js, runtime/fairy_core.py", "role": "句感底线与统计证据"},
+    {"path": "style/fairy_voice_model.json", "consumer": "runtime/compiler.js, runtime/fairy_core.py", "role": "经人工校准的语气样本"},
+    {"path": "personality/fairy_world_view.json", "consumer": "runtime/fairy-cognition.js", "role": "Fairy 的世界认知边界"},
+    {"path": "world-core/zzz-world-core-v2.15-audit-rag", "consumer": "runtime/world-knowledge.js", "role": "游戏事实与剧情检索"}
+  ],
+  "training_assets": [
+    "training/fairy_sft_master.jsonl",
+    "raw/fairy_scenes.jsonl",
+    "raw/fairy_lines.jsonl",
+    "derived/fairy_choices.jsonl"
+  ],
+  "offline_evaluation_assets": [
+    "evaluation/fidelity_report.md",
+    "evaluation/personality-baseline-50.jsonl",
+    "style/fairy_real_ai_antipatterns.json"
+  ],
+  "generated_not_online": [
+    "corpus_manifest.json",
+    "personality/fairy_personality.json",
+    "personality/fairy_relationships.json",
+    "canon/fairy_canon.json",
+    "canon/fairy_anti_fanon.json",
+    "retrieval/fairy.sqlite3"
+  ]
+}

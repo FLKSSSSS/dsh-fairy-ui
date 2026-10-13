@@ -7,12 +7,13 @@
     "speech UI and local speech proxy",
     "original Fairy startup video, CSS, HTML and geometry",
     "reversible hash-locked native desktop startup adapter",
-    "reference audio (seed only when absent)"
+    "reference audio (seed only when absent)",
+    "owned native startup overlay with live host beneath",
+    "optional Fairy Agent preset and its provided corpus/runtime"
   ],
   "excluded": [
     "fairy-identity",
     "fairy-startup session reset",
-    "agent presets and corpus",
     "permission and sandbox overrides",
     "API credentials",
     "sessions and histories",
@@ -89,13 +90,15 @@
     "resources/app/startup.css": "b6c8a7cbcb1aaf77af964d095fbc204707e4f52788dc56d25828416dc1c9f063",
     "resources/app/startup.html": "6fa2e490a787fdb371b9811e2e38d63cb43c2036a6640d6aefe5a02fbcbdb8dd"
   },
-  "version": "1.1.1",
+  "version": "1.2.0",
   "startupPolicy": {
     "pauseDuringPlayback": false,
     "playOnce": true,
     "holdFinalFrameUntilReady": true,
     "loops": false,
-    "enterAfterPlaybackAndReady": true
+    "enterAfterPlaybackAndReady": true,
+    "hostVisibleDuringPlayback": true,
+    "overlayRemovalAfterPlaybackAndReady": true
   },
   "hostOriginalAsarSha256": "983ca71114e6dfd353fc79af5a1f9481a250ee64c2a3c757673029b811b23bc2",
   "startupDisplay": {
@@ -120,5 +123,37 @@
       "contain"
     ],
     "affectsMainWindowSize": false
+  },
+  "presetAdaptation": {
+    "id": "fairy",
+    "defaultUnchanged": true,
+    "existingIdPolicy": "preserve existing definition",
+    "changes": [
+      "resolve JS runtime module names to package absolute file URLs",
+      "evaluate only the two platform-disabled shell tools",
+      "remove unused external runtimePath; no Python script included"
+    ],
+    "sourceFiles": {
+      "agent.cordis.yml": "79c079ff14627f42c2479f1ffdc38dea54893f872476e98ef5ad3bc8338d3d9b",
+      "ASSET-BOUNDARIES.json": "23f3763b5fd3d28fa2dfb24a9c8d88d636653cf0f48569d6a9490dc72ab7fb4e",
+      "preset.yml": "4b681b01a87fdcbd120a9492e8b486312407f1576c4fdf5e98e283167648bad7",
+      "behavior/fairy_behavior_rules.json": "735da4099dcf7b02f86fcced20881dede5e8657d0c389dfd32bae7fc26520249",
+      "canon/fairy_anti_fanon.json": "4c1b3a68505325077df497e10185c97226b8b823abf507c4f0fb61e30eb60966",
+      "canon/fairy_canon.json": "0e165060c791c5b687b5a2097310fa41dbadc1032e49a649f9cab57ffb4b0daa",
+      "personality/fairy_personality.json": "77920fc0d836893e507ea1e40c5deb2d43c6a820bdb8a6e118382026248fc04e",
+      "personality/fairy_relationships.json": "1a691de6708c2154a97fd87fc7ead28e1311883c965072e26bb88e4fbf46f51c",
+      "personality/fairy_world_view.json": "489b1f5c1fc6b56b183636a61c852658097a5cf332b6b0da520485d51d705168",
+      "runtime/index.js": "2111e6d542bff2d52f1f274f4f3a9c0d2b7d4be62160201ca299be6b98e99cb0",
+      "runtime/package.json": "29de8231c2afa1978ecdb7d1a3e2b120fc3cc68ccdd9b6ec32e51e41fd758bd8",
+      "runtime/safety-gate.js": "6f49cb4247884001236d09cc19aa2ed090731cd4de0a30965fece16087a817ad",
+      "style/fairy_real_ai_antipatterns.json": "c1288d36ab5785ddabd02f5ca417f3ef7a3d66d263682536715879f135d0e3bc",
+      "style/fairy_speech_style.json": "640c3c620d75a168971d52972bbb9b4c55d691ab2a61f3d99006c2b04cbd0673",
+      "style/fairy_voice_model.json": "a5c86d307801fa5036e844247303ac53d5e9ab9a82caa662e93674be7b09664d"
+    }
+  },
+  "composerLayerFix": {
+    "nativeDockZ": 7,
+    "nativeStickyCodeBannerZ": 6,
+    "markdownContentOrBehaviorChanged": false
   }
 }

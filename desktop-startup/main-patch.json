@@ -30,5 +30,9 @@
   {
     "old": "\t\t\tif (!welcomeWindow.isVisible()) track(\"auth_page_view\", {});\n\t\t\twelcomeWindow.show();\n\t\t\twelcomeWindow.focus();\n",
     "new": "\t\t\tif (!welcomeWindow.isVisible()) track(\"auth_page_view\", {});\n\t\t\tif (fairyStartup !== void 0) fairyStartup.requestShow(welcomeWindow, true);\n\t\t\telse { welcomeWindow.show(); welcomeWindow.focus(); }\n"
+  },
+  {
+    "old": "\tconst window = new BrowserWindow(welcomeWindowOptions(process.platform, locale));\n",
+    "new": "\tconst window = new BrowserWindow(welcomeWindowOptions(process.platform, locale));\n\tfairyStartup?.attach(window);\n"
   }
 ]

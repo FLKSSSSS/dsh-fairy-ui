@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "type": "module",
+  "name": "dsh-fairy-runtime",
+  "version": "1.0.0",
+  "exports": {
+    ".": "./index.js",
+    "./safety-gate": "./safety-gate.js"
+  }
+}

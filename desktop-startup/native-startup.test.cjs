@@ -2,7 +2,7 @@ const fs=require('fs'),path=require('path'),vm=require('vm'),{test}=require('nod
 function host(preferences){
  const handlers={},timers=new Set();let next=1;const events={};
  const web={mainFrame:{},setWindowOpenHandler(){},on(){},send(){},executeJavaScript:async()=>false,setBackgroundThrottling(){}};
- class Window{constructor(){this.webContents=web;this.dead=false;}isDestroyed(){return this.dead}once(){}on(){}loadFile(){return Promise.resolve()}destroy(){this.dead=true}show(){}getBounds(){return {}}}
+ class Window{constructor(){this.webContents=web;this.dead=false;}isDestroyed(){return this.dead}once(){}on(){}loadFile(){return Promise.resolve()}destroy(){this.dead=true}show(){}getBounds(){return {}}setParentWindow(){}}
  const app={getPath:()=>__dirname,on:(n,f)=>events[n]=f,quit(){}};
  const context={module:{exports:{}},require:name=>name==='node:fs'&&preferences?{...fs,readFileSync:(file,...args)=>String(file).endsWith('fairy-ui-startup.json')?JSON.stringify(preferences):fs.readFileSync(file,...args),writeFileSync:(_file,data)=>preferences.saved=JSON.parse(data),renameSync(){}}:require(name),console:{log(){}},process:{env:{}},__dirname,setInterval:()=>({unref(){}}),clearInterval(){},setTimeout:()=>{const id=next++;timers.add(id);return id},clearTimeout:id=>timers.delete(id)};
  vm.runInNewContext(fs.readFileSync(path.join(__dirname,'native-startup.cjs'),'utf8'),context);
