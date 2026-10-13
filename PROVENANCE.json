@@ -90,7 +90,7 @@
     "resources/app/startup.css": "b6c8a7cbcb1aaf77af964d095fbc204707e4f52788dc56d25828416dc1c9f063",
     "resources/app/startup.html": "6fa2e490a787fdb371b9811e2e38d63cb43c2036a6640d6aefe5a02fbcbdb8dd"
   },
-  "version": "1.3.0",
+  "version": "1.4.1",
   "startupPolicy": {
     "pauseDuringPlayback": false,
     "playOnce": true,
@@ -179,7 +179,7 @@
     "motionClock": "local timers for automatic effects; indefinite user confirmation wait; all effects stop at final state"
   },
   "interactiveStartup": {
-    "version": "1.4.0",
+    "version": "1.4.1",
     "identity": "法厄同",
     "identityId": "0000",
     "accessLevel": "3",
@@ -196,6 +196,13 @@
         "sha256": "a994830a50bf312a3d324dc0e0873ff573798df62f1784f25c013c472dbdb8c1",
         "source": "user-provided reference image; background removed and monochrome alpha preserved; no independent relicensing assertion"
       }
-    ]
+    ],
+    "introScaleRelativeTo140": 0.75,
+    "geometricSealRemoved": true,
+    "motionReference": {
+      "title": "莱茵生命DeepSeekHarness启动动画",
+      "url": "https://www.bilibili.com/video/BV1erpE6qEPU",
+      "use": "motion timing and reveal direction reference only; local interactive DOM/SVG/CSS; no reference video, audio or artwork included"
+    }
   }
 }

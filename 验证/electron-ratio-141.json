@@ -1,0 +1,255 @@
+{
+  "version": "1.4.1",
+  "mode": "ratio",
+  "errors": [],
+  "mediaRequests": [],
+  "initial": {
+    "state": "permission",
+    "brand": "HDD",
+    "subtitle": "HOLLOW DEEP DIVE ESYSTEM",
+    "phase": "需要访问许可",
+    "eyeHidden": true,
+    "identity": "身份名称法厄同身份编号0000权限等级3",
+    "videoCount": 0,
+    "images": [
+      {
+        "width": 629,
+        "src": "file:///F:/Codex/2026-10-12/dui/work/github-dsh-fairy-ui/desktop-startup/media/hdd-mark.png"
+      },
+      {
+        "width": 1223,
+        "src": "file:///F:/Codex/2026-10-12/dui/work/github-dsh-fairy-ui/desktop-startup/media/hdd-wordmark.png"
+      }
+    ],
+    "stage": {
+      "left": 165.1705780029297,
+      "top": 171.28515625,
+      "right": 1156.1627655029297,
+      "bottom": 728.71484375,
+      "width": 990.9921875,
+      "height": 557.4296875
+    },
+    "action": {
+      "left": 563.3893432617188,
+      "top": 513.8316650390625,
+      "right": 757.9362182617188,
+      "bottom": 542.3316650390625,
+      "width": 194.546875,
+      "height": 28.5
+    },
+    "skip": {
+      "left": 1228,
+      "top": 850.6666870117188,
+      "right": 1297.3333358764648,
+      "bottom": 880.000020980835,
+      "width": 69.33333587646484,
+      "height": 29.33333396911621
+    },
+    "viewport": {
+      "width": 1321,
+      "height": 900
+    }
+  },
+  "awakening": {
+    "state": "awakening",
+    "brand": "FAIRY",
+    "subtitle": "HOLLOW DEEP DIVE ESYSTEM",
+    "phase": "需要访问许可",
+    "eyeHidden": false,
+    "identity": "身份名称法厄同身份编号0000权限等级3",
+    "videoCount": 0,
+    "images": [
+      {
+        "width": 629,
+        "src": "file:///F:/Codex/2026-10-12/dui/work/github-dsh-fairy-ui/desktop-startup/media/hdd-mark.png"
+      },
+      {
+        "width": 1223,
+        "src": "file:///F:/Codex/2026-10-12/dui/work/github-dsh-fairy-ui/desktop-startup/media/hdd-wordmark.png"
+      }
+    ],
+    "stage": {
+      "left": 165.1705780029297,
+      "top": 171.28515625,
+      "right": 1156.1627655029297,
+      "bottom": 728.71484375,
+      "width": 990.9921875,
+      "height": 557.4296875
+    },
+    "action": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0,
+      "width": 0,
+      "height": 0
+    },
+    "skip": {
+      "left": 1228,
+      "top": 850.6666870117188,
+      "right": 1297.3333358764648,
+      "bottom": 880.000020980835,
+      "width": 69.33333587646484,
+      "height": 29.33333396911621
+    },
+    "viewport": {
+      "width": 1321,
+      "height": 900
+    }
+  },
+  "identity": {
+    "state": "identity",
+    "brand": "FAIRY",
+    "subtitle": "HOLLOW DEEP DIVE ESYSTEM",
+    "phase": "身份资料确认",
+    "eyeHidden": false,
+    "identity": "身份名称\n法厄同\n身份编号\n0000\n权限等级\n3",
+    "videoCount": 0,
+    "images": [
+      {
+        "width": 629,
+        "src": "file:///F:/Codex/2026-10-12/dui/work/github-dsh-fairy-ui/desktop-startup/media/hdd-mark.png"
+      },
+      {
+        "width": 1223,
+        "src": "file:///F:/Codex/2026-10-12/dui/work/github-dsh-fairy-ui/desktop-startup/media/hdd-wordmark.png"
+      }
+    ],
+    "stage": {
+      "left": 165.1705780029297,
+      "top": 171.28515625,
+      "right": 1156.1627655029297,
+      "bottom": 728.71484375,
+      "width": 990.9921875,
+      "height": 557.4296875
+    },
+    "action": {
+      "left": 564.3893432617188,
+      "top": 611.4434814453125,
+      "right": 756.9362182617188,
+      "bottom": 639.9434814453125,
+      "width": 192.546875,
+      "height": 28.5
+    },
+    "skip": {
+      "left": 1228,
+      "top": 850.6666870117188,
+      "right": 1297.3333358764648,
+      "bottom": 880.000020980835,
+      "width": 69.33333587646484,
+      "height": 29.33333396911621
+    },
+    "viewport": {
+      "width": 1321,
+      "height": 900
+    }
+  },
+  "final": {
+    "state": "ended",
+    "brand": "FAIRY",
+    "subtitle": "HOLLOW DEEP DIVE ESYSTEM",
+    "phase": "欢迎法厄同访问",
+    "eyeHidden": false,
+    "identity": "身份名称法厄同身份编号0000权限等级3",
+    "videoCount": 0,
+    "images": [
+      {
+        "width": 629,
+        "src": "file:///F:/Codex/2026-10-12/dui/work/github-dsh-fairy-ui/desktop-startup/media/hdd-mark.png"
+      },
+      {
+        "width": 1223,
+        "src": "file:///F:/Codex/2026-10-12/dui/work/github-dsh-fairy-ui/desktop-startup/media/hdd-wordmark.png"
+      }
+    ],
+    "stage": {
+      "left": 165.1705780029297,
+      "top": 171.28515625,
+      "right": 1156.1627655029297,
+      "bottom": 728.71484375,
+      "width": 990.9921875,
+      "height": 557.4296875
+    },
+    "action": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0,
+      "width": 0,
+      "height": 0
+    },
+    "skip": {
+      "left": 1228,
+      "top": 850.6666870117188,
+      "right": 1297.3333358764648,
+      "bottom": 880.000020980835,
+      "width": 69.33333587646484,
+      "height": 29.33333396911621
+    },
+    "viewport": {
+      "width": 1321,
+      "height": 900
+    }
+  },
+  "finalFrameHeld": true,
+  "events": [
+    {
+      "event": "splash-created",
+      "elapsedMs": 32
+    },
+    {
+      "event": "overlay-bound",
+      "elapsedMs": 59
+    },
+    {
+      "event": "main-show-requested",
+      "elapsedMs": 139
+    },
+    {
+      "event": "sequence-running",
+      "elapsedMs": 142
+    },
+    {
+      "event": "main-shown",
+      "elapsedMs": 166,
+      "playbackDone": false,
+      "mainReady": false,
+      "covered": true
+    },
+    {
+      "event": "splash-shown",
+      "elapsedMs": 182
+    },
+    {
+      "event": "sequence-awaiting-input",
+      "elapsedMs": 1960
+    },
+    {
+      "event": "sequence-running",
+      "elapsedMs": 2699
+    },
+    {
+      "event": "sequence-awaiting-input",
+      "elapsedMs": 3607
+    },
+    {
+      "event": "sequence-running",
+      "elapsedMs": 4356
+    },
+    {
+      "event": "sequence-ended",
+      "elapsedMs": 12107
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 15331
+    },
+    {
+      "event": "overlay-removed",
+      "elapsedMs": 15342,
+      "playbackDone": true,
+      "mainReady": true
+    }
+  ],
+  "overlayRemovedAfterBothGates": true
+}

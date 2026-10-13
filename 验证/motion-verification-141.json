@@ -1,0 +1,146 @@
+{
+  "version": "1.4.1",
+  "isolated": true,
+  "renderer": "Electron",
+  "measurements": [
+    {
+      "viewport": [
+        1320,
+        900
+      ],
+      "before": {
+        "state": "intro",
+        "stage": 1320,
+        "mark": 550,
+        "wordmark": 1000,
+        "gap": 36.08,
+        "seal": 1,
+        "eye": 1,
+        "title": {
+          "animation": "none",
+          "opacity": 1,
+          "clip": "none"
+        },
+        "video": 0
+      },
+      "after": {
+        "state": "intro",
+        "stage": 1320,
+        "mark": 412.5,
+        "wordmark": 750,
+        "gap": 27.06,
+        "seal": 0,
+        "eye": 1,
+        "title": {
+          "animation": "none",
+          "opacity": 1,
+          "clip": "none"
+        },
+        "video": 0
+      },
+      "ratios": {
+        "mark": 0.75,
+        "wordmark": 0.75,
+        "gap": 0.75
+      }
+    },
+    {
+      "viewport": [
+        620,
+        620
+      ],
+      "before": {
+        "state": "intro",
+        "stage": 620,
+        "mark": 372,
+        "wordmark": 539.391,
+        "gap": 24.88,
+        "seal": 1,
+        "eye": 1,
+        "title": {
+          "animation": "none",
+          "opacity": 1,
+          "clip": "none"
+        },
+        "video": 0
+      },
+      "after": {
+        "state": "intro",
+        "stage": 620,
+        "mark": 279,
+        "wordmark": 404.547,
+        "gap": 18.66,
+        "seal": 0,
+        "eye": 1,
+        "title": {
+          "animation": "none",
+          "opacity": 1,
+          "clip": "none"
+        },
+        "video": 0
+      },
+      "ratios": {
+        "mark": 0.75,
+        "wordmark": 0.7500069522850772,
+        "gap": 0.75
+      }
+    },
+    {
+      "viewport": [
+        920,
+        520
+      ],
+      "before": {
+        "state": "intro",
+        "stage": 920,
+        "mark": 550,
+        "wordmark": 800.391,
+        "gap": 20.88,
+        "seal": 1,
+        "eye": 1,
+        "title": {
+          "animation": "none",
+          "opacity": 1,
+          "clip": "none"
+        },
+        "video": 0
+      },
+      "after": {
+        "state": "intro",
+        "stage": 920,
+        "mark": 412.5,
+        "wordmark": 600.297,
+        "gap": 15.66,
+        "seal": 0,
+        "eye": 1,
+        "title": {
+          "animation": "none",
+          "opacity": 1,
+          "clip": "none"
+        },
+        "video": 0
+      },
+      "ratios": {
+        "mark": 0.75,
+        "wordmark": 0.7500046852101037,
+        "gap": 0.75
+      }
+    }
+  ],
+  "titleEarly": {
+    "animation": "fairy-title-in-a",
+    "opacity": 0,
+    "clip": "inset(0px 100% 0px 0px)"
+  },
+  "titleSettled": {
+    "animation": "fairy-title-in-a",
+    "opacity": 1,
+    "clip": "inset(0px 0% 0px 0px)"
+  },
+  "reducedMotion": {
+    "matches": true,
+    "animated": []
+  },
+  "terminalAnimations": [],
+  "cleanup": true
+}

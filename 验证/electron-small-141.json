@@ -1,0 +1,255 @@
+{
+  "version": "1.4.1",
+  "mode": "small",
+  "errors": [],
+  "mediaRequests": [],
+  "initial": {
+    "state": "permission",
+    "brand": "HDD",
+    "subtitle": "HOLLOW DEEP DIVE ESYSTEM",
+    "phase": "需要访问许可",
+    "eyeHidden": true,
+    "identity": "身份名称法厄同身份编号0000权限等级3",
+    "videoCount": 0,
+    "images": [
+      {
+        "width": 629,
+        "src": "file:///F:/Codex/2026-10-12/dui/work/github-dsh-fairy-ui/desktop-startup/media/hdd-mark.png"
+      },
+      {
+        "width": 1223,
+        "src": "file:///F:/Codex/2026-10-12/dui/work/github-dsh-fairy-ui/desktop-startup/media/hdd-wordmark.png"
+      }
+    ],
+    "stage": {
+      "left": 0,
+      "top": 0,
+      "right": 622,
+      "bottom": 620,
+      "width": 622,
+      "height": 620
+    },
+    "action": {
+      "left": 181.30209350585938,
+      "top": 362.29168701171875,
+      "right": 440.69793701171875,
+      "bottom": 400.29168701171875,
+      "width": 259.3958435058594,
+      "height": 38
+    },
+    "skip": {
+      "left": 528.6666870117188,
+      "top": 570.6666870117188,
+      "right": 598.0000228881836,
+      "bottom": 600.000020980835,
+      "width": 69.33333587646484,
+      "height": 29.33333396911621
+    },
+    "viewport": {
+      "width": 622,
+      "height": 620
+    }
+  },
+  "awakening": {
+    "state": "awakening",
+    "brand": "FAIRY",
+    "subtitle": "HOLLOW DEEP DIVE ESYSTEM",
+    "phase": "需要访问许可",
+    "eyeHidden": false,
+    "identity": "身份名称法厄同身份编号0000权限等级3",
+    "videoCount": 0,
+    "images": [
+      {
+        "width": 629,
+        "src": "file:///F:/Codex/2026-10-12/dui/work/github-dsh-fairy-ui/desktop-startup/media/hdd-mark.png"
+      },
+      {
+        "width": 1223,
+        "src": "file:///F:/Codex/2026-10-12/dui/work/github-dsh-fairy-ui/desktop-startup/media/hdd-wordmark.png"
+      }
+    ],
+    "stage": {
+      "left": 0,
+      "top": 0,
+      "right": 622,
+      "bottom": 620,
+      "width": 622,
+      "height": 620
+    },
+    "action": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0,
+      "width": 0,
+      "height": 0
+    },
+    "skip": {
+      "left": 528.6666870117188,
+      "top": 570.6666870117188,
+      "right": 598.0000228881836,
+      "bottom": 600.000020980835,
+      "width": 69.33333587646484,
+      "height": 29.33333396911621
+    },
+    "viewport": {
+      "width": 622,
+      "height": 620
+    }
+  },
+  "identity": {
+    "state": "identity",
+    "brand": "FAIRY",
+    "subtitle": "HOLLOW DEEP DIVE ESYSTEM",
+    "phase": "身份资料确认",
+    "eyeHidden": false,
+    "identity": "身份名称\n法厄同\n身份编号\n0000\n权限等级\n3",
+    "videoCount": 0,
+    "images": [
+      {
+        "width": 629,
+        "src": "file:///F:/Codex/2026-10-12/dui/work/github-dsh-fairy-ui/desktop-startup/media/hdd-mark.png"
+      },
+      {
+        "width": 1223,
+        "src": "file:///F:/Codex/2026-10-12/dui/work/github-dsh-fairy-ui/desktop-startup/media/hdd-wordmark.png"
+      }
+    ],
+    "stage": {
+      "left": 0,
+      "top": 0,
+      "right": 622,
+      "bottom": 620,
+      "width": 622,
+      "height": 620
+    },
+    "action": {
+      "left": 182.6354217529297,
+      "top": 493.34771728515625,
+      "right": 439.36460876464844,
+      "bottom": 531.3477172851562,
+      "width": 256.72918701171875,
+      "height": 38
+    },
+    "skip": {
+      "left": 528.6666870117188,
+      "top": 570.6666870117188,
+      "right": 598.0000228881836,
+      "bottom": 600.000020980835,
+      "width": 69.33333587646484,
+      "height": 29.33333396911621
+    },
+    "viewport": {
+      "width": 622,
+      "height": 620
+    }
+  },
+  "final": {
+    "state": "ended",
+    "brand": "FAIRY",
+    "subtitle": "HOLLOW DEEP DIVE ESYSTEM",
+    "phase": "欢迎法厄同访问",
+    "eyeHidden": false,
+    "identity": "身份名称法厄同身份编号0000权限等级3",
+    "videoCount": 0,
+    "images": [
+      {
+        "width": 629,
+        "src": "file:///F:/Codex/2026-10-12/dui/work/github-dsh-fairy-ui/desktop-startup/media/hdd-mark.png"
+      },
+      {
+        "width": 1223,
+        "src": "file:///F:/Codex/2026-10-12/dui/work/github-dsh-fairy-ui/desktop-startup/media/hdd-wordmark.png"
+      }
+    ],
+    "stage": {
+      "left": 0,
+      "top": 0,
+      "right": 622,
+      "bottom": 620,
+      "width": 622,
+      "height": 620
+    },
+    "action": {
+      "left": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0,
+      "width": 0,
+      "height": 0
+    },
+    "skip": {
+      "left": 528.6666870117188,
+      "top": 570.6666870117188,
+      "right": 598.0000228881836,
+      "bottom": 600.000020980835,
+      "width": 69.33333587646484,
+      "height": 29.33333396911621
+    },
+    "viewport": {
+      "width": 622,
+      "height": 620
+    }
+  },
+  "finalFrameHeld": true,
+  "events": [
+    {
+      "event": "splash-created",
+      "elapsedMs": 31
+    },
+    {
+      "event": "overlay-bound",
+      "elapsedMs": 48
+    },
+    {
+      "event": "main-show-requested",
+      "elapsedMs": 146
+    },
+    {
+      "event": "main-shown",
+      "elapsedMs": 154,
+      "playbackDone": false,
+      "mainReady": false,
+      "covered": true
+    },
+    {
+      "event": "splash-shown",
+      "elapsedMs": 170
+    },
+    {
+      "event": "sequence-running",
+      "elapsedMs": 172
+    },
+    {
+      "event": "sequence-awaiting-input",
+      "elapsedMs": 1968
+    },
+    {
+      "event": "sequence-running",
+      "elapsedMs": 2977
+    },
+    {
+      "event": "sequence-awaiting-input",
+      "elapsedMs": 3887
+    },
+    {
+      "event": "sequence-running",
+      "elapsedMs": 4570
+    },
+    {
+      "event": "sequence-ended",
+      "elapsedMs": 12329
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 15134
+    },
+    {
+      "event": "overlay-removed",
+      "elapsedMs": 15148,
+      "playbackDone": true,
+      "mainReady": true
+    }
+  ],
+  "overlayRemovedAfterBothGates": true
+}
