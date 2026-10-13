@@ -1,0 +1,176 @@
+{
+  "version": "1.3.0",
+  "mode": "small",
+  "preferences": {
+    "variant": "archive",
+    "aspectRatio": "auto",
+    "scale": 100,
+    "fit": "cover"
+  },
+  "errors": [],
+  "at3": {
+    "variant": "archive",
+    "state": "playing",
+    "time": 2.978179,
+    "duration": 13.002993,
+    "paused": false,
+    "ended": false,
+    "loop": false,
+    "fit": "cover",
+    "video": {
+      "width": 580.6666870117188,
+      "height": 318.66668701171875
+    },
+    "stage": {
+      "width": 582,
+      "height": 320
+    },
+    "phase": "SIGNAL\nSYNC",
+    "progress": "scaleX(0.214992)",
+    "rootBg": "rgb(229, 227, 223)"
+  },
+  "narrow": {
+    "width": 622,
+    "height": 620,
+    "stage": {
+      "left": 20,
+      "top": 174,
+      "bottom": 494,
+      "width": 582,
+      "height": 320
+    },
+    "footer": {
+      "top": 541,
+      "bottom": 598
+    },
+    "button": {
+      "right": 602.0000228881836,
+      "bottom": 593.09375
+    }
+  },
+  "at6": {
+    "variant": "archive",
+    "state": "playing",
+    "time": 7.165716,
+    "duration": 13.002993,
+    "paused": false,
+    "ended": false,
+    "loop": false,
+    "fit": "cover",
+    "video": {
+      "width": 642.6666870117188,
+      "height": 298.66668701171875
+    },
+    "stage": {
+      "width": 644,
+      "height": 300
+    },
+    "phase": "NEURAL\nINTERFACE",
+    "progress": "scaleX(0.541804)",
+    "rootBg": "rgb(229, 227, 223)"
+  },
+  "short": {
+    "width": 922,
+    "height": 520,
+    "stage": {
+      "top": 94,
+      "bottom": 394,
+      "height": 300
+    },
+    "footer": {
+      "top": 441,
+      "bottom": 498
+    }
+  },
+  "at14": {
+    "variant": "archive",
+    "state": "ended",
+    "time": 13.002993,
+    "duration": 13.002993,
+    "paused": true,
+    "ended": true,
+    "loop": false,
+    "fit": "cover",
+    "video": {
+      "width": 642.6666870117188,
+      "height": 298.66668701171875
+    },
+    "stage": {
+      "width": 644,
+      "height": 300
+    },
+    "phase": "WELCOME\nBACK",
+    "progress": "scaleX(1)",
+    "rootBg": "rgb(229, 227, 223)"
+  },
+  "frameA": "bedbc33085676897a70e4297715255dfab8c2a2725e7932f50c136364c4ba829",
+  "at16": {
+    "variant": "archive",
+    "state": "ended",
+    "time": 13.002993,
+    "duration": 13.002993,
+    "paused": true,
+    "ended": true,
+    "loop": false,
+    "fit": "cover",
+    "video": {
+      "width": 642.6666870117188,
+      "height": 298.66668701171875
+    },
+    "stage": {
+      "width": 644,
+      "height": 300
+    },
+    "phase": "WELCOME\nBACK",
+    "progress": "scaleX(1)",
+    "rootBg": "rgb(229, 227, 223)"
+  },
+  "frameB": "bedbc33085676897a70e4297715255dfab8c2a2725e7932f50c136364c4ba829",
+  "finalFrameHeld": true,
+  "hostVisible": true,
+  "overlayRemoved": true,
+  "events": [
+    {
+      "event": "splash-created",
+      "elapsedMs": 30
+    },
+    {
+      "event": "overlay-bound",
+      "elapsedMs": 57
+    },
+    {
+      "event": "main-shown",
+      "elapsedMs": 133,
+      "playbackDone": false,
+      "mainReady": false,
+      "covered": true
+    },
+    {
+      "event": "splash-shown",
+      "elapsedMs": 148
+    },
+    {
+      "event": "main-show-requested",
+      "elapsedMs": 151
+    },
+    {
+      "event": "video-playing",
+      "elapsedMs": 254
+    },
+    {
+      "event": "video-ended",
+      "elapsedMs": 13316
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 22334
+    },
+    {
+      "event": "overlay-removed",
+      "elapsedMs": 22346,
+      "playbackDone": true,
+      "mainReady": true
+    }
+  ],
+  "isolated": true
+}

@@ -20,3 +20,5 @@ test('disabled native animation can be re-enabled from the retained settings UI'
 
 test('saved aspect ratio and scale are returned through native IPC',()=>{const h=host({aspectRatio:'4:3',scale:82,fit:'contain'});const p=h.handlers['fairy-ui-native:data'](h.sender);assert.equal(p.aspectRatio,'4:3');assert.equal(p.scale,82);assert.equal(p.fit,'contain');h.n.dispose()});
 test('settings persistence retains new display options',async()=>{const preferences={enabled:false},h=host(preferences),callbacks={};const window={isDestroyed:()=>false,on:(n,f)=>callbacks[n]=f,webContents:{setBackgroundThrottling(){},executeJavaScript:async()=>({enabled:true,aspectRatio:'16:10',scale:90,fit:'contain'})},show(){},focus(){}};h.n.attach(window);h.n.requestShow(window);callbacks.close();await new Promise(r=>setImmediate(r));assert.equal(preferences.saved.aspectRatio,'16:10');assert.equal(preferences.saved.scale,90);assert.equal(preferences.saved.fit,'contain');h.n.dispose()});
+
+test('chosen archive style survives native settings snapshot',()=>{const h=host({variant:'archive'});assert.equal(h.handlers['fairy-ui-native:data'](h.sender).variant,'archive');h.n.dispose()});

@@ -1,0 +1,74 @@
+{
+  "version": "1.3.0",
+  "isolated": true,
+  "restart": {
+    "style": "archive",
+    "time": 0.693612,
+    "loop": false,
+    "stage": true
+  },
+  "main": {
+    "ready": true,
+    "visual": true,
+    "automaticWebOverlay": false
+  },
+  "events": [
+    {
+      "event": "splash-created",
+      "elapsedMs": 25
+    },
+    {
+      "event": "overlay-bound",
+      "elapsedMs": 67
+    },
+    {
+      "event": "main-shown",
+      "elapsedMs": 172,
+      "playbackDone": false,
+      "mainReady": false,
+      "covered": true
+    },
+    {
+      "event": "splash-shown",
+      "elapsedMs": 187
+    },
+    {
+      "event": "video-playing",
+      "elapsedMs": 340
+    },
+    {
+      "event": "overlay-bound",
+      "elapsedMs": 2219
+    },
+    {
+      "event": "main-shown",
+      "elapsedMs": 2222,
+      "playbackDone": false,
+      "mainReady": false,
+      "covered": true
+    },
+    {
+      "event": "main-show-requested",
+      "elapsedMs": 2336
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 2340
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 2341
+    },
+    {
+      "event": "video-ended",
+      "elapsedMs": 13402
+    },
+    {
+      "event": "overlay-removed",
+      "elapsedMs": 13412,
+      "playbackDone": true,
+      "mainReady": true
+    }
+  ],
+  "settingsChoiceUsedOnNextStartup": true
+}

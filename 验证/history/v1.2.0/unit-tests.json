@@ -1,0 +1,16 @@
+{
+  "version": "1.2.0",
+  "date": "2026-10-13",
+  "passed": 47,
+  "failed": 0,
+  "command": "node --test test/*.test.cjs desktop-startup/*.test.cjs",
+  "covers": [
+    "owned overlay",
+    "window switch without replay",
+    "pre-show renderer failure recovery",
+    "single playback, final frame, ratios",
+    "composer layer and modal guard",
+    "Fairy preset registration and duplicate preservation",
+    "voice draft and offline dependencies"
+  ]
+}

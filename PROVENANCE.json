@@ -90,7 +90,7 @@
     "resources/app/startup.css": "b6c8a7cbcb1aaf77af964d095fbc204707e4f52788dc56d25828416dc1c9f063",
     "resources/app/startup.html": "6fa2e490a787fdb371b9811e2e38d63cb43c2036a6640d6aefe5a02fbcbdb8dd"
   },
-  "version": "1.2.0",
+  "version": "1.3.0",
   "startupPolicy": {
     "pauseDuringPlayback": false,
     "playOnce": true,
@@ -116,13 +116,20 @@
     "default": {
       "aspectRatio": "auto",
       "scale": 100,
-      "fit": "cover"
+      "fit": "cover",
+      "variant": "classic"
     },
     "fits": [
       "cover",
       "contain"
     ],
-    "affectsMainWindowSize": false
+    "affectsMainWindowSize": false,
+    "variants": [
+      "classic",
+      "archive"
+    ],
+    "variantUpgradePolicy": "missing or invalid variant retains classic",
+    "archiveScaleReference": "video stage, not main window"
   },
   "presetAdaptation": {
     "id": "fairy",
@@ -155,5 +162,20 @@
     "nativeDockZ": 7,
     "nativeStickyCodeBannerZ": 6,
     "markdownContentOrBehaviorChanged": false
+  },
+  "startupSkinReference": {
+    "archive": "dsh-startup-screen-1.1.0.zip",
+    "archiveSha256": "d86f8f937ec00503543f67cef43694d7e916524ae42c777ab61605c78b50b7bd",
+    "license": "MIT",
+    "copyright": "Copyright (c) 2026 沈宏宏",
+    "notice": "THIRD-PARTY-NOTICES.txt",
+    "adaptation": "archive typography, warm gray/orange palette and reticle; original Fairy video unchanged",
+    "excluded": [
+      "reference host code",
+      "reference identity flow",
+      "reference voice/TTS services",
+      "reference settings implementation"
+    ],
+    "motionClock": "original video.currentTime / duration; frozen at end"
   }
 }

@@ -1,12 +1,13 @@
 const fs=require('fs'),vm=require('vm'),assert=require('assert/strict'),{test}=require('node:test');
 function harness(settings={}){
+ const make=()=>({style:{},children:[],attrs:{},append(n){this.children.push(n)},setAttribute(k,v){this.attrs[k]=v},removeAttribute(k){delete this.attrs[k]},remove(){}});
  const listeners={},calls={play:0,src:0,finish:[],state:[],dismiss:0},elements={};let ready;
  const video={style:{},currentTime:0,paused:true,loop:true,addEventListener:(n,f)=>listeners[n]=f,pause(){this.paused=true},play(){calls.play++;this.paused=false;return Promise.resolve()}};
  Object.defineProperty(video,'src',{set(v){calls.src++;calls.url=v}});
- elements.animation=video;elements.status={};elements.fallback={};elements.skip={addEventListener:(n,f)=>listeners.skip=f,click:()=>listeners.skip()};
+ elements['startup-screen']=make();elements.animation=video;elements.status={};elements.fallback={};elements.skip={addEventListener:(n,f)=>listeners.skip=f,click:()=>listeners.skip()};
  const window={addEventListener(){},fairyStartup:{get:()=>Promise.resolve({url:'file:///video.mp4',...settings}),onMainReady:f=>ready=f,finished:r=>{calls.finish.push(r);return Promise.resolve()},dismiss:()=>{calls.dismiss++;return Promise.resolve()},playbackState:s=>{calls.state.push(s);return Promise.resolve()}}};
- vm.runInNewContext(fs.readFileSync(__dirname+'/startup.js','utf8'),{window,document:{getElementById:n=>elements[n]}});
- return {video,calls,status:elements.status,ready:r=>ready(r),tick:t=>{video.currentTime=t;listeners.timeupdate?.()},skip:()=>listeners.skip(),end:()=>listeners.ended(),fail:()=>listeners.error()};
+ vm.runInNewContext(fs.readFileSync(__dirname+'/startup-skin.js','utf8')+'\n'+fs.readFileSync(__dirname+'/startup.js','utf8'),{window,document:{getElementById:n=>elements[n],createElement:make}});
+ return {video,calls,root:elements['startup-screen'],status:elements.status,ready:r=>ready(r),tick:t=>{video.currentTime=t;listeners.timeupdate?.()},skip:()=>listeners.skip(),end:()=>listeners.ended(),fail:()=>listeners.error()};
 }
 const flush=()=>new Promise(r=>setImmediate(r));
 test('late readiness never pauses at five seconds or later',async()=>{const h=harness();await flush();for(const t of [4.99,5,5.01,6,8,12.9]){h.tick(t);assert.equal(h.video.paused,false)}assert.deepEqual(h.calls.state,['playing']);h.ready(true);h.ready(true);await flush();assert.equal(h.calls.play,1);assert.equal(h.calls.src,1);assert.equal(h.video.loop,false)});
@@ -20,3 +21,5 @@ test('skip before data reply never starts the video',async()=>{const h=harness()
 
 test('ratio and scaling apply without altering playback',async()=>{const h=harness({aspectRatio:'16:9',scale:75,fit:'contain'});await flush();assert.match(h.video.style.cssText,/width:min\(100vw/);assert.match(h.video.style.cssText,/object-fit:contain/);assert.match(h.video.style.cssText,/scale\(0.75\)/);h.tick(8);assert.equal(h.video.paused,false);assert.equal(h.calls.play,1)});
 test('default layout preserves original full-window cover and invalid values are sanitized',async()=>{const h=harness({aspectRatio:'bad',scale:'bad',fit:'bad'});await flush();assert.match(h.video.style.cssText,/width:100%;height:100%;object-fit:cover/);assert.match(h.video.style.cssText,/scale\(1\)/)});
+
+test('archive skin keeps single playback, progress and stable ended state while readiness changes',async()=>{const h=harness({variant:'archive',aspectRatio:'16:9',scale:80});await flush();assert.equal(h.root.attrs['data-fairy-startup-style'],'archive');assert.match(h.video.style.cssText,/100cqw/);h.tick(6);assert.equal(h.video.paused,false);h.tick(13);h.end();h.ready(false);h.ready(true);assert.equal(h.root.attrs['data-fairy-sequence-state'],'ended');assert.equal(h.calls.play,1);assert.equal(h.calls.src,1);assert.deepEqual(h.calls.finish,['ended'])});

@@ -1,0 +1,144 @@
+{
+  "version": "1.3.0",
+  "mode": "archive",
+  "preferences": {
+    "variant": "archive",
+    "aspectRatio": "auto",
+    "scale": 100,
+    "fit": "cover"
+  },
+  "errors": [],
+  "at3": {
+    "variant": "archive",
+    "state": "playing",
+    "time": 2.673014,
+    "duration": 13.002993,
+    "paused": false,
+    "ended": false,
+    "loop": false,
+    "fit": "cover",
+    "video": {
+      "width": 968,
+      "height": 662.6666870117188
+    },
+    "stage": {
+      "width": 969.3333740234375,
+      "height": 664
+    },
+    "phase": "SIGNAL\nSYNC",
+    "progress": "scaleX(0.194559)",
+    "rootBg": "rgb(229, 227, 223)"
+  },
+  "at6": {
+    "variant": "archive",
+    "state": "playing",
+    "time": 6.631752,
+    "duration": 13.002993,
+    "paused": false,
+    "ended": false,
+    "loop": false,
+    "fit": "cover",
+    "video": {
+      "width": 968,
+      "height": 662.6666870117188
+    },
+    "stage": {
+      "width": 969.3333740234375,
+      "height": 664
+    },
+    "phase": "NEURAL\nINTERFACE",
+    "progress": "scaleX(0.502046)",
+    "rootBg": "rgb(229, 227, 223)"
+  },
+  "at14": {
+    "variant": "archive",
+    "state": "ended",
+    "time": 13.002993,
+    "duration": 13.002993,
+    "paused": true,
+    "ended": true,
+    "loop": false,
+    "fit": "cover",
+    "video": {
+      "width": 968,
+      "height": 662.6666870117188
+    },
+    "stage": {
+      "width": 969.3333740234375,
+      "height": 664
+    },
+    "phase": "WELCOME\nBACK",
+    "progress": "scaleX(1)",
+    "rootBg": "rgb(229, 227, 223)"
+  },
+  "frameA": "870815d6ce878f77360203302ff207f6cec39625f4d7ad24275f4a4ae68ded37",
+  "at16": {
+    "variant": "archive",
+    "state": "ended",
+    "time": 13.002993,
+    "duration": 13.002993,
+    "paused": true,
+    "ended": true,
+    "loop": false,
+    "fit": "cover",
+    "video": {
+      "width": 968,
+      "height": 662.6666870117188
+    },
+    "stage": {
+      "width": 969.3333740234375,
+      "height": 664
+    },
+    "phase": "WELCOME\nBACK",
+    "progress": "scaleX(1)",
+    "rootBg": "rgb(229, 227, 223)"
+  },
+  "frameB": "870815d6ce878f77360203302ff207f6cec39625f4d7ad24275f4a4ae68ded37",
+  "finalFrameHeld": true,
+  "hostVisible": true,
+  "overlayRemoved": true,
+  "events": [
+    {
+      "event": "splash-created",
+      "elapsedMs": 33
+    },
+    {
+      "event": "overlay-bound",
+      "elapsedMs": 56
+    },
+    {
+      "event": "main-shown",
+      "elapsedMs": 134,
+      "playbackDone": false,
+      "mainReady": false,
+      "covered": true
+    },
+    {
+      "event": "splash-shown",
+      "elapsedMs": 150
+    },
+    {
+      "event": "main-show-requested",
+      "elapsedMs": 153
+    },
+    {
+      "event": "video-playing",
+      "elapsedMs": 252
+    },
+    {
+      "event": "video-ended",
+      "elapsedMs": 13313
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 21760
+    },
+    {
+      "event": "overlay-removed",
+      "elapsedMs": 21770,
+      "playbackDone": true,
+      "mainReady": true
+    }
+  ],
+  "isolated": true
+}

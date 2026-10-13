@@ -1,7 +1,7 @@
 {
   "name": "dsh-fairy-ui",
-  "version": "1.2.0",
-  "description": "Fairy HDD UI, owned startup overlay and optional Fairy Agent preset for DSH Desktop.",
+  "version": "1.3.0",
+  "description": "Fairy HDD UI, selectable classic/archive startup overlay and optional Fairy Agent preset for DSH Desktop.",
   "type": "module",
   "main": "./lib/index.js",
   "exports": {
@@ -17,7 +17,8 @@
     "cordis.patch.yml",
     "README.txt",
     "PROVENANCE.json",
-    "agent-presets"
+    "agent-presets",
+    "THIRD-PARTY-NOTICES.txt"
   ],
   "dsh": {
     "bundle": {
