@@ -30,7 +30,7 @@ try {
   if ($running.Count) { throw '请先保存工作并完全退出 DSH（包括系统托盘），再安装或卸载。工具不会强制结束进程。' }
   $dataHome = if ($DshHome) { [IO.Path]::GetFullPath($DshHome) } elseif ($env:DSH_HOME) { [IO.Path]::GetFullPath($env:DSH_HOME) } else { Join-Path $env:USERPROFILE '.dsh' }
   $profileDir = Join-Path $dataHome "profiles\$Profile"
-  $archive = Join-Path $PSScriptRoot 'dsh-fairy-ui-1.4.2.tgz'
+  $archive = Join-Path $PSScriptRoot 'dsh-fairy-ui-1.4.3.tgz'
   Write-Host "DSH 目录：$root"
   Write-Host "配置目录：$profileDir"
   if ($Action -eq 'Install') {
@@ -46,7 +46,7 @@ try {
     $result = & $node (Join-Path $PSScriptRoot 'install-plugin.cjs') install $profileDir $archive $root
     if ($LASTEXITCODE -ne 0) { throw '安装未完成，请保留上方报错；工具已尝试回滚。' }
     $report = ($result | Out-String) | ConvertFrom-Json
-    Write-Host '完成：Fairy 1.4.2 已离线安装，启动动画和界面插件已启用。' -ForegroundColor Green
+    Write-Host '完成：Fairy 1.4.3 已离线安装，启动动画和界面插件已启用。' -ForegroundColor Green
     if ($report.alreadyInstalled) { Write-Host '已安装相同内容，逐文件校验通过。' }
     Write-Host '保留 Fairy 可选 Agent 预设、单次覆盖启动、旧新版切换及语音模型设置。'
   } else {

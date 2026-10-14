@@ -90,7 +90,7 @@
     "resources/app/startup.css": "b6c8a7cbcb1aaf77af964d095fbc204707e4f52788dc56d25828416dc1c9f063",
     "resources/app/startup.html": "6fa2e490a787fdb371b9811e2e38d63cb43c2036a6640d6aefe5a02fbcbdb8dd"
   },
-  "version": "1.4.2",
+  "version": "1.4.3",
   "startupPolicy": {
     "pauseDuringPlayback": false,
     "playOnce": true,
@@ -242,5 +242,33 @@
     ],
     "archivePersistence": "profile/.fairy-local-packages",
     "testScope": "isolated native DOM Chromium and isolated PowerShell host only; no live model messages"
+  },
+  "branchLayout": {
+    "version": "1.4.3",
+    "date": "2026-10-14",
+    "source": "existing Git Graph semantic DOM attributes",
+    "operation": "position original chip next to plus; no branch execution or handlers replaced",
+    "preserves": [
+      "React DOM ownership",
+      "branch menu and dialogs",
+      "model/effort controls",
+      "workspace/Agent selection"
+    ],
+    "referenceScreenshot": "codex-clipboard-ff2b2372-795f-4b7f-b5bb-f65a7036f7ca.png"
+  },
+  "deliverableContrast": {
+    "version": "1.4.3",
+    "markers": [
+      "data-presented-file",
+      "data-presented-description",
+      "data-open-target"
+    ],
+    "scope": "Fairy visual enabled only; native static light fill replaced with alias surfaces; no host theme, file handlers or DOM ownership changes",
+    "preserved": [
+      "native preview and file actions",
+      "error description state",
+      "disabled action state",
+      "native appearance when Fairy visual disabled"
+    ]
   }
 }

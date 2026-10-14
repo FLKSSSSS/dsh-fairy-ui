@@ -1,0 +1,56 @@
+{
+  "version": "1.4.3",
+  "date": "2026-10-14",
+  "shell": "Windows PowerShell 5.1 (including inherited PowerShell 7 module path)",
+  "target": "isolated full original DSH copy (never launched)",
+  "profile": "synthetic isolated profile with billion-context@0.1.197 and other unavailable dependency",
+  "offline": true,
+  "sameVersionOldFilesReplaced": true,
+  "baseline": "captured immediately before this isolated test (user had installed plugin since historical baseline)",
+  "actions": [
+    {
+      "action": "Install",
+      "exitCode": 0,
+      "userVoiceModelsOtherPluginsPreserved": true,
+      "sessionSentinelPreserved": true,
+      "nativeStateVerified": true
+    },
+    {
+      "action": "Install",
+      "exitCode": 0,
+      "userVoiceModelsOtherPluginsPreserved": true,
+      "sessionSentinelPreserved": true,
+      "nativeStateVerified": true
+    },
+    {
+      "action": "RestoreNative",
+      "exitCode": 0,
+      "userVoiceModelsOtherPluginsPreserved": true,
+      "sessionSentinelPreserved": true,
+      "nativeStateVerified": true
+    },
+    {
+      "action": "Install",
+      "exitCode": 0,
+      "userVoiceModelsOtherPluginsPreserved": true,
+      "sessionSentinelPreserved": true,
+      "nativeStateVerified": true
+    },
+    {
+      "action": "Remove",
+      "exitCode": 0,
+      "userVoiceModelsOtherPluginsPreserved": true,
+      "sessionSentinelPreserved": true,
+      "nativeStateVerified": true
+    },
+    {
+      "action": "Remove",
+      "exitCode": 0,
+      "userVoiceModelsOtherPluginsPreserved": true,
+      "sessionSentinelPreserved": true,
+      "nativeStateVerified": true
+    }
+  ],
+  "productionBaselineUnchanged": true,
+  "realDshNotStopped": true
+}

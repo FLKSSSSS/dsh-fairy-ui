@@ -1,0 +1,818 @@
+{
+  "version": "1.4.3",
+  "cases": 24,
+  "scope": "isolated Electron semantic DOM fixture with original DSH Deliverables/OpenTargetButton CSS and actual Fairy injectStyles(); synthetic click counters, no actual file opened",
+  "checks": [
+    "dark/light contrast >=4.5",
+    "host dark flag present/absent",
+    "hover contrast",
+    "native error color",
+    "physical preview/open/more clicks",
+    "disabled button state",
+    "Fairy off restores native appearance"
+  ],
+  "nativeOff": {
+    "background": "rgb(250, 250, 250)",
+    "title": "rgb(24, 37, 49)",
+    "description": "rgb(116, 134, 148)",
+    "action": "rgb(24, 37, 49)",
+    "actionBackground": "rgba(0, 0, 0, 0)",
+    "error": "rgb(116, 134, 148)",
+    "previewPointer": "auto",
+    "actionsPointer": "auto"
+  },
+  "results": [
+    {
+      "theme": "dark",
+      "nativeDark": false,
+      "zoom": 1,
+      "width": 1280,
+      "normal": {
+        "background": "rgb(10, 24, 40)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(14, 36, 61)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.766004128497649,
+        "description": 8.969459627626197,
+        "action": 13.831692801656377
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "dark",
+      "nativeDark": false,
+      "zoom": 1,
+      "width": 900,
+      "normal": {
+        "background": "rgb(10, 24, 40)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(14, 36, 61)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.766004128497649,
+        "description": 8.969459627626197,
+        "action": 13.831692801656377
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "dark",
+      "nativeDark": false,
+      "zoom": 1,
+      "width": 600,
+      "normal": {
+        "background": "rgb(10, 24, 40)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(14, 36, 61)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.766004128497649,
+        "description": 8.969459627626197,
+        "action": 13.831692801656377
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "dark",
+      "nativeDark": false,
+      "zoom": 1.25,
+      "width": 1280,
+      "normal": {
+        "background": "rgb(10, 24, 40)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(14, 36, 61)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.766004128497649,
+        "description": 8.969459627626197,
+        "action": 13.831692801656377
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "dark",
+      "nativeDark": false,
+      "zoom": 1.25,
+      "width": 900,
+      "normal": {
+        "background": "rgb(10, 24, 40)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(14, 36, 61)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.766004128497649,
+        "description": 8.969459627626197,
+        "action": 13.831692801656377
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "dark",
+      "nativeDark": false,
+      "zoom": 1.25,
+      "width": 600,
+      "normal": {
+        "background": "rgb(10, 24, 40)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(14, 36, 61)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.766004128497649,
+        "description": 8.969459627626197,
+        "action": 13.831692801656377
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "dark",
+      "nativeDark": true,
+      "zoom": 1,
+      "width": 1280,
+      "normal": {
+        "background": "rgb(10, 24, 40)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(14, 36, 61)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.766004128497649,
+        "description": 8.969459627626197,
+        "action": 13.831692801656377
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "dark",
+      "nativeDark": true,
+      "zoom": 1,
+      "width": 900,
+      "normal": {
+        "background": "rgb(10, 24, 40)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(14, 36, 61)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.766004128497649,
+        "description": 8.969459627626197,
+        "action": 13.831692801656377
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "dark",
+      "nativeDark": true,
+      "zoom": 1,
+      "width": 600,
+      "normal": {
+        "background": "rgb(10, 24, 40)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(14, 36, 61)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.766004128497649,
+        "description": 8.969459627626197,
+        "action": 13.831692801656377
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "dark",
+      "nativeDark": true,
+      "zoom": 1.25,
+      "width": 1280,
+      "normal": {
+        "background": "rgb(10, 24, 40)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(14, 36, 61)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.766004128497649,
+        "description": 8.969459627626197,
+        "action": 13.831692801656377
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "dark",
+      "nativeDark": true,
+      "zoom": 1.25,
+      "width": 900,
+      "normal": {
+        "background": "rgb(10, 24, 40)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(14, 36, 61)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.766004128497649,
+        "description": 8.969459627626197,
+        "action": 13.831692801656377
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "dark",
+      "nativeDark": true,
+      "zoom": 1.25,
+      "width": 600,
+      "normal": {
+        "background": "rgb(10, 24, 40)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(14, 36, 61)",
+        "title": "rgb(232, 242, 250)",
+        "description": "rgb(168, 186, 201)",
+        "action": "rgb(232, 242, 250)",
+        "actionBackground": "rgb(14, 36, 61)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.766004128497649,
+        "description": 8.969459627626197,
+        "action": 13.831692801656377
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "light",
+      "nativeDark": false,
+      "zoom": 1,
+      "width": 1280,
+      "normal": {
+        "background": "rgb(255, 255, 255)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(237, 244, 248)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.608636115001463,
+        "description": 5.972378609513399,
+        "action": 14.045275575684572
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "light",
+      "nativeDark": false,
+      "zoom": 1,
+      "width": 900,
+      "normal": {
+        "background": "rgb(255, 255, 255)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(237, 244, 248)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.608636115001463,
+        "description": 5.972378609513399,
+        "action": 14.045275575684572
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "light",
+      "nativeDark": false,
+      "zoom": 1,
+      "width": 600,
+      "normal": {
+        "background": "rgb(255, 255, 255)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(237, 244, 248)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.608636115001463,
+        "description": 5.972378609513399,
+        "action": 14.045275575684572
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "light",
+      "nativeDark": false,
+      "zoom": 1.25,
+      "width": 1280,
+      "normal": {
+        "background": "rgb(255, 255, 255)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(237, 244, 248)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.608636115001463,
+        "description": 5.972378609513399,
+        "action": 14.045275575684572
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "light",
+      "nativeDark": false,
+      "zoom": 1.25,
+      "width": 900,
+      "normal": {
+        "background": "rgb(255, 255, 255)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(237, 244, 248)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.608636115001463,
+        "description": 5.972378609513399,
+        "action": 14.045275575684572
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "light",
+      "nativeDark": false,
+      "zoom": 1.25,
+      "width": 600,
+      "normal": {
+        "background": "rgb(255, 255, 255)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(237, 244, 248)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.608636115001463,
+        "description": 5.972378609513399,
+        "action": 14.045275575684572
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "light",
+      "nativeDark": true,
+      "zoom": 1,
+      "width": 1280,
+      "normal": {
+        "background": "rgb(255, 255, 255)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(237, 244, 248)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.608636115001463,
+        "description": 5.972378609513399,
+        "action": 14.045275575684572
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "light",
+      "nativeDark": true,
+      "zoom": 1,
+      "width": 900,
+      "normal": {
+        "background": "rgb(255, 255, 255)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(237, 244, 248)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.608636115001463,
+        "description": 5.972378609513399,
+        "action": 14.045275575684572
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "light",
+      "nativeDark": true,
+      "zoom": 1,
+      "width": 600,
+      "normal": {
+        "background": "rgb(255, 255, 255)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(237, 244, 248)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.608636115001463,
+        "description": 5.972378609513399,
+        "action": 14.045275575684572
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "light",
+      "nativeDark": true,
+      "zoom": 1.25,
+      "width": 1280,
+      "normal": {
+        "background": "rgb(255, 255, 255)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(237, 244, 248)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.608636115001463,
+        "description": 5.972378609513399,
+        "action": 14.045275575684572
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "light",
+      "nativeDark": true,
+      "zoom": 1.25,
+      "width": 900,
+      "normal": {
+        "background": "rgb(255, 255, 255)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(237, 244, 248)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.608636115001463,
+        "description": 5.972378609513399,
+        "action": 14.045275575684572
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    },
+    {
+      "theme": "light",
+      "nativeDark": true,
+      "zoom": 1.25,
+      "width": 600,
+      "normal": {
+        "background": "rgb(255, 255, 255)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "hovered": {
+        "background": "rgb(237, 244, 248)",
+        "title": "rgb(23, 37, 49)",
+        "description": "rgb(82, 102, 117)",
+        "action": "rgb(23, 37, 49)",
+        "actionBackground": "rgb(237, 244, 248)",
+        "error": "rgb(239, 119, 119)",
+        "previewPointer": "auto",
+        "actionsPointer": "auto"
+      },
+      "ratios": {
+        "title": 15.608636115001463,
+        "description": 5.972378609513399,
+        "action": 14.045275575684572
+      },
+      "physicalClicks": true,
+      "disabledPreserved": true
+    }
+  ]
+}
