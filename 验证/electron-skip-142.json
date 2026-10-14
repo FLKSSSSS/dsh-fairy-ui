@@ -1,0 +1,101 @@
+{
+  "version": "1.4.2",
+  "mode": "skip",
+  "errors": [],
+  "mediaRequests": [],
+  "initial": {
+    "state": "permission",
+    "brand": "HDD",
+    "subtitle": "HOLLOW DEEP DIVE ESYSTEM",
+    "phase": "需要访问许可",
+    "eyeHidden": true,
+    "identity": "身份名称法厄同身份编号0000权限等级3",
+    "videoCount": 0,
+    "images": [
+      {
+        "width": 629,
+        "src": "file:///F:/Codex/2026-10-12/dui/work/github-dsh-fairy-ui/desktop-startup/media/hdd-mark.png"
+      },
+      {
+        "width": 1223,
+        "src": "file:///F:/Codex/2026-10-12/dui/work/github-dsh-fairy-ui/desktop-startup/media/hdd-wordmark.png"
+      }
+    ],
+    "stage": {
+      "left": 0,
+      "top": 0,
+      "right": 1321.3333740234375,
+      "bottom": 900,
+      "width": 1321.3333740234375,
+      "height": 900
+    },
+    "action": {
+      "left": 530.96875,
+      "top": 529.024658203125,
+      "right": 790.3645935058594,
+      "bottom": 567.024658203125,
+      "width": 259.3958435058594,
+      "height": 38
+    },
+    "skip": {
+      "left": 1228,
+      "top": 850.6666870117188,
+      "right": 1297.3333358764648,
+      "bottom": 880.000020980835,
+      "width": 69.33333587646484,
+      "height": 29.33333396911621
+    },
+    "viewport": {
+      "width": 1321,
+      "height": 900
+    }
+  },
+  "events": [
+    {
+      "event": "splash-created",
+      "elapsedMs": 67
+    },
+    {
+      "event": "overlay-bound",
+      "elapsedMs": 111
+    },
+    {
+      "event": "main-show-requested",
+      "elapsedMs": 315
+    },
+    {
+      "event": "sequence-running",
+      "elapsedMs": 348
+    },
+    {
+      "event": "main-shown",
+      "elapsedMs": 390,
+      "playbackDone": false,
+      "mainReady": false,
+      "covered": true
+    },
+    {
+      "event": "splash-shown",
+      "elapsedMs": 424
+    },
+    {
+      "event": "sequence-awaiting-input",
+      "elapsedMs": 2179
+    },
+    {
+      "event": "user-skipped",
+      "elapsedMs": 3468
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 4809
+    },
+    {
+      "event": "overlay-removed",
+      "elapsedMs": 4851,
+      "playbackDone": true,
+      "mainReady": true
+    }
+  ],
+  "overlayRemovedAfterBothGates": true
+}

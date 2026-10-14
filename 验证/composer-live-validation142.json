@@ -1,0 +1,1082 @@
+[
+  {
+    "width": 1280,
+    "input": "",
+    "text": "",
+    "model": "模型 DeepSeek-V41-Flash，推理强度 High",
+    "modelRect": {
+      "x": 865.9896240234375,
+      "y": 776,
+      "width": 188.0104217529297,
+      "height": 28,
+      "top": 776,
+      "right": 1054.0000457763672,
+      "bottom": 804,
+      "left": 865.9896240234375
+    },
+    "rowWidth": 1000,
+    "labelDisplay": "block",
+    "controls": [
+      {
+        "text": "默认工作区",
+        "aria": "选择工作区",
+        "rect": {
+          "x": 292,
+          "y": 700,
+          "width": 117,
+          "height": 28,
+          "top": 700,
+          "right": 409,
+          "bottom": 728,
+          "left": 292
+        }
+      },
+      {
+        "text": "标准模式",
+        "aria": null,
+        "rect": {
+          "x": 292,
+          "y": 742,
+          "width": 106,
+          "height": 28,
+          "top": 742,
+          "right": 398,
+          "bottom": 770,
+          "left": 292
+        }
+      },
+      {
+        "text": "",
+        "aria": "添加文件或调用指令",
+        "rect": {
+          "x": 470,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 498,
+          "bottom": 804,
+          "left": 470
+        }
+      },
+      {
+        "text": "工作区内修改",
+        "aria": null,
+        "rect": {
+          "x": 292,
+          "y": 784,
+          "width": 126,
+          "height": 28,
+          "top": 784,
+          "right": 418,
+          "bottom": 812,
+          "left": 292
+        }
+      },
+      {
+        "text": "",
+        "aria": "发送消息",
+        "rect": {
+          "x": 1062,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 1090,
+          "bottom": 804,
+          "left": 1062
+        }
+      }
+    ]
+  },
+  {
+    "width": 1280,
+    "input": "1111",
+    "text": "",
+    "model": "模型 DeepSeek-V41-Flash，推理强度 High",
+    "modelRect": {
+      "x": 865.9896240234375,
+      "y": 776,
+      "width": 188.0104217529297,
+      "height": 28,
+      "top": 776,
+      "right": 1054.0000457763672,
+      "bottom": 804,
+      "left": 865.9896240234375
+    },
+    "rowWidth": 1000,
+    "labelDisplay": "block",
+    "controls": [
+      {
+        "text": "默认工作区",
+        "aria": "选择工作区",
+        "rect": {
+          "x": 292,
+          "y": 700,
+          "width": 117,
+          "height": 28,
+          "top": 700,
+          "right": 409,
+          "bottom": 728,
+          "left": 292
+        }
+      },
+      {
+        "text": "标准模式",
+        "aria": null,
+        "rect": {
+          "x": 292,
+          "y": 742,
+          "width": 106,
+          "height": 28,
+          "top": 742,
+          "right": 398,
+          "bottom": 770,
+          "left": 292
+        }
+      },
+      {
+        "text": "",
+        "aria": "添加文件或调用指令",
+        "rect": {
+          "x": 470,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 498,
+          "bottom": 804,
+          "left": 470
+        }
+      },
+      {
+        "text": "工作区内修改",
+        "aria": null,
+        "rect": {
+          "x": 292,
+          "y": 784,
+          "width": 126,
+          "height": 28,
+          "top": 784,
+          "right": 418,
+          "bottom": 812,
+          "left": 292
+        }
+      },
+      {
+        "text": "",
+        "aria": "发送消息",
+        "rect": {
+          "x": 1062,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 1090,
+          "bottom": 804,
+          "left": 1062
+        }
+      }
+    ]
+  },
+  {
+    "width": 1280,
+    "input": "第一行\n第二行\n第三行",
+    "text": "",
+    "model": "模型 DeepSeek-V41-Flash，推理强度 High",
+    "modelRect": {
+      "x": 865.9896240234375,
+      "y": 776,
+      "width": 188.0104217529297,
+      "height": 28,
+      "top": 776,
+      "right": 1054.0000457763672,
+      "bottom": 804,
+      "left": 865.9896240234375
+    },
+    "rowWidth": 1000,
+    "labelDisplay": "block",
+    "controls": [
+      {
+        "text": "默认工作区",
+        "aria": "选择工作区",
+        "rect": {
+          "x": 292,
+          "y": 700,
+          "width": 117,
+          "height": 28,
+          "top": 700,
+          "right": 409,
+          "bottom": 728,
+          "left": 292
+        }
+      },
+      {
+        "text": "标准模式",
+        "aria": null,
+        "rect": {
+          "x": 292,
+          "y": 742,
+          "width": 106,
+          "height": 28,
+          "top": 742,
+          "right": 398,
+          "bottom": 770,
+          "left": 292
+        }
+      },
+      {
+        "text": "",
+        "aria": "添加文件或调用指令",
+        "rect": {
+          "x": 470,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 498,
+          "bottom": 804,
+          "left": 470
+        }
+      },
+      {
+        "text": "工作区内修改",
+        "aria": null,
+        "rect": {
+          "x": 292,
+          "y": 784,
+          "width": 126,
+          "height": 28,
+          "top": 784,
+          "right": 418,
+          "bottom": 812,
+          "left": 292
+        }
+      },
+      {
+        "text": "",
+        "aria": "发送消息",
+        "rect": {
+          "x": 1062,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 1090,
+          "bottom": 804,
+          "left": 1062
+        }
+      }
+    ]
+  },
+  {
+    "width": 1280,
+    "input": "",
+    "text": "",
+    "model": "模型 DeepSeek-V41-Flash，推理强度 High",
+    "modelRect": {
+      "x": 865.9896240234375,
+      "y": 776,
+      "width": 188.0104217529297,
+      "height": 28,
+      "top": 776,
+      "right": 1054.0000457763672,
+      "bottom": 804,
+      "left": 865.9896240234375
+    },
+    "rowWidth": 1000,
+    "labelDisplay": "block",
+    "controls": [
+      {
+        "text": "默认工作区",
+        "aria": "选择工作区",
+        "rect": {
+          "x": 292,
+          "y": 700,
+          "width": 117,
+          "height": 28,
+          "top": 700,
+          "right": 409,
+          "bottom": 728,
+          "left": 292
+        }
+      },
+      {
+        "text": "标准模式",
+        "aria": null,
+        "rect": {
+          "x": 292,
+          "y": 742,
+          "width": 106,
+          "height": 28,
+          "top": 742,
+          "right": 398,
+          "bottom": 770,
+          "left": 292
+        }
+      },
+      {
+        "text": "",
+        "aria": "添加文件或调用指令",
+        "rect": {
+          "x": 470,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 498,
+          "bottom": 804,
+          "left": 470
+        }
+      },
+      {
+        "text": "工作区内修改",
+        "aria": null,
+        "rect": {
+          "x": 292,
+          "y": 784,
+          "width": 126,
+          "height": 28,
+          "top": 784,
+          "right": 418,
+          "bottom": 812,
+          "left": 292
+        }
+      },
+      {
+        "text": "",
+        "aria": "发送消息",
+        "rect": {
+          "x": 1062,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 1090,
+          "bottom": 804,
+          "left": 1062
+        }
+      }
+    ]
+  },
+  {
+    "width": 900,
+    "input": "",
+    "text": "",
+    "model": "模型 DeepSeek-V41-Flash，推理强度 High",
+    "modelRect": {
+      "x": 529.9896240234375,
+      "y": 776,
+      "width": 188.0104217529297,
+      "height": 28,
+      "top": 776,
+      "right": 718.0000457763672,
+      "bottom": 804,
+      "left": 529.9896240234375
+    },
+    "rowWidth": 900,
+    "labelDisplay": "block",
+    "controls": [
+      {
+        "text": "默认工作区",
+        "aria": "选择工作区",
+        "rect": {
+          "x": 12,
+          "y": 700,
+          "width": 108,
+          "height": 28,
+          "top": 700,
+          "right": 120,
+          "bottom": 728,
+          "left": 12
+        }
+      },
+      {
+        "text": "标准模式",
+        "aria": null,
+        "rect": {
+          "x": 12,
+          "y": 742,
+          "width": 106,
+          "height": 28,
+          "top": 742,
+          "right": 118,
+          "bottom": 770,
+          "left": 12
+        }
+      },
+      {
+        "text": "",
+        "aria": "添加文件或调用指令",
+        "rect": {
+          "x": 146,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 174,
+          "bottom": 804,
+          "left": 146
+        }
+      },
+      {
+        "text": "工作区内修改",
+        "aria": null,
+        "rect": {
+          "x": 12,
+          "y": 784,
+          "width": 108,
+          "height": 28,
+          "top": 784,
+          "right": 120,
+          "bottom": 812,
+          "left": 12
+        }
+      },
+      {
+        "text": "",
+        "aria": "发送消息",
+        "rect": {
+          "x": 726,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 754,
+          "bottom": 804,
+          "left": 726
+        }
+      }
+    ]
+  },
+  {
+    "width": 900,
+    "input": "1111",
+    "text": "",
+    "model": "模型 DeepSeek-V41-Flash，推理强度 High",
+    "modelRect": {
+      "x": 529.9896240234375,
+      "y": 776,
+      "width": 188.0104217529297,
+      "height": 28,
+      "top": 776,
+      "right": 718.0000457763672,
+      "bottom": 804,
+      "left": 529.9896240234375
+    },
+    "rowWidth": 900,
+    "labelDisplay": "block",
+    "controls": [
+      {
+        "text": "默认工作区",
+        "aria": "选择工作区",
+        "rect": {
+          "x": 12,
+          "y": 700,
+          "width": 108,
+          "height": 28,
+          "top": 700,
+          "right": 120,
+          "bottom": 728,
+          "left": 12
+        }
+      },
+      {
+        "text": "标准模式",
+        "aria": null,
+        "rect": {
+          "x": 12,
+          "y": 742,
+          "width": 106,
+          "height": 28,
+          "top": 742,
+          "right": 118,
+          "bottom": 770,
+          "left": 12
+        }
+      },
+      {
+        "text": "",
+        "aria": "添加文件或调用指令",
+        "rect": {
+          "x": 146,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 174,
+          "bottom": 804,
+          "left": 146
+        }
+      },
+      {
+        "text": "工作区内修改",
+        "aria": null,
+        "rect": {
+          "x": 12,
+          "y": 784,
+          "width": 108,
+          "height": 28,
+          "top": 784,
+          "right": 120,
+          "bottom": 812,
+          "left": 12
+        }
+      },
+      {
+        "text": "",
+        "aria": "发送消息",
+        "rect": {
+          "x": 726,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 754,
+          "bottom": 804,
+          "left": 726
+        }
+      }
+    ]
+  },
+  {
+    "width": 900,
+    "input": "第一行\n第二行\n第三行",
+    "text": "",
+    "model": "模型 DeepSeek-V41-Flash，推理强度 High",
+    "modelRect": {
+      "x": 529.9896240234375,
+      "y": 776,
+      "width": 188.0104217529297,
+      "height": 28,
+      "top": 776,
+      "right": 718.0000457763672,
+      "bottom": 804,
+      "left": 529.9896240234375
+    },
+    "rowWidth": 900,
+    "labelDisplay": "block",
+    "controls": [
+      {
+        "text": "默认工作区",
+        "aria": "选择工作区",
+        "rect": {
+          "x": 12,
+          "y": 700,
+          "width": 108,
+          "height": 28,
+          "top": 700,
+          "right": 120,
+          "bottom": 728,
+          "left": 12
+        }
+      },
+      {
+        "text": "标准模式",
+        "aria": null,
+        "rect": {
+          "x": 12,
+          "y": 742,
+          "width": 106,
+          "height": 28,
+          "top": 742,
+          "right": 118,
+          "bottom": 770,
+          "left": 12
+        }
+      },
+      {
+        "text": "",
+        "aria": "添加文件或调用指令",
+        "rect": {
+          "x": 146,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 174,
+          "bottom": 804,
+          "left": 146
+        }
+      },
+      {
+        "text": "工作区内修改",
+        "aria": null,
+        "rect": {
+          "x": 12,
+          "y": 784,
+          "width": 108,
+          "height": 28,
+          "top": 784,
+          "right": 120,
+          "bottom": 812,
+          "left": 12
+        }
+      },
+      {
+        "text": "",
+        "aria": "发送消息",
+        "rect": {
+          "x": 726,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 754,
+          "bottom": 804,
+          "left": 726
+        }
+      }
+    ]
+  },
+  {
+    "width": 900,
+    "input": "",
+    "text": "",
+    "model": "模型 DeepSeek-V41-Flash，推理强度 High",
+    "modelRect": {
+      "x": 529.9896240234375,
+      "y": 776,
+      "width": 188.0104217529297,
+      "height": 28,
+      "top": 776,
+      "right": 718.0000457763672,
+      "bottom": 804,
+      "left": 529.9896240234375
+    },
+    "rowWidth": 900,
+    "labelDisplay": "block",
+    "controls": [
+      {
+        "text": "默认工作区",
+        "aria": "选择工作区",
+        "rect": {
+          "x": 12,
+          "y": 700,
+          "width": 108,
+          "height": 28,
+          "top": 700,
+          "right": 120,
+          "bottom": 728,
+          "left": 12
+        }
+      },
+      {
+        "text": "标准模式",
+        "aria": null,
+        "rect": {
+          "x": 12,
+          "y": 742,
+          "width": 106,
+          "height": 28,
+          "top": 742,
+          "right": 118,
+          "bottom": 770,
+          "left": 12
+        }
+      },
+      {
+        "text": "",
+        "aria": "添加文件或调用指令",
+        "rect": {
+          "x": 146,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 174,
+          "bottom": 804,
+          "left": 146
+        }
+      },
+      {
+        "text": "工作区内修改",
+        "aria": null,
+        "rect": {
+          "x": 12,
+          "y": 784,
+          "width": 108,
+          "height": 28,
+          "top": 784,
+          "right": 120,
+          "bottom": 812,
+          "left": 12
+        }
+      },
+      {
+        "text": "",
+        "aria": "发送消息",
+        "rect": {
+          "x": 726,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 754,
+          "bottom": 804,
+          "left": 726
+        }
+      }
+    ]
+  },
+  {
+    "width": 600,
+    "input": "",
+    "text": "",
+    "model": "模型 DeepSeek-V41-Flash，推理强度 High",
+    "modelRect": {
+      "x": 361.9895935058594,
+      "y": 776,
+      "width": 188.0104217529297,
+      "height": 28,
+      "top": 776,
+      "right": 550.0000152587891,
+      "bottom": 804,
+      "left": 361.9895935058594
+    },
+    "rowWidth": 600,
+    "labelDisplay": "block",
+    "controls": [
+      {
+        "text": "默认工作区",
+        "aria": "选择工作区",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      {
+        "text": "标准模式",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      {
+        "text": "",
+        "aria": "添加文件或调用指令",
+        "rect": {
+          "x": 14,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 42,
+          "bottom": 804,
+          "left": 14
+        }
+      },
+      {
+        "text": "工作区内修改",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      {
+        "text": "",
+        "aria": "发送消息",
+        "rect": {
+          "x": 558,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 586,
+          "bottom": 804,
+          "left": 558
+        }
+      }
+    ]
+  },
+  {
+    "width": 600,
+    "input": "1111",
+    "text": "1111",
+    "model": "模型 DeepSeek-V41-Flash，推理强度 High",
+    "modelRect": {
+      "x": 361.9895935058594,
+      "y": 776,
+      "width": 188.0104217529297,
+      "height": 28,
+      "top": 776,
+      "right": 550.0000152587891,
+      "bottom": 804,
+      "left": 361.9895935058594
+    },
+    "rowWidth": 600,
+    "labelDisplay": "block",
+    "controls": [
+      {
+        "text": "默认工作区",
+        "aria": "选择工作区",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      {
+        "text": "标准模式",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      {
+        "text": "",
+        "aria": "添加文件或调用指令",
+        "rect": {
+          "x": 14,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 42,
+          "bottom": 804,
+          "left": 14
+        }
+      },
+      {
+        "text": "工作区内修改",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      {
+        "text": "",
+        "aria": "发送消息",
+        "rect": {
+          "x": 558,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 586,
+          "bottom": 804,
+          "left": 558
+        }
+      }
+    ]
+  },
+  {
+    "width": 600,
+    "input": "第一行\n第二行\n第三行",
+    "text": "\n",
+    "model": "模型 DeepSeek-V41-Flash，推理强度 High",
+    "modelRect": {
+      "x": 361.9895935058594,
+      "y": 776,
+      "width": 188.0104217529297,
+      "height": 28,
+      "top": 776,
+      "right": 550.0000152587891,
+      "bottom": 804,
+      "left": 361.9895935058594
+    },
+    "rowWidth": 600,
+    "labelDisplay": "block",
+    "controls": [
+      {
+        "text": "默认工作区",
+        "aria": "选择工作区",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      {
+        "text": "标准模式",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      {
+        "text": "",
+        "aria": "添加文件或调用指令",
+        "rect": {
+          "x": 14,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 42,
+          "bottom": 804,
+          "left": 14
+        }
+      },
+      {
+        "text": "工作区内修改",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      {
+        "text": "",
+        "aria": "发送消息",
+        "rect": {
+          "x": 558,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 586,
+          "bottom": 804,
+          "left": 558
+        }
+      }
+    ]
+  },
+  {
+    "width": 600,
+    "input": "",
+    "text": "\n",
+    "model": "模型 DeepSeek-V41-Flash，推理强度 High",
+    "modelRect": {
+      "x": 361.9895935058594,
+      "y": 776,
+      "width": 188.0104217529297,
+      "height": 28,
+      "top": 776,
+      "right": 550.0000152587891,
+      "bottom": 804,
+      "left": 361.9895935058594
+    },
+    "rowWidth": 600,
+    "labelDisplay": "block",
+    "controls": [
+      {
+        "text": "默认工作区",
+        "aria": "选择工作区",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      {
+        "text": "标准模式",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      {
+        "text": "",
+        "aria": "添加文件或调用指令",
+        "rect": {
+          "x": 14,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 42,
+          "bottom": 804,
+          "left": 14
+        }
+      },
+      {
+        "text": "工作区内修改",
+        "aria": null,
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        }
+      },
+      {
+        "text": "",
+        "aria": "发送消息",
+        "rect": {
+          "x": 558,
+          "y": 776,
+          "width": 28,
+          "height": 28,
+          "top": 776,
+          "right": 586,
+          "bottom": 804,
+          "left": 558
+        }
+      }
+    ]
+  }
+]

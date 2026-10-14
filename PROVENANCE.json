@@ -90,7 +90,7 @@
     "resources/app/startup.css": "b6c8a7cbcb1aaf77af964d095fbc204707e4f52788dc56d25828416dc1c9f063",
     "resources/app/startup.html": "6fa2e490a787fdb371b9811e2e38d63cb43c2036a6640d6aefe5a02fbcbdb8dd"
   },
-  "version": "1.4.1",
+  "version": "1.4.2",
   "startupPolicy": {
     "pauseDuringPlayback": false,
     "playOnce": true,
@@ -179,7 +179,7 @@
     "motionClock": "local timers for automatic effects; indefinite user confirmation wait; all effects stop at final state"
   },
   "interactiveStartup": {
-    "version": "1.4.1",
+    "version": "1.4.2",
     "identity": "法厄同",
     "identityId": "0000",
     "accessLevel": "3",
@@ -203,6 +203,20 @@
       "title": "莱茵生命DeepSeekHarness启动动画",
       "url": "https://www.bilibili.com/video/BV1erpE6qEPU",
       "use": "motion timing and reveal direction reference only; local interactive DOM/SVG/CSS; no reference video, audio or artwork included"
+    },
+    "endTransition": {
+      "type": "native overlay opacity fade to loaded host",
+      "durationMs": 480,
+      "afterBothGates": true,
+      "classicUnchanged": true
     }
+  },
+  "modelControl": {
+    "source": "dsh-reasoning-effort 0.8.1",
+    "author": "HanaAyane",
+    "license": "MIT",
+    "upstream": "https://github.com/HanaAyane/dsh-reasoning-effort",
+    "adaptation": "slider/radiation visuals only; isolated Fairy CSS prefix, native ModelDirectory state and writes, unsupported levels filtered, no credential mutation",
+    "licenseFile": "licenses/dsh-reasoning-effort-MIT.txt"
   }
 }

@@ -1,0 +1,96 @@
+{
+  "version": "1.4.2",
+  "isolated": true,
+  "restart": {
+    "state": "permission",
+    "style": "archive",
+    "videos": 0,
+    "brand": "HDD"
+  },
+  "main": {
+    "ready": true,
+    "visual": true,
+    "automaticWebOverlay": false
+  },
+  "events": [
+    {
+      "event": "splash-created",
+      "elapsedMs": 38
+    },
+    {
+      "event": "overlay-bound",
+      "elapsedMs": 105
+    },
+    {
+      "event": "main-shown",
+      "elapsedMs": 242,
+      "playbackDone": false,
+      "mainReady": false,
+      "covered": true
+    },
+    {
+      "event": "splash-shown",
+      "elapsedMs": 265
+    },
+    {
+      "event": "sequence-running",
+      "elapsedMs": 268
+    },
+    {
+      "event": "sequence-awaiting-input",
+      "elapsedMs": 2065
+    },
+    {
+      "event": "sequence-running",
+      "elapsedMs": 3167
+    },
+    {
+      "event": "overlay-bound",
+      "elapsedMs": 3664
+    },
+    {
+      "event": "main-shown",
+      "elapsedMs": 3676,
+      "playbackDone": false,
+      "mainReady": false,
+      "covered": true
+    },
+    {
+      "event": "main-show-requested",
+      "elapsedMs": 3842
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 3848
+    },
+    {
+      "event": "renderer-ready",
+      "elapsedMs": 3851
+    },
+    {
+      "event": "sequence-awaiting-input",
+      "elapsedMs": 4080
+    },
+    {
+      "event": "sequence-running",
+      "elapsedMs": 4285
+    },
+    {
+      "event": "sequence-ended",
+      "elapsedMs": 12060
+    },
+    {
+      "event": "overlay-fade-started",
+      "elapsedMs": 12061,
+      "durationMs": 480
+    },
+    {
+      "event": "overlay-removed",
+      "elapsedMs": 12568,
+      "playbackDone": true,
+      "mainReady": true
+    }
+  ],
+  "nativeFadeMs": 507,
+  "settingsChoiceUsedOnNextStartup": true
+}

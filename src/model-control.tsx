@@ -1,0 +1,659 @@
+/**
+ * Fairy model selector. Slider and radiation visuals adapted from
+ * dsh-reasoning-effort 0.8.1, Copyright (c) 2026 HanaAyane, MIT.
+ * See licenses/dsh-reasoning-effort-MIT.txt and THIRD-PARTY-NOTICES.txt.
+ * ModelDirectory remains the sole model/effort writer. No credentials/config mutation.
+ */
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react'
+import type { CSSProperties, KeyboardEvent as ReactKeyboardEvent } from 'react'
+import { CSS } from './model-control-styles'
+import { positionModelMenu } from './model-menu-position'
+type ModelDirectory = any
+type ModelDirectoryState = any
+type ReasoningEffortTranslate = (key: string, vars?: Record<string, unknown>) => string
+interface EffortLevel { readonly id: string; readonly name: string }
+export function sameRoute(a: any, b: any) { return a != null && b != null && a.provider === b.provider && a.model === b.model }
+export function makeModelSelection(provider: string, model: any) {
+  return { provider, model: model.id, ...(model.reasoning?.defaultEffort === undefined ? {} : { reasoningEffort: model.reasoning.defaultEffort }) }
+}
+const TEXT: Record<string,string> = {
+  'model.select': '选择模型', 'model.defaultEffort': '默认', 'model.loading': '正在读取模型…',
+  'effort.label': '推理强度', 'effort.title': '推理强度：{effort}', 'effort.failed': '调整失败：{error}',
+  'effort.unavailable': '当前模型不支持此强度，请重新选择。', 'effort.changed': '模型已变化，请重新调整强度。',
+}
+const t: ReasoningEffortTranslate = (key, vars = {}) => (TEXT[key] ?? key).replace(/\{(\w+)\}/g, (_, name) => String(vars[name] ?? ''))
+function currentModel(state: ModelDirectoryState) {
+  if (state.current === null) return undefined
+  const group = state.groups.find((candidate) => candidate.id === state.current?.provider)
+  return group?.models.find((candidate) => candidate.id === state.current?.model)
+}
+
+/**
+ * Effort levels the current model advertises, in adapter order. A model needs
+ * at least two before a slider says anything a plain label would not, so
+ * fewer-than-two collapses to none.
+ */
+function sliderLevels(state: ModelDirectoryState): readonly EffortLevel[] {
+  const efforts = currentModel(state)?.reasoning?.efforts
+  return efforts !== undefined && efforts.length >= 2 ? efforts : []
+}
+
+function effortIndex(levels: readonly EffortLevel[], id: string | undefined): number {
+  return levels.findIndex((level) => level.id === id)
+}
+
+function clampIndex(value: number, count: number): number {
+  return Math.max(0, Math.min(count - 1, Math.round(value)))
+}
+
+/**
+ * Level index the slider should rest at: the session's current effort when the
+ * model still offers it, else the adapter default, else the middle level.
+ */
+function effectiveEffortIndex(levels: readonly EffortLevel[], state: ModelDirectoryState): number {
+  const reasoning = currentModel(state)?.reasoning
+  const current = effortIndex(levels, state.current?.reasoningEffort)
+  if (current >= 0) return current
+  const fallback = effortIndex(levels, reasoning?.defaultEffort)
+  if (fallback >= 0) return fallback
+  return Math.floor((levels.length - 1) / 2)
+}
+
+interface RadiationState {
+  progress: number
+  dragging: boolean
+}
+
+function drawRadiation(
+  context: CanvasRenderingContext2D,
+  width: number,
+  height: number,
+  time: number,
+  state: RadiationState,
+): void {
+  const origin = state.progress * width
+  const isDark = document.body.hasAttribute('data-ds-dark-theme') || document.documentElement.dataset.dshFairyTheme === 'dark'
+  const cell = 4
+  const speed = state.dragging ? 2.8 : 1
+
+  context.clearRect(0, 0, width, height)
+  if (origin <= 0) return
+
+  context.save()
+  context.beginPath()
+  context.rect(0, 0, origin, height)
+  context.clip()
+
+  for (let x = 0; x < origin; x += cell) {
+    const delta = x + cell * 0.5 - origin
+    const distance = Math.abs(delta)
+    const phaseA = distance / 10 - time * 0.0074 * speed
+    const phaseB = distance / 23 - time * 0.0041 * speed + 1.7
+    const phaseC = distance / 40 - time * 0.0022 * speed + 3.4
+    const sinA = Math.max(0, Math.sin(phaseA))
+    const sinB = Math.max(0, Math.sin(phaseB))
+    const sinC = Math.max(0, Math.sin(phaseC))
+    const waveA = Math.pow(sinA, 2.6)
+    const waveB = Math.pow(sinB, 3.2)
+    const waveC = Math.pow(sinC, 4)
+    const crest = Math.pow(sinA, 15) + Math.pow(sinB, 18) * 0.78
+    const wave = Math.min(1, waveA * 0.76 + waveB * 0.58 + waveC * 0.32)
+    const trail = 0.38 + 0.62 * Math.exp(-distance / Math.max(55, width * 0.72))
+    const pillar = Math.pow(Math.max(0, Math.sin(x / 20 + time * 0.0016)), 3) * 0.27
+    const columnEnergy = trail * (wave * 1.04 + pillar + crest * 0.32)
+
+    if (columnEnergy > 0.012) {
+      const nearness = Math.max(0, 1 - distance / Math.max(1, width * 0.78))
+      const red = isDark
+        ? Math.round(42 + 124 * nearness + 75 * wave)
+        : Math.round(28 + 58 * nearness + 15 * wave)
+      const green = isDark
+        ? Math.round(56 + 58 * nearness + 44 * crest)
+        : Math.round(88 + 72 * nearness + 30 * crest)
+      const blue = isDark
+        ? Math.round(175 + 72 * nearness + 8 * wave)
+        : Math.round(182 + 62 * nearness)
+      const alpha = isDark
+        ? Math.min(0.88, columnEnergy * 0.72)
+        : Math.min(0.62, columnEnergy * 0.54)
+      context.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`
+      context.fillRect(x, 0, cell - 1, height)
+    }
+
+    for (let y = 0; y < height; y += cell) {
+      const deltaY = y + cell * 0.5 - height * 0.5
+      const radial = Math.hypot(delta / 38, deltaY / 11)
+      const halo = Math.exp(-radial * 0.96) * 1.08
+      const verticalShape = 0.58 + 0.42 * Math.cos((deltaY / height) * Math.PI)
+      const grain = 0.72 + 0.28 * Math.sin(x * 0.73 + y * 1.31 + time * 0.006)
+      const alpha = Math.min(0.96, (columnEnergy * 0.88 + halo + crest * 0.19) * verticalShape * grain)
+      if (alpha < 0.035) continue
+
+      const hot = Math.max(0, 1 - radial / 2.4)
+      const red = isDark
+        ? Math.round(54 + 148 * hot + 42 * wave + 35 * crest)
+        : Math.round(25 + 72 * hot + 12 * wave)
+      const green = isDark
+        ? Math.round(68 + 78 * hot + 46 * crest)
+        : Math.round(98 + 72 * hot + 24 * crest)
+      const blue = isDark
+        ? Math.round(186 + 64 * hot)
+        : Math.round(194 + 56 * hot)
+      context.fillStyle = `rgba(${red}, ${green}, ${blue}, ${isDark ? alpha : alpha * 0.72})`
+      context.fillRect(x, y, cell - 1, cell - 1)
+    }
+  }
+
+  for (let i = 0; i < 14; i += 1) {
+    const travel = (time * (state.dragging ? 0.16 : 0.065) * (0.78 + (i % 5) * 0.09) + i * 23) % Math.max(30, origin + 64)
+    const particleX = origin - travel
+    if (particleX < -24 || particleX > width + 16) continue
+    const particleY = 3 + ((i * 13 + Math.sin(time * 0.003 + i) * 5) % Math.max(7, height - 6))
+    const length = 4 + (i % 4) * 4 + (state.dragging ? 6 : 0)
+    const alpha = 0.28 + (i % 5) * 0.1
+    const streak = context.createLinearGradient(particleX, 0, particleX + length, 0)
+    streak.addColorStop(0, isDark ? 'rgba(72,118,255,0)' : 'rgba(24,94,184,0)')
+    streak.addColorStop(0.68, isDark ? `rgba(112,135,255,${alpha})` : `rgba(36,108,202,${alpha * 0.72})`)
+    streak.addColorStop(1, isDark ? `rgba(236,222,255,${Math.min(1, alpha + 0.26)})` : `rgba(103,175,248,${Math.min(0.82, alpha + 0.18)})`)
+    context.fillStyle = streak
+    context.fillRect(particleX, particleY, length, i % 3 === 0 ? 2 : 1)
+  }
+
+  const glow = context.createRadialGradient(origin, height / 2, 0, origin, height / 2, 24)
+  glow.addColorStop(0, isDark ? 'rgba(255,255,255,.82)' : 'rgba(255,255,255,.86)')
+  glow.addColorStop(0.14, isDark ? 'rgba(183,190,255,.54)' : 'rgba(162,210,255,.48)')
+  glow.addColorStop(0.44, isDark ? 'rgba(103,74,255,.28)' : 'rgba(37,112,207,.22)')
+  glow.addColorStop(1, isDark ? 'rgba(86,31,210,0)' : 'rgba(25,91,181,0)')
+  context.fillStyle = glow
+  context.fillRect(origin - 26, 0, 52, height)
+  context.restore()
+}
+
+function EffortSlider({ directory, t, locked }: { directory: ModelDirectory; t: ReasoningEffortTranslate; locked: boolean }) {
+  const directoryState = useSyncExternalStore(
+    (notify) => directory.store.subscribe(notify),
+    () => directory.store.getSnapshot(),
+  )
+  const levels = sliderLevels(directoryState)
+  const [effort, setEffort] = useState('')
+  const [preview, setPreview] = useState(0)
+  const [committing, setCommitting] = useState(false)
+  const [dragging, setDragging] = useState(false)
+  const [localError, setLocalError] = useState<string | null>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const committedRef = useRef('')
+  const committingRef = useRef(false)
+  const previewRef = useRef(0)
+  const draggingRef = useRef(false)
+  const pointerActiveRef = useRef(false)
+  const activePointerIdRef = useRef<number | null>(null)
+  const globalPointerMoveRef = useRef<((event: PointerEvent) => void) | null>(null)
+  const globalPointerEndRef = useRef<((event: PointerEvent) => void) | null>(null)
+  const globalPointerCancelRef = useRef<((event: PointerEvent) => void) | null>(null)
+  const radiationRef = useRef<RadiationState>({ progress: 0.5, dragging: false })
+  const redrawRef = useRef<(() => void) | null>(null)
+  const available = directoryState.current !== null && levels.length >= 2
+  const busy = locked || committing || directoryState.status === 'selecting' || directoryState.status === 'loading'
+  const error = localError ?? directoryState.error
+
+  useEffect(() => {
+    if (!available || committingRef.current || draggingRef.current) return
+    const index = effectiveEffortIndex(levels, directoryState)
+    const next = levels[index]?.id ?? ''
+    committedRef.current = next
+    previewRef.current = index
+    setEffort(next)
+    setPreview(index)
+    setLocalError(null)
+  }, [available, levels, directoryState])
+
+  useEffect(() => {
+    directory.load().catch(() => undefined)
+  }, [directory])
+
+  useEffect(() => {
+    previewRef.current = preview
+    radiationRef.current.progress = levels.length >= 2 ? preview / (levels.length - 1) : 0.5
+    redrawRef.current?.()
+  }, [preview, levels.length])
+
+  useEffect(() => {
+    radiationRef.current.dragging = dragging
+    redrawRef.current?.()
+  }, [dragging])
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (canvas === null) return
+    const context = canvas.getContext('2d')
+    if (context === null) return
+
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let width = 1
+    let height = 1
+    let frame = 0
+
+    const resize = () => {
+      const bounds = canvas.getBoundingClientRect()
+      const ratio = Math.min(window.devicePixelRatio || 1, 2)
+      width = Math.max(1, bounds.width)
+      height = Math.max(1, bounds.height)
+      canvas.width = Math.max(1, Math.round(width * ratio))
+      canvas.height = Math.max(1, Math.round(height * ratio))
+      context.setTransform(ratio, 0, 0, ratio, 0, 0)
+    }
+
+    const draw = (time = performance.now()) => {
+      drawRadiation(context, width, height, time, radiationRef.current)
+    }
+
+    const loop = (time: number) => {
+      draw(time)
+      frame = window.requestAnimationFrame(loop)
+    }
+
+    const redraw = () => {
+      if (reducedMotion.matches) draw()
+    }
+
+    const resizeObserver = new ResizeObserver(() => {
+      resize()
+      draw()
+    })
+    const themeObserver = new MutationObserver(() => draw())
+    resizeObserver.observe(canvas)
+    themeObserver.observe(document.body, { attributes: true, attributeFilter: ['data-ds-dark-theme'] })
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-dsh-fairy-theme'] })
+    redrawRef.current = redraw
+    resize()
+    draw()
+    if (!reducedMotion.matches) frame = window.requestAnimationFrame(loop)
+
+    return () => {
+      window.cancelAnimationFrame(frame)
+      resizeObserver.disconnect()
+      themeObserver.disconnect()
+      redrawRef.current = null
+    }
+  }, [])
+
+  const rollback = useCallback(() => {
+    const previous = committedRef.current
+    previewRef.current = Math.max(0, effortIndex(levels, previous))
+    pointerActiveRef.current = false
+    activePointerIdRef.current = null
+    draggingRef.current = false
+    setEffort(previous)
+    setPreview(Math.max(0, effortIndex(levels, previous)))
+    setDragging(false)
+  }, [levels])
+
+  const commit = useCallback(async (raw: number) => {
+    if (locked || committingRef.current) return
+    const route = directory.store.getSnapshot().current
+    committingRef.current = true
+    const previous = committedRef.current
+
+    setDragging(false)
+    setCommitting(true)
+    setLocalError(null)
+
+    // Optimistic snap from the rendered levels keeps the thumb responsive
+    // while the directory round-trip revalidates against fresh data below.
+    const optimisticIndex = clampIndex(raw, levels.length)
+    const optimistic = levels[optimisticIndex]?.id
+    if (optimistic !== undefined) {
+      previewRef.current = optimisticIndex
+      setPreview(optimisticIndex)
+      setEffort(optimistic)
+    }
+
+    try {
+      const fresh = await directory.load()
+      const freshLevels = sliderLevels(fresh)
+      if (!sameRoute(route, fresh.current)) throw new Error(t('effort.changed'))
+      const index = effortIndex(freshLevels, optimistic)
+      const next = freshLevels[index]?.id
+      if (next === undefined) throw new Error(t('effort.unavailable'))
+
+      previewRef.current = index
+      setPreview(index)
+      setEffort(next)
+
+      if (fresh.current === null) throw new Error(t('effort.unavailable'))
+      const result = await directory.select({
+        provider: fresh.current.provider,
+        model: fresh.current.model,
+        reasoningEffort: next,
+      })
+      if (!result.ok) throw result.error
+
+      const snapshot = directory.store.getSnapshot()
+      const accepted = effortIndex(freshLevels, snapshot.current?.reasoningEffort)
+      const settled = accepted >= 0 ? accepted : index
+      const settledId = freshLevels[settled]?.id ?? next
+      committedRef.current = settledId
+      previewRef.current = settled
+      setEffort(settledId)
+      setPreview(settled)
+    } catch (cause) {
+      const restore = Math.max(0, effortIndex(levels, previous))
+      committedRef.current = previous
+      previewRef.current = restore
+      setEffort(previous)
+      setPreview(restore)
+      setLocalError(cause instanceof Error ? cause.message : String(cause))
+    } finally {
+      committingRef.current = false
+      setCommitting(false)
+    }
+  }, [directory, levels, locked])
+
+  const rawFromPointer = (input: HTMLInputElement, clientX: number) => {
+    const bounds = input.getBoundingClientRect()
+    if (bounds.width <= 0 || levels.length < 2) return previewRef.current
+    return Math.max(
+      0,
+      Math.min(levels.length - 1, (clientX - bounds.left) / bounds.width * (levels.length - 1)),
+    )
+  }
+
+  const showPointerPreview = (raw: number) => {
+    previewRef.current = raw
+    setPreview(raw)
+    setEffort(levels[clampIndex(raw, levels.length)]?.id ?? '')
+  }
+
+  const beginDragging = (input: HTMLInputElement, pointerId: number, clientX: number) => {
+    pointerActiveRef.current = true
+    activePointerIdRef.current = pointerId
+    draggingRef.current = true
+    setDragging(true)
+    showPointerPreview(rawFromPointer(input, clientX))
+    try {
+      if (!input.hasPointerCapture(pointerId)) input.setPointerCapture(pointerId)
+    } catch {
+      // The window-level pointer listeners below remain the reliable fallback.
+    }
+  }
+
+  const moveDragging = (input: HTMLInputElement, pointerId: number, clientX: number) => {
+    if (!pointerActiveRef.current || activePointerIdRef.current !== pointerId) return
+    showPointerPreview(rawFromPointer(input, clientX))
+  }
+
+  const stopDragging = (input: HTMLInputElement, pointerId?: number, clientX?: number) => {
+    if (!pointerActiveRef.current) return
+    if (pointerId !== undefined && activePointerIdRef.current !== pointerId) return
+    const raw = clientX === undefined ? previewRef.current : rawFromPointer(input, clientX)
+    pointerActiveRef.current = false
+    activePointerIdRef.current = null
+    draggingRef.current = false
+    if (pointerId !== undefined && input.hasPointerCapture(pointerId)) {
+      input.releasePointerCapture(pointerId)
+    }
+    showPointerPreview(raw)
+    void commit(raw)
+  }
+
+  globalPointerMoveRef.current = (event) => {
+    const input = inputRef.current
+    if (input !== null) moveDragging(input, event.pointerId, event.clientX)
+  }
+  globalPointerEndRef.current = (event) => {
+    const input = inputRef.current
+    if (input !== null) stopDragging(input, event.pointerId, event.clientX)
+  }
+  globalPointerCancelRef.current = (event) => {
+    if (activePointerIdRef.current !== event.pointerId) return
+    rollback()
+  }
+
+  useEffect(() => {
+    const move = (event: PointerEvent) => globalPointerMoveRef.current?.(event)
+    const end = (event: PointerEvent) => globalPointerEndRef.current?.(event)
+    const cancel = (event: PointerEvent) => globalPointerCancelRef.current?.(event)
+    window.addEventListener('pointermove', move, true)
+    window.addEventListener('pointerup', end, true)
+    window.addEventListener('pointercancel', cancel, true)
+    return () => {
+      window.removeEventListener('pointermove', move, true)
+      window.removeEventListener('pointerup', end, true)
+      window.removeEventListener('pointercancel', cancel, true)
+    }
+  }, [])
+
+  const onKeyDown = (event: ReactKeyboardEvent<HTMLInputElement>) => {
+    if (busy) { event.preventDefault(); return }
+    const current = clampIndex(Number(event.currentTarget.value), levels.length)
+    let target: number | undefined
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowDown' || event.key === 'PageDown') {
+      target = Math.max(0, current - 1)
+    } else if (event.key === 'ArrowRight' || event.key === 'ArrowUp' || event.key === 'PageUp') {
+      target = Math.min(levels.length - 1, current + 1)
+    } else if (event.key === 'Home') {
+      target = 0
+    } else if (event.key === 'End') {
+      target = levels.length - 1
+    }
+    if (target === undefined) return
+    event.preventDefault()
+    void commit(target)
+  }
+
+  if (!available) return null
+
+  const count = levels.length
+  const effortName = levels[effortIndex(levels, effort)]?.name ?? effort
+  const isTop = effortIndex(levels, effort) === count - 1
+  const progress = preview / (count - 1) * 100
+  const style = { '--fairy-mc-progress': `${progress}%` } as CSSProperties
+  const title = error === null
+    ? t('effort.title', { effort: effortName })
+    : t('effort.failed', { error })
+
+  return (
+    <div
+      className={`fairy-mc-effort${dragging ? ' is-dragging' : ''}${busy ? ' is-busy' : ''}${error === null ? '' : ' is-error'}`}
+      title={title}
+    >
+      <div
+        className="fairy-mc-effort-slider"
+        data-top={isTop ? 'true' : undefined}
+        style={style}
+      >
+        <div className="fairy-mc-effort-track" aria-hidden="true" />
+        <div className="fairy-mc-effort-fx" aria-hidden="true">
+          <canvas ref={canvasRef} className="fairy-mc-effort-canvas" />
+          <span className="fairy-mc-effort-flare" />
+        </div>
+        <input
+          ref={inputRef}
+          className="fairy-mc-effort-input"
+          type="range"
+          min="0"
+          max={count - 1}
+          step="0.01"
+          value={preview}
+          disabled={locked}
+          aria-disabled={busy}
+          aria-label={t('effort.label')}
+          aria-valuetext={effortName}
+          onChange={(event) => {
+            if (busy) return
+            const raw = Number(event.currentTarget.value)
+            showPointerPreview(raw)
+          }}
+          onPointerDown={(event) => {
+            event.preventDefault()
+            if (busy) return
+            event.currentTarget.focus()
+            beginDragging(event.currentTarget, event.pointerId, event.clientX)
+          }}
+          onPointerMove={(event) => moveDragging(event.currentTarget, event.pointerId, event.clientX)}
+          onPointerUp={(event) => stopDragging(event.currentTarget, event.pointerId, event.clientX)}
+          onPointerCancel={(event) => {
+            if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+              event.currentTarget.releasePointerCapture(event.pointerId)
+            }
+            rollback()
+          }}
+          onBlur={(event) => {
+            stopDragging(event.currentTarget)
+          }}
+          onKeyDown={onKeyDown}
+        />
+        <span className="fairy-mc-effort-knob" aria-hidden="true" />
+      </div>
+      {error === null ? null : <span className="fairy-mc-effort-error" role="alert">{error}</span>}
+    </div>
+  )
+}
+
+
+function ModelControl({ locked = false, available, controller }: any) {
+  const state = useSyncExternalStore(
+    notify => controller.store.subscribe(notify), () => controller.store.getSnapshot(),
+  )
+  const [open, setOpen] = useState(false)
+  const [modelsOpen, setModelsOpen] = useState(false)
+  const [query, setQuery] = useState('')
+  const [pending, setPending] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const selecting = useRef(false)
+  const mounted = useRef(true)
+  const root = useRef<HTMLDivElement>(null)
+  const menu = useRef<HTMLDivElement>(null)
+  const trigger = useRef<HTMLButtonElement>(null)
+  const search = useRef<HTMLInputElement>(null)
+  const row = useRef<HTMLButtonElement>(null)
+  const choice = currentModel(state)
+  const levels = sliderLevels(state)
+  const effort = levels[effectiveEffortIndex(levels, state)]?.name ?? choice?.reasoning?.efforts?.[0]?.name ?? t('model.defaultEffort')
+  const label = choice?.name ?? state.current?.model ?? t('model.select')
+  const busy = pending || state.status === 'loading' || state.status === 'selecting'
+  const close = (focus = false) => {
+    setOpen(false); setModelsOpen(false); setQuery('')
+    if (focus) queueMicrotask(() => trigger.current?.focus())
+  }
+  useEffect(() => { mounted.current = true; return () => { mounted.current = false } }, [])
+  useEffect(() => { if (available) controller.load().catch(() => undefined) }, [available, controller])
+  useEffect(() => { if (locked || !available) close() }, [locked, available])
+  useLayoutEffect(() => {
+    if (!open || !root.current || !menu.current) return
+    return positionModelMenu(root.current, menu.current)
+  }, [open])
+  useEffect(() => {
+    if (!open) return
+    const outside = (event: PointerEvent) => { if (!root.current?.contains(event.target as Node)) close() }
+    document.addEventListener('pointerdown', outside, true)
+    return () => document.removeEventListener('pointerdown', outside, true)
+  }, [open])
+  useEffect(() => { if (open && modelsOpen) search.current?.focus() }, [open, modelsOpen])
+  const choose = async (provider: string, model: any) => {
+    if (locked || busy || selecting.current) return
+    if (sameRoute(state.current, {provider, model: model.id})) { setModelsOpen(false); return }
+    selecting.current = true; setPending(true); setError(null)
+    try {
+      const result = await controller.select(makeModelSelection(provider, model))
+      if (!result.ok) throw result.error
+      if (mounted.current) { setModelsOpen(false); setQuery(''); queueMicrotask(() => row.current?.focus()) }
+    } catch (cause) {
+      if (mounted.current) setError(cause instanceof Error ? cause.message : (cause as any)?.message ?? '模型切换失败，请重试。')
+    } finally {
+      selecting.current = false
+      if (mounted.current) setPending(false)
+    }
+  }
+  const keyboard = (event: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (!open) return
+    if (event.key === 'Escape') {
+      event.preventDefault(); event.stopPropagation()
+      if (modelsOpen) { setModelsOpen(false); setQuery(''); queueMicrotask(() => row.current?.focus()) }
+      else close(true)
+      return
+    }
+    if (event.key === 'Tab') { close(); return }
+    if ((event.target as HTMLElement).matches('input')) return
+    if (!['ArrowDown','ArrowUp','Home','End'].includes(event.key)) return
+    const options = [...(menu.current?.querySelectorAll<HTMLButtonElement>('button:not(:disabled)') ?? [])]
+    if (!options.length) return
+    event.preventDefault()
+    const index = options.indexOf(document.activeElement as HTMLButtonElement)
+    const next = event.key === 'Home' ? 0 : event.key === 'End' ? options.length - 1
+      : (index + (event.key === 'ArrowUp' ? -1 : 1) + options.length) % options.length
+    options[next]?.focus()
+  }
+  if (!available) return null
+  const groups = state.groups.map((group: any) => ({...group, models: group.models.filter((model: any) =>
+    `${group.name} ${model.name} ${model.id}`.toLowerCase().includes(query.trim().toLowerCase()))})).filter((group: any) => group.models.length)
+  return <div ref={root} className="fairy-mc-model-root" data-fairy-model-control="true" onKeyDown={keyboard}>
+    <button ref={trigger} type="button" className="fairy-mc-model-trigger" data-fairy-model-trigger="true"
+      aria-label={`模型 ${label}，推理强度 ${effort}`} aria-haspopup="menu" aria-expanded={open}
+      title={`${label} · ${effort}`} disabled={locked}
+      onKeyDown={event => { if (event.key === 'ArrowDown' && !open) { event.preventDefault(); setOpen(true); queueMicrotask(() => row.current?.focus()) } }}
+      onClick={() => { if (open) close(); else { setOpen(true); setModelsOpen(false); setError(null); controller.load().catch(() => undefined) } }}>
+      <span className="fairy-mc-model-name">{label}</span><span className="fairy-mc-model-effort">{effort}</span>
+      <span className="fairy-mc-model-chevron" aria-hidden="true" />
+    </button>
+    {open && <div ref={menu} className="fairy-mc-model-menu" role="menu" aria-label="模型与推理强度" aria-busy={busy}>
+      {modelsOpen ? <div className="fairy-mc-model-pane">
+        <button type="button" className="fairy-mc-model-back" onClick={() => {setModelsOpen(false); setQuery(''); queueMicrotask(() => row.current?.focus())}}><span aria-hidden="true">‹</span>选择模型</button>
+        <input ref={search} type="search" className="fairy-mc-model-search" value={query} onChange={event => setQuery(event.target.value)} placeholder="搜索模型" aria-label="搜索模型" />
+        {groups.map((group: any) => <section key={group.id}>
+          <div className="fairy-mc-model-group-title">{group.name}</div>
+          {group.models.map((model: any) => {
+            const selected = sameRoute(state.current, {provider: group.id, model: model.id})
+            return <button key={model.id} type="button" role="menuitemradio" aria-checked={selected}
+              className="fairy-mc-model-option" disabled={locked || busy} onClick={() => void choose(group.id, model)}>
+              <span className="fairy-mc-model-option-copy"><span className="fairy-mc-model-option-name">{model.name}</span>
+                {model.description && <span className="fairy-mc-model-option-desc">{model.description}</span>}</span>
+              <span className="fairy-mc-model-check" aria-hidden="true">{selected ? '✓' : ''}</span>
+            </button>
+          })}
+        </section>)}
+        {groups.length === 0 && <div className="fairy-mc-model-status">{busy ? t('model.loading') : '没有匹配的模型'}</div>}
+      </div> : <>
+        {levels.length >= 2 ? <div className="fairy-mc-advanced"><EffortSlider key={`${state.current?.provider}/${state.current?.model}`} directory={controller} t={t} locked={locked || pending} /></div>
+          : <div className="fairy-mc-model-status">{busy ? t('model.loading') : '此模型未提供可调推理强度'}</div>}
+        <div className="fairy-mc-menu-separator" />
+        <button ref={row} type="button" role="menuitem" className="fairy-mc-model-row" disabled={busy || locked} onClick={() => setModelsOpen(true)}>
+          <span className="fairy-mc-model-row-name">{label}</span><span className="fairy-mc-model-row-effort">{effort}</span><span className="fairy-mc-row-chevron" aria-hidden="true">›</span>
+        </button>
+      </>}
+      {(error ?? state.error) && <div className="fairy-mc-model-error" role="alert">{String(error ?? state.error)}</div>}
+    </div>}
+  </div>
+}
+
+/** Register only while Fairy visuals are enabled. Disposing restores DSH's original seat. */
+export function apply(ctx: any) {
+  const directories = ctx.get('modelDirectories')
+  if (!directories) return
+  ctx.effect(() => {
+    const style = document.createElement('style')
+    style.dataset.plugin = 'dsh-fairy-ui-model-control'
+    style.textContent = CSS
+    document.head.appendChild(style)
+    return () => style.remove()
+  }, 'Fairy model control styles')
+  ctx.slots.inject('conversation.input.model', () => {
+    let dispose: undefined | (() => void)
+    const sync = () => {
+      if (!document.documentElement.hasAttribute('data-dsh-fairy-visual')) { dispose?.(); dispose = undefined; return }
+      if (dispose) return
+      dispose = ctx.slots.register({name: 'conversation.input.model', id: 'fairy-model-control', priority: -100,
+        inject: (sessionId: string) => ({
+          available: ctx.sessions.subagentAddress(sessionId) === undefined,
+          controller: directories.directoryFor(sessionId),
+        }),
+      }, ModelControl)
+    }
+    const observer = new MutationObserver(sync)
+    observer.observe(document.documentElement, {attributes: true, attributeFilter: ['data-dsh-fairy-visual']})
+    sync()
+    return () => { observer.disconnect(); dispose?.() }
+  })
+}
+export { currentModel, sliderLevels, effectiveEffortIndex, clampIndex }

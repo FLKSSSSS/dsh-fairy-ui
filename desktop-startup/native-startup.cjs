@@ -8,6 +8,7 @@ const {normalizeStartupPreferences}=require('./startup-preferences.cjs');
 const PREF_KEY='dsh.fairyUi.startup.v2';
 function createNativeStartup({app,BrowserWindow,ipcMain}){
  let splash=null,target=null,disposed=false,started=false,enabled=true,overlayReady=false;
+ let fade=null,fadeAllowed=false,pendingReveal=null;
  let poll=null,watchdog=null,requested=null,preferences=normalizeStartupPreferences();
  let unbindOverlay=()=>{};
  const eventLog=[];
@@ -29,7 +30,7 @@ function createNativeStartup({app,BrowserWindow,ipcMain}){
  };
  // Save changes while the renderer is alive; quit may destroy it before async close handlers settle.
  const preferencePoll=setInterval(()=>savePreferences(),1000);preferencePoll.unref?.();
- const closeSplash=()=>{unbindOverlay();unbindOverlay=()=>{};const w=splash;splash=null;if(w&&!w.isDestroyed()){w.setParentWindow(null);w.destroy()}};
+ const closeSplash=()=>{clearInterval(fade);fade=null;unbindOverlay();unbindOverlay=()=>{};const w=splash;splash=null;if(w&&!w.isDestroyed()){w.setParentWindow(null);w.destroy()}};
  const enter=()=>{
   clearInterval(poll);poll=null;clearTimeout(watchdog);
   if(disposed||!requested?.window||requested.window.isDestroyed()){closeSplash();return;}
@@ -40,11 +41,32 @@ function createNativeStartup({app,BrowserWindow,ipcMain}){
    window.showInactive();
    record('main-shown',{playbackDone:gate.playbackDone,mainReady:gate.mainReady,covered:false,recovery:true});
   }
-  closeSplash();
-  record('overlay-removed',{playbackDone:gate.playbackDone,mainReady:gate.mainReady});
-  if(activate)window.focus();
-  window.webContents.setBackgroundThrottling(true);
-  savePreferences();
+  let finished=false;
+  const finish=()=>{
+   if(finished)return;finished=true;pendingReveal=null;
+   closeSplash();
+   record('overlay-removed',{playbackDone:gate.playbackDone,mainReady:gate.mainReady});
+   if(!window.isDestroyed()){
+    if(activate)window.focus();
+    window.webContents.setBackgroundThrottling(true);
+    savePreferences(window);
+   }
+  };
+  // Fade the native overlay, not the host: the already-loaded main window
+  // remains visible underneath. Hold the final scene until BOTH gates pass.
+  if(preferences.variant!=='archive'||!fadeAllowed||!splash||splash.isDestroyed())return finish();
+  pendingReveal=finish;
+  const overlay=splash,start=Date.now(),duration=480;
+  try{overlay.setOpacity(1)}catch{return finish()}
+  record('overlay-fade-started',{durationMs:duration});
+  fade=setInterval(()=>{
+   if(disposed||overlay.isDestroyed()||window.isDestroyed())return finish();
+   const progress=Math.min(1,Math.max(0,(Date.now()-start)/duration));
+   const eased=progress*progress*(3-2*progress);
+   try{overlay.setOpacity(1-eased)}catch{return finish()}
+   if(progress>=1)finish();
+  },16);
+  fade.unref?.();
  };
  const gate=new StartupGate(enter);
  const armWatchdog=()=>{
@@ -61,11 +83,11 @@ function createNativeStartup({app,BrowserWindow,ipcMain}){
  ipcMain.handle('fairy-ui-native:finished',(event,reason)=>{
   if(!senderAllowed(event))throw Error('Rejected playback completion');
   if(!['ended','failed'].includes(reason))throw Error('Invalid completion reason');
-  clearTimeout(watchdog);record(preferences.variant==='archive'?(reason==='ended'?'sequence-ended':'sequence-failed'):(reason==='ended'?'video-ended':'video-failed'));gate.finishPlayback();
+  clearTimeout(watchdog);fadeAllowed=reason==='ended';record(preferences.variant==='archive'?(reason==='ended'?'sequence-ended':'sequence-failed'):(reason==='ended'?'video-ended':'video-failed'));gate.finishPlayback();
  });
  ipcMain.handle('fairy-ui-native:dismiss',event=>{
   if(!senderAllowed(event))throw Error('Rejected startup dismissal');
-  clearTimeout(watchdog);record('user-skipped');gate.finishPlayback();
+  clearTimeout(watchdog);fadeAllowed=false;record('user-skipped');gate.finishPlayback();
   // Skip the video, not DSH's readiness. Continue to display the loading screen.
   if(splash&&!splash.isDestroyed())splash.webContents.executeJavaScript("document.getElementById('animation')?.pause();document.getElementById('status').textContent='动画已跳过，正在等待 DSH 准备就绪…'").catch(()=>{});
  });
@@ -85,8 +107,9 @@ function createNativeStartup({app,BrowserWindow,ipcMain}){
   w.webContents.setWindowOpenHandler(()=>({action:'deny'}));w.webContents.on('will-navigate',e=>e.preventDefault());
   w.once('ready-to-show',()=>{if(!disposed&&!w.isDestroyed()){overlayReady=true;showUnderlay();w.show();record('splash-shown')}});
   w.on('close',e=>{if(!disposed&&splash===w&&!gate.entered){e.preventDefault();record('user-close');gate.finishPlayback();app.quit()}});
-  w.webContents.on('render-process-gone',()=>{record('splash-renderer-failed');gate.finishPlayback();closeSplash()});
-  w.loadFile(path.join(__dirname,'startup.html')).catch(()=>{record('splash-load-failed');gate.finishPlayback();closeSplash()});
+  const recoverOverlay=event=>{record(event);fadeAllowed=false;gate.finishPlayback();if(pendingReveal)pendingReveal();else closeSplash()};
+  w.webContents.on('render-process-gone',()=>recoverOverlay('splash-renderer-failed'));
+  w.loadFile(path.join(__dirname,'startup.html')).catch(()=>recoverOverlay('splash-load-failed'));
   // A broken video cannot force an infinite wait. This is NOT a normal playback timeout.
   armWatchdog();
  }
@@ -153,7 +176,7 @@ function createNativeStartup({app,BrowserWindow,ipcMain}){
   requested={window,activate};target=window;
   record('main-show-requested');startReadinessPoll(window);
  }
- function dispose(){if(disposed)return;disposed=true;clearInterval(preferencePoll);gate.dispose();if(target&&!target.isDestroyed())target.webContents.setBackgroundThrottling(true);clearInterval(poll);clearTimeout(watchdog);closeSplash();for(const c of ['fairy-ui-native:data','fairy-ui-native:finished','fairy-ui-native:dismiss','fairy-ui-native:playback-state'])ipcMain.removeHandler(c)}
+ function dispose(){if(disposed)return;disposed=true;pendingReveal=null;clearInterval(preferencePoll);gate.dispose();if(target&&!target.isDestroyed())target.webContents.setBackgroundThrottling(true);clearInterval(poll);clearTimeout(watchdog);closeSplash();for(const c of ['fairy-ui-native:data','fairy-ui-native:finished','fairy-ui-native:dismiss','fairy-ui-native:playback-state'])ipcMain.removeHandler(c)}
  app.on('before-quit',dispose);
  return {open,attach,requestShow,dispose,gate};
 }

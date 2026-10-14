@@ -1,6 +1,6 @@
 {
   "name": "dsh-fairy-ui",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Fairy HDD UI with classic video or video-free interactive HDD/Fairy startup overlay and optional Fairy Agent preset.",
   "type": "module",
   "main": "./lib/index.js",
@@ -18,7 +18,9 @@
     "README.txt",
     "PROVENANCE.json",
     "agent-presets",
-    "THIRD-PARTY-NOTICES.txt"
+    "THIRD-PARTY-NOTICES.txt",
+    "licenses",
+    "CHANGELOG.md"
   ],
   "dsh": {
     "bundle": {
@@ -33,7 +35,9 @@
         "@deepseek-ai/dsh-client-ui-sidebar",
         "@deepseek-ai/dsh-client-ui-conversation",
         "@deepseek-ai/dsh-client-ui-settings",
-        "@deepseek-ai/dsh-client-ui-primitives"
+        "@deepseek-ai/dsh-client-ui-primitives",
+        "@deepseek-ai/dsh-client-ui-model-selection",
+        "@deepseek-ai/dsh-api-remotes"
       ]
     }
   },
@@ -164,6 +168,10 @@
     "micromark-extension-gfm-task-list-item"
   ],
   "scripts": {
-    "test": "node --test test/*.test.cjs desktop-startup/*.test.cjs"
+    "test": "node --test test/*.test.cjs desktop-startup/*.test.cjs",
+    "build:model-control": "node scripts/build-model-control.cjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.12"
   }
 }

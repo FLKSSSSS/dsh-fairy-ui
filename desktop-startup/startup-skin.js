@@ -127,7 +127,7 @@ function mountStartupSkin(root, video, preferences, options={}) {
  const wordmark=element('img','fairy-hdd-wordmark',undefined,intro);wordmark.src=prefix+'hdd-wordmark.png';wordmark.alt='HOLLOW DEEP DIVE SYSTEM · 空洞深潜系统';
  const head=element('header','fairy-archive-head',undefined,stage);const branding=element('div','',undefined,head);
  const brand=element('h1','fairy-archive-brand','HDD',branding);element('div','fairy-archive-brand-sub','HOLLOW DEEP DIVE ESYSTEM',branding);
- element('div','fairy-archive-meta','REV 1.4.1 · LOCAL PROFILE\nHDD / VISUAL INTERFACE',head);
+ element('div','fairy-archive-meta','REV 1.4.2 · LOCAL PROFILE\nHDD / VISUAL INTERFACE',head);
  const eye=element('div','fairy-archive-eye',undefined,stage);eye.innerHTML=EYE;eye.hidden=true;eye.setAttribute('aria-hidden','true');
  const error=element('div','fairy-archive-error','SIGNAL ERROR / FAIRY LINK RECOVERED',stage);error.hidden=true;
  const center=element('div','fairy-archive-center',undefined,stage);const phase=element('h2','fairy-archive-phase','',center);const en=element('p','fairy-archive-en','',center);
