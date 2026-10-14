@@ -26,3 +26,19 @@ test('model toolbar and commands are inside the measured input hole without grow
  assert.match(source, /clearHoleContactGeometry\(geometryStack\)/);
  assert.match(source, /tools="true"\]>\*:not\(\[data-dsh-fairy-composer-send-control="true"\]\):not\(\[data-dsh-fairy-composer-command-control="true"\]\)/);
 });
+
+test('send/stop native control restores pointer events without making transparent rows clickable', () => {
+ assert.match(source, /dock="true"\] \[data-dsh-fairy-composer-send-control="true"\]\{pointer-events:auto!important\}/);
+ assert.match(source, /data-dsh-fairy-composer-row="true"\][^\n]+pointer-events:none!important/);
+});
+test('native context footer occupies no layout row and stays interactive in input top-right', () => {
+ assert.match(source, /contextControl\(barRoot\)/);
+ assert.match(source, /native-footer="true"\]\{position:absolute!important;inset:0!important/);
+ assert.match(source, /floating-context="true"\]\{[^}]+pointer-events:auto!important/);
+ assert.match(source, /if \(!card.contains\(contextTarget\)\)/);
+ assert.match(source, /data-dsh-fairy-composer-floating-context/);
+ assert.match(source, /padding-right:84px!important/);
+});
+test('mascot center row follows input contact geometry including attachments', () => {
+ assert.match(source, /mascot-scale-base="true"\]\{top:calc\(var\(--dsh-fairy-composer-hole-contact-top,10px\) \+ \(var\(--dsh-fairy-composer-hole-contact-height,112px\)/);
+});

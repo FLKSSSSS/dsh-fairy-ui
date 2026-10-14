@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-14",
+  "pluginVersion": "1.4.2",
+  "distribution": "independent-install-repair",
+  "publishedMainArchivesUnchanged": true,
+  "offlineNoPackageManager": true,
+  "isolatedActualProfileInstall": true,
+  "billionContextVersionPreserved": "0.1.197",
+  "otherDependenciesAndSettingsPreserved": true,
+  "otherYamlConfigsAndLockfileUnchangedInActualProfileCopy": true,
+  "nativeCliComposesExactlyOneEnabledFairyBundle": true,
+  "cliValidationUsesIsolatedAliasBecauseDesktopReserved": true,
+  "isolatedPackageModuleImportsSuccessfully": true,
+  "repeatInstallationIsNoOp": true,
+  "isolatedUninstallAndNativeRestore": true,
+  "voiceSessionSentinelPreserved": true,
+  "actualHostAndProfileHashesUnchanged": true,
+  "unitTests": {
+    "total": 108,
+    "passed": 107,
+    "skipped": 1,
+    "failed": 0
+  },
+  "skipReason": "Windows file symlink privilege",
+  "installationRepairTests": {
+    "passed": 17,
+    "failed": 0
+  },
+  "limitations": [
+    "Does not repair billion-context registry/version selection.",
+    "No real user DSH installation performed.",
+    "Profile config composition checked without mounting services."
+  ]
+}

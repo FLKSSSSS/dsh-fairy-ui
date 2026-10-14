@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-14",
+  "isolatedActualProfileRemoval": true,
+  "otherDependenciesAndSettingsPreserved": true,
+  "otherYamlPluginRowsPreserved": true,
+  "workspaceAndCordisUnchanged": true,
+  "lockOnlyFairyImporterRemoved": true,
+  "moduleQuarantined": true,
+  "nativeOriginalRestored": true,
+  "sessionSentinelPreserved": true,
+  "realHostAndProfileUnchanged": true,
+  "unitTests": {
+    "passed": 90,
+    "skipped": 1,
+    "failed": 0
+  },
+  "skipReason": "Windows file symlink privilege"
+}

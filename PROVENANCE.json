@@ -218,5 +218,29 @@
     "upstream": "https://github.com/HanaAyane/dsh-reasoning-effort",
     "adaptation": "slider/radiation visuals only; isolated Fairy CSS prefix, native ModelDirectory state and writes, unsupported levels filtered, no credential mutation",
     "licenseFile": "licenses/dsh-reasoning-effort-MIT.txt"
+  },
+  "reissue": {
+    "version": "1.4.2",
+    "date": "2026-10-14",
+    "fixes": [
+      "send/stop native pointer event hit testing",
+      "non-flow native context footer, unchanged default input height",
+      "attachment-side row alignment",
+      "targeted offline installation/removal without whole-profile pnpm resolution"
+    ],
+    "offlineConfigurationParser": {
+      "name": "yaml",
+      "version": "2.9.1",
+      "license": "ISC",
+      "licenseFile": "licenses/yaml-ISC.txt"
+    },
+    "preserves": [
+      "voice/model configuration",
+      "other plugins and shared cache",
+      "sessions",
+      "native button handlers and disabled state"
+    ],
+    "archivePersistence": "profile/.fairy-local-packages",
+    "testScope": "isolated native DOM Chromium and isolated PowerShell host only; no live model messages"
   }
 }

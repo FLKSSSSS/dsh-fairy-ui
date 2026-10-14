@@ -53,3 +53,9 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+Offline install/removal helper: yaml 2.9.1 (ISC)
+Copyright Eemeli Aro <eemeli@gmail.com>
+Bundled as yaml.cjs for configuration parsing only, not loaded by the UI plugin.
+Full copyright and license: licenses/yaml-ISC.txt
