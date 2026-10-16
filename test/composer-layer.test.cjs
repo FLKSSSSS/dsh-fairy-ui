@@ -36,6 +36,17 @@ test('composer marker projection imports official model selectors before re-bind
  assert.match(source, /OFFICIAL_SELECTORS\.model/);
  assert.match(source, /OFFICIAL_SELECTORS\.reasoning/);
 });
+test('composer marker projection follows re-mounted controls and does not mark an incomplete row', () => {
+ assert.match(source, /inputScroll, sendButton, sendOnlyButton, contextControl/);
+ assert.match(source, /function directChildUnder\(node, ancestor\)/);
+ assert.match(source, /function canMarkControls\(card\)/);
+ assert.match(source, /directChildUnder\(target, card\)/);
+ assert.match(source, /const semanticTargets = \[/);
+ assert.match(source, /if \(!projection\) return \(\) => \{\};/);
+ assert.match(source, /const trailing = rowChildren\.find\(/);
+ assert.match(source, /const tools = rowChildren\.find\(/);
+ assert.match(source, /if \(canPlaceNativeControlMarkers\(card\)\)/);
+});
 test('native context footer occupies no layout row and stays interactive in input top-right', () => {
  assert.match(source, /contextControl\(barRoot\)/);
  assert.match(source, /native-footer="true"\]\{position:absolute!important;inset:0!important/);
