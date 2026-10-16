@@ -8,7 +8,7 @@ const zlib = require('node:zlib');
 const assert = require('node:assert/strict');
 const YAML = require('./yaml.cjs');
 const PLUGIN = 'dsh-fairy-ui', VERSION = '1.4.5';
-const ARCHIVE_SHA = '84b2c7e129cbc1fd006b677e10f22102f191e49a7fef382264067c27c282c410';
+const ARCHIVE_SHA = '1065dc842f1c14611b130ea89e92e163372805bdff226b30295345a3c49c59b9';
 const FIELDS = ['dependencies', 'devDependencies', 'optionalDependencies', 'peerDependencies'];
 const sha = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const exists = file => { try { fs.lstatSync(file); return true; } catch (e) { if (e.code === 'ENOENT') return false; throw e; } };
