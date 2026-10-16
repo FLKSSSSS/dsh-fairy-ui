@@ -4,7 +4,7 @@ const fs = require('node:fs'), path = require('node:path'), os = require('node:o
 const { installPlugin, planInstallation, readArchive } = require('../install-plugin.cjs');
 const { removePlugin } = require('../remove-plugin.cjs');
 const YAML = require('../yaml.cjs');
-const archive = path.resolve(__dirname, '../dsh-fairy-ui-1.4.4.tgz');
+const archive = path.resolve(__dirname, '../dsh-fairy-ui-1.4.5.tgz');
 const hash = b => crypto.createHash('sha256').update(b).digest('hex');
 function fixture(t) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'fairy-install-test-'));
@@ -21,7 +21,7 @@ function fixture(t) {
 }
 function patcher(installed = false, fail = false) {
   let state = installed;
-  return { validate: () => ({ stateData: state ? { version: '1.4.4' } : null }), install: () => { if (fail) throw Error('fake native failure'); state = true; }, restore: () => { state = false; }, get installed() { return state; } };
+  return { validate: () => ({ stateData: state ? { version: '1.4.5' } : null }), install: () => { if (fail) throw Error('fake native failure'); state = true; }, restore: () => { state = false; }, get installed() { return state; } };
 }
 function options(p = patcher()) { return { host: 'fake-test-only', patcher: p }; }
 function read(root, name) { return fs.readFileSync(path.join(root, name)); }
@@ -36,7 +36,7 @@ test('installs Fairy while preserving unavailable billion-context and other user
   assert.deepEqual(actual.voice, original.voice); assert.equal(actual.secret, original.secret);
   assert.deepEqual(actual.dsh.profile.bundles, original.dsh.profile.bundles);
   assert.ok(fs.existsSync(path.resolve(root, actual.dependencies['dsh-fairy-ui'].slice(5))));
-  assert.equal(JSON.parse(read(root, 'node_modules/dsh-fairy-ui/package.json')).version, '1.4.4');
+  assert.equal(JSON.parse(read(root, 'node_modules/dsh-fairy-ui/package.json')).version, '1.4.5');
   assert.equal(JSON.parse(fs.readFileSync(path.join(result.backup, 'previous-package/package.json'))).version, '1.4.1');
   assert.equal(read(root, 'voice-session-sentinel.txt').toString(), 'keep');
   assert.equal(read(root, 'pnpm-workspace.yaml').toString(), 'minimumReleaseAge: 60\n');
@@ -103,7 +103,7 @@ test('existing module junction is quarantined without editing its external targe
   const root = fixture(t), target = path.join(root, 'external-module'), module = path.join(root, 'node_modules/dsh-fairy-ui');
   fs.renameSync(module, target); fs.symlinkSync(target, module, 'junction'); installPlugin(root, archive, options());
   assert.equal(JSON.parse(fs.readFileSync(path.join(target, 'package.json'))).version, '1.4.1');
-  assert.equal(JSON.parse(read(root, 'node_modules/dsh-fairy-ui/package.json')).version, '1.4.4');
+  assert.equal(JSON.parse(read(root, 'node_modules/dsh-fairy-ui/package.json')).version, '1.4.5');
 });
 test('JSON BOM and CRLF preserved', t => {
   const root = fixture(t); fs.writeFileSync(path.join(root, 'package.json'), '\uFEFF' + read(root, 'package.json').toString().replace(/\n/g, '\r\n'));
@@ -121,7 +121,7 @@ function tarEntry(name, contents, type = '0') {
   return Buffer.concat([header, contents, Buffer.alloc((512 - contents.length % 512) % 512)]);
 }
 test('tar paths, links, duplicates and malformed package identity rejected', t => {
-  const root = fixture(t), manifest = Buffer.from('{"name":"dsh-fairy-ui","version":"1.4.4"}');
+  const root = fixture(t), manifest = Buffer.from('{"name":"dsh-fairy-ui","version":"1.4.5"}');
   for (const [name, type, error] of [['package/../../escape', '0', /Unsafe/], ['package/CON.txt', '0', /Unsafe/], ['package/x:y', '0', /Unsafe/], ['package/link', '2', /Unsupported/]]) {
     const bytes = zlib.gzipSync(Buffer.concat([tarEntry(name, Buffer.from('x'), type), Buffer.alloc(1024)])), file = path.join(root, 'test.tgz'); fs.writeFileSync(file, bytes);
     assert.throws(() => readArchive(file, hash(bytes)), error);

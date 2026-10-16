@@ -31,6 +31,11 @@ test('send/stop native control restores pointer events without making transparen
  assert.match(source, /dock="true"\] \[data-dsh-fairy-composer-send-control="true"\]\{pointer-events:auto!important\}/);
  assert.match(source, /data-dsh-fairy-composer-row="true"\][^\n]+pointer-events:none!important/);
 });
+test('composer marker projection imports official model selectors before re-binding thinking controls', () => {
+ assert.match(source, /const \{ OFFICIAL_SELECTORS, OFFICIAL_ATTRIBUTES, inputScroll, sendButton/);
+ assert.match(source, /OFFICIAL_SELECTORS\.model/);
+ assert.match(source, /OFFICIAL_SELECTORS\.reasoning/);
+});
 test('native context footer occupies no layout row and stays interactive in input top-right', () => {
  assert.match(source, /contextControl\(barRoot\)/);
  assert.match(source, /native-footer="true"\]\{position:absolute!important;inset:0!important/);

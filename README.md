@@ -1,8 +1,13 @@
-# dsh-fairy-ui 1.4.4
+# dsh-fairy-ui 1.4.5
 
 修复思考时双模型/强度切换控件、图片附件后输入失效，以及深色模式下菜单文字不可读；同时保留文件卡片的深蓝高对比显示。
 
 适用于用户提供的 **DeepSeek Harness 0.2.0-rc.2 Windows 原版构建**。保留原版账号、模型、语音设置、会话、权限及 Agent 预设；提供 Fairy / HDD 视觉界面及“安装语音模型”提示词按钮。
+
+## 1.4.5（2026-10-16）
+
+- 修复思考过程中再次输入时输入框错位且无法点击的问题。
+- 修复模型/推理控件重绑定缺少官方选择器导入导致的运行时错误。
 
 ## 1.4.4（2026-10-16）
 
@@ -17,7 +22,7 @@
 - 为模型选择、推理强度及发送按钮预留空间；不复制分支按钮、不改变 Git 操作，不覆盖模型或语音配置。
 - 继承 1.4.2 修复重发的发送点击、底部空隙、离线安装／卸载修复，以及单次启动、旧新版切换、结束淡入和 Fairy Agent 预设。
 
-升级：完全退出 DSH（包括托盘），解压 **1.4.4 完整包**，运行其中的 `安装插件.cmd`。不要混用旧版脚本与新包。不自动关闭或修改正在运行的 DSH。
+升级：完全退出 DSH（包括托盘），解压 **1.4.5 完整包**，运行其中的 `安装插件.cmd`。不要混用旧版脚本与新包。不自动关闭或修改正在运行的 DSH。
 
 ### 历史：1.4.2 修复重发（2026-10-14）
 
@@ -70,7 +75,7 @@
 
 ## 安装/升级
 
-[下载 1.4.4 Windows 完整安装包](https://github.com/FLKSSSSS/dsh-fairy-ui/releases/download/v1.4.4/dsh-fairy-ui-1.4.4-windows.zip) · [版本发布说明](https://github.com/FLKSSSSS/dsh-fairy-ui/releases/tag/v1.4.4)
+[下载 1.4.5 Windows 完整安装包](https://github.com/FLKSSSSS/dsh-fairy-ui/releases/download/v1.4.5/dsh-fairy-ui-1.4.5-windows.zip) · [版本发布说明](https://github.com/FLKSSSSS/dsh-fairy-ui/releases/tag/v1.4.5)
 
 1. 若原版从未启动过，先启动一次以初始化 desktop profile，再完全退出。
 2. 完全退出 DSH（包括系统托盘）。安装脚本检测目标正在运行时会拒绝修改，不会强制结束进程。
