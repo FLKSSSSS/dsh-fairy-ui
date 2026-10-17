@@ -80,7 +80,7 @@ export const CSS = `
   filter: blur(2px) saturate(1.25);
   mix-blend-mode: screen;
   transform: translate(-100%, -50%);
-  transition: left 70ms linear, filter 140ms ease;
+  transition: filter 140ms ease;
   pointer-events: none;
 }
 .fairy-mc-effort-flare::before,
@@ -118,7 +118,7 @@ export const CSS = `
     0 0 14px rgba(121,82,255,.48),
     0 2px 7px rgba(0,0,0,.3);
   transform: translate(-50%, -50%);
-  transition: left 190ms cubic-bezier(.22,1,.36,1), transform 160ms ease, box-shadow 180ms ease;
+  transition: transform 160ms ease, box-shadow 180ms ease;
   pointer-events: none;
 }
 
@@ -223,19 +223,18 @@ export const CSS = `
   line-height: 1;
 }
 .fairy-mc-model-chevron {
+  display: block;
   flex: 0 0 auto;
-  width: 7px;
-  height: 7px;
-  margin: -3px 1px 0 3px;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
+  width: 12px;
+  height: 12px;
+  margin: 0 0 0 2px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
   opacity: .55;
-  transform: rotate(45deg);
-  transition: transform 150ms ease, margin 150ms ease;
-}
-.fairy-mc-model-trigger[aria-expanded="true"] .fairy-mc-model-chevron {
-  margin-top: 3px;
-  transform: rotate(225deg);
+  pointer-events: none;
 }
 .fairy-mc-model-menu {
   position: absolute;
@@ -350,7 +349,7 @@ html:not([data-dsh-fairy-theme="dark"]) body:not([data-ds-dark-theme]) .fairy-mc
   width: var(--fairy-mc-progress);
   border-radius: inherit;
   background: linear-gradient(90deg, #fff 0%, #e2f0ff 20%, #a8d0fb 57%, #438fdf 100%);
-  transition: width 190ms cubic-bezier(.22,1,.36,1);
+  transition: none;
 }
 html:not([data-dsh-fairy-theme="dark"]) body:not([data-ds-dark-theme]) .fairy-mc-effort-slider[data-top] .fairy-mc-effort-track::before {
   background: linear-gradient(90deg, #fff 0%, #d7eaff 18%, #75afea 54%, #0751ad 100%);

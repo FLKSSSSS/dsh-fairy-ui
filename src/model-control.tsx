@@ -182,6 +182,8 @@ function EffortSlider({ directory, t, locked }: { directory: ModelDirectory; t: 
   const [localError, setLocalError] = useState<string | null>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const sliderRef = useRef<HTMLDivElement>(null)
+  const dragRouteRef = useRef<any>(null)
   const committedRef = useRef('')
   const committingRef = useRef(false)
   const previewRef = useRef(0)
@@ -283,6 +285,7 @@ function EffortSlider({ directory, t, locked }: { directory: ModelDirectory; t: 
     previewRef.current = Math.max(0, effortIndex(levels, previous))
     pointerActiveRef.current = false
     activePointerIdRef.current = null
+    dragRouteRef.current = null
     draggingRef.current = false
     setEffort(previous)
     setPreview(Math.max(0, effortIndex(levels, previous)))
@@ -291,7 +294,7 @@ function EffortSlider({ directory, t, locked }: { directory: ModelDirectory; t: 
 
   const commit = useCallback(async (raw: number) => {
     if (locked || committingRef.current) return
-    const route = directory.store.getSnapshot().current
+    const route = dragRouteRef.current ?? directory.store.getSnapshot().current
     committingRef.current = true
     const previous = committedRef.current
 
@@ -310,7 +313,9 @@ function EffortSlider({ directory, t, locked }: { directory: ModelDirectory; t: 
     }
 
     try {
-      const fresh = await directory.load()
+      // The shared directory already loads on open and receives host updates.
+      // Do not put a catalog/network reload on the pointer-release critical path.
+      const fresh = directory.store.getSnapshot()
       const freshLevels = sliderLevels(fresh)
       if (!sameRoute(route, fresh.current)) throw new Error(t('effort.changed'))
       const index = effortIndex(freshLevels, optimistic)
@@ -322,7 +327,7 @@ function EffortSlider({ directory, t, locked }: { directory: ModelDirectory; t: 
       setEffort(next)
 
       if (fresh.current === null) throw new Error(t('effort.unavailable'))
-      const result = await directory.select({
+      const result = fresh.current.reasoningEffort === next ? { ok: true } : await directory.select({
         provider: fresh.current.provider,
         model: fresh.current.model,
         reasoningEffort: next,
@@ -345,6 +350,7 @@ function EffortSlider({ directory, t, locked }: { directory: ModelDirectory; t: 
       setPreview(restore)
       setLocalError(cause instanceof Error ? cause.message : String(cause))
     } finally {
+      dragRouteRef.current = null
       committingRef.current = false
       setCommitting(false)
     }
@@ -361,6 +367,11 @@ function EffortSlider({ directory, t, locked }: { directory: ModelDirectory; t: 
 
   const showPointerPreview = (raw: number) => {
     previewRef.current = raw
+    // Paint from the pointer event itself, not a post-render effect. React still
+    // owns the accessible value/label; the canvas reads this same immediate ref.
+    radiationRef.current.progress = raw / Math.max(1, levels.length - 1)
+    sliderRef.current?.style.setProperty('--fairy-mc-progress', `${radiationRef.current.progress * 100}%`)
+    redrawRef.current?.()
     setPreview(raw)
     setEffort(levels[clampIndex(raw, levels.length)]?.id ?? '')
   }
@@ -369,6 +380,8 @@ function EffortSlider({ directory, t, locked }: { directory: ModelDirectory; t: 
     pointerActiveRef.current = true
     activePointerIdRef.current = pointerId
     draggingRef.current = true
+    dragRouteRef.current = directory.store.getSnapshot().current
+    radiationRef.current.dragging = true
     setDragging(true)
     showPointerPreview(rawFromPointer(input, clientX))
     try {
@@ -459,6 +472,7 @@ function EffortSlider({ directory, t, locked }: { directory: ModelDirectory; t: 
       title={title}
     >
       <div
+        ref={sliderRef}
         className="fairy-mc-effort-slider"
         data-top={isTop ? 'true' : undefined}
         style={style}
@@ -491,8 +505,6 @@ function EffortSlider({ directory, t, locked }: { directory: ModelDirectory; t: 
             event.currentTarget.focus()
             beginDragging(event.currentTarget, event.pointerId, event.clientX)
           }}
-          onPointerMove={(event) => moveDragging(event.currentTarget, event.pointerId, event.clientX)}
-          onPointerUp={(event) => stopDragging(event.currentTarget, event.pointerId, event.clientX)}
           onPointerCancel={(event) => {
             if (event.currentTarget.hasPointerCapture(event.pointerId)) {
               event.currentTarget.releasePointerCapture(event.pointerId)
@@ -595,7 +607,10 @@ function ModelControl({ locked = false, available, controller }: any) {
       onKeyDown={event => { if (event.key === 'ArrowDown' && !open) { event.preventDefault(); setOpen(true); queueMicrotask(() => row.current?.focus()) } }}
       onClick={() => { if (open) close(); else { setOpen(true); setModelsOpen(false); setError(null); controller.load().catch(() => undefined) } }}>
       <span className="fairy-mc-model-name">{label}</span><span className="fairy-mc-model-effort">{effort}</span>
-      <span className="fairy-mc-model-chevron" aria-hidden="true" />
+      <svg className="fairy-mc-model-chevron" viewBox="0 0 16 16" width="12" height="12" aria-hidden="true" focusable="false">
+        {/* Use the actual menu state, not a rotating border that can stop midway. */}
+        <path d={open ? 'M4 10L8 6L12 10' : 'M4 6L8 10L12 6'} />
+      </svg>
     </button>
     {open && <div ref={menu} className="fairy-mc-model-menu" role="menu" aria-label="模型与推理强度" aria-busy={busy}>
       {modelsOpen ? <div className="fairy-mc-model-pane">

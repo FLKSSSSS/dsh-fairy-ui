@@ -1,0 +1,14 @@
+✔ host allowlist pins both verified versions, not just a version string (1.8009ms)
+﹣ verified original archive fixtures are supplied (0.0824ms) # SKIP
+✔ real archive preserves and restores its own build: DSH (4662.2961ms)
+✔ real archive preserves and restores its own build: DSH原版对照 (8776.9266ms)
+✔ stale old-build state never overwrites a newer original archive (4887.5178ms)
+✔ unknown and integrity-enforcing hosts are rejected without writes (1641.7442ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 20077.0569

@@ -1,0 +1,41 @@
+{
+  "version": "1.4.6",
+  "date": "2026-10-17",
+  "scope": "Windows PowerShell 5.1 full entry point on isolated original DSH copy and synthetic profile; original host never launched",
+  "archiveSha256": "205cb21d48ee54c870447cb1dc89b46921e6431d4bb6940a922b6414f88139f5",
+  "actions": [
+    {
+      "action": "Install",
+      "exitCode": 0,
+      "voiceModelsAgentPermissionsAndOtherPluginsPreserved": true
+    },
+    {
+      "action": "Install",
+      "exitCode": 0,
+      "voiceModelsAgentPermissionsAndOtherPluginsPreserved": true
+    },
+    {
+      "action": "RestoreNative",
+      "exitCode": 0,
+      "voiceModelsAgentPermissionsAndOtherPluginsPreserved": true
+    },
+    {
+      "action": "Install",
+      "exitCode": 0,
+      "voiceModelsAgentPermissionsAndOtherPluginsPreserved": true
+    },
+    {
+      "action": "Remove",
+      "exitCode": 0,
+      "voiceModelsAgentPermissionsAndOtherPluginsPreserved": true
+    },
+    {
+      "action": "Remove",
+      "exitCode": 0,
+      "voiceModelsAgentPermissionsAndOtherPluginsPreserved": true
+    }
+  ],
+  "sameVersionStaleFilesRepaired": true,
+  "productionFilesUnchanged": true,
+  "offline": true
+}

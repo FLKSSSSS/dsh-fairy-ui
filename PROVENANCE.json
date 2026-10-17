@@ -6,6 +6,7 @@
     "Fairy visual client",
     "speech UI and local speech proxy",
     "original Fairy startup video, CSS, HTML and geometry",
+    "interactive startup reuses the chat mascot SVG, CSS and motion runtime; reference video is not included",
     "reversible hash-locked native desktop startup adapter",
     "reference audio (seed only when absent)",
     "owned native startup overlay with live host beneath",
@@ -90,7 +91,7 @@
     "resources/app/startup.css": "b6c8a7cbcb1aaf77af964d095fbc204707e4f52788dc56d25828416dc1c9f063",
     "resources/app/startup.html": "6fa2e490a787fdb371b9811e2e38d63cb43c2036a6640d6aefe5a02fbcbdb8dd"
   },
-  "version": "1.4.5",
+  "version": "1.4.6",
   "startupPolicy": {
     "pauseDuringPlayback": false,
     "playOnce": true,
@@ -269,6 +270,22 @@
       "error description state",
       "disabled action state",
       "native appearance when Fairy visual disabled"
+    ]
+  },
+  "hostCompatibility146": {
+    "date": "2026-10-17",
+    "policy": "Exact verified archive, main entry and package version; never disable Electron integrity fuses or restore an older build over a newer host.",
+    "hosts": [
+      {
+        "version": "0.2.0-rc.2",
+        "archiveSha256": "983ca71114e6dfd353fc79af5a1f9481a250ee64c2a3c757673029b811b23bc2"
+      },
+      {
+        "version": "0.2.1-rc.2",
+        "archiveSha256": "47874618bf5b3011fcaac10cd4c85f69da333e70d4f99b921207c78d0999512a",
+        "mainSha256": "6f3d1ddd1106371452c2204be6dfb2e5460a8e8259cdd05cdccb5387b3f9a85a",
+        "buildCommit": "332895e0f7c9d4dbfb29729f5eb367fa263ff986"
+      }
     ]
   }
 }

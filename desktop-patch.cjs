@@ -4,9 +4,13 @@
 const fs=require('node:fs');
 const path=require('node:path');
 const crypto=require('node:crypto');
-const ORIGINAL_SHA='983ca71114e6dfd353fc79af5a1f9481a250ee64c2a3c757673029b811b23bc2';
-const MAIN_SHA='10325004a1ddbd8118ed0607ea28d50a7b0d692dcaeb25a67a7d8aea9165019d';
-const VERSION='1.4.5';
+const SUPPORTED_HOSTS=Object.freeze([
+ Object.freeze({version:'0.2.0-rc.2',archiveSha256:'983ca71114e6dfd353fc79af5a1f9481a250ee64c2a3c757673029b811b23bc2',mainSha256:'10325004a1ddbd8118ed0607ea28d50a7b0d692dcaeb25a67a7d8aea9165019d'}),
+ Object.freeze({version:'0.2.1-rc.2',archiveSha256:'47874618bf5b3011fcaac10cd4c85f69da333e70d4f99b921207c78d0999512a',mainSha256:'6f3d1ddd1106371452c2204be6dfb2e5460a8e8259cdd05cdccb5387b3f9a85a'}),
+]);
+// Kept for callers auditing the original 0.2.0 fixture, not used as a restore target.
+const ORIGINAL_SHA=SUPPORTED_HOSTS[0].archiveSha256;
+const VERSION='1.4.6';
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 function parseAsar(bytes){
  if(bytes.length<16||bytes.readUInt32LE(0)!==4)throw Error('Unsupported ASAR header');
@@ -16,8 +20,15 @@ function parseAsar(bytes){
 }
 function entry(tree,name){let e=tree;for(const part of name.split('/'))e=e.files?.[part];if(!e)throw Error('Missing ASAR entry: '+name);return e;}
 function readEntry(archive,name){const e=entry(archive.tree,name);if(e.unpacked||!e.offset)throw Error('Expected packed entry');return archive.data.subarray(Number(e.offset),Number(e.offset)+e.size);}
+function identifyOriginal(original){
+ const host=SUPPORTED_HOSTS.find(h=>h.archiveSha256===sha(original));
+ if(!host)throw Error('Unsupported or modified host: expected a verified DSH 0.2.0-rc.2 or 0.2.1-rc.2 original archive; nothing was changed');
+ const a=parseAsar(original),manifest=JSON.parse(readEntry(a,'package.json').toString('utf8'));
+ if(manifest.version!==host.version||sha(readEntry(a,'lib/main.js'))!==host.mainSha256)throw Error('Host manifest or Electron entry does not match the verified build');
+ return host;
+}
 function patchMain(original){
- if(sha(original)!==MAIN_SHA)throw Error('Unsupported original Electron entry: refusing to patch');
+ if(!SUPPORTED_HOSTS.some(h=>h.mainSha256===sha(original)))throw Error('Unsupported original Electron entry: refusing to patch');
  let text=original.toString('utf8');
  for(const {old:from,new:to} of JSON.parse(fs.readFileSync(path.join(__dirname,'desktop-startup/main-patch.json'),'utf8'))){
   if(text.split(from).length!==2)throw Error('Patch anchor is missing or not unique');
@@ -26,7 +37,7 @@ function patchMain(original){
  return Buffer.from(text);
 }
 function buildArchive(original){
- if(sha(original)!==ORIGINAL_SHA)throw Error('DSH archive is not the tested original rc.2 build; nothing was changed');
+ identifyOriginal(original);
  const a=parseAsar(original),main=patchMain(readEntry(a,'lib/main.js')),e=entry(a.tree,'lib/main.js');
  e.offset=String(a.data.length);e.size=main.length;
  e.integrity={algorithm:'SHA256',hash:sha(main),blockSize:4194304,blocks:[sha(main)]};
@@ -55,13 +66,15 @@ function validate(root){
  const p=paths(root);verifyFuse(p.root);const bytes=fs.readFileSync(p.archive),hash=sha(bytes);
  if(fs.existsSync(p.state)){
   const s=JSON.parse(fs.readFileSync(p.state,'utf8'));
-  if(s.schema!==1||s.originalSha256!==ORIGINAL_SHA||sha(fs.readFileSync(p.backup))!==ORIGINAL_SHA)throw Error('Invalid startup backup or state');
-  if(hash!==s.patchedSha256&&hash!==ORIGINAL_SHA)throw Error('Host changed since installation; refusing to overwrite it. Restore/reinstall the official host first.');
-  return {...p,bytes,hash,stateData:s};
+  const host=SUPPORTED_HOSTS.find(h=>h.archiveSha256===s.originalSha256);
+  if(s.schema!==1||!host||sha(fs.readFileSync(p.backup))!==host.archiveSha256)throw Error('Invalid startup backup or state');
+  identifyOriginal(fs.readFileSync(p.backup));
+  if(hash!==s.patchedSha256&&hash!==host.archiveSha256)throw Error('Host changed since installation; refusing to overwrite it with an older backup. Restore/reinstall the official host first.');
+  return {...p,bytes,hash,host,stateData:s};
  }
- if(hash!==ORIGINAL_SHA)throw Error('Unsupported or modified host: expected the provided DSH 0.2.0-rc.2 original archive');
+ const host=identifyOriginal(bytes);
  if(fs.existsSync(p.backup)||fs.existsSync(p.assets))throw Error('Unowned backup/resource exists; refusing to overwrite it');
- return {...p,bytes,hash};
+ return {...p,bytes,hash,host};
 }
 function install(root){
  const p=validate(root);
@@ -81,7 +94,7 @@ function install(root){
   }
  }
  collect(assets);
- const state={schema:1,version:VERSION,originalSha256:ORIGINAL_SHA,patchedSha256:sha(patched),assetHashes};
+ const state={schema:1,version:VERSION,hostVersion:p.host.version,originalSha256:p.host.archiveSha256,patchedSha256:sha(patched),assetHashes};
  const temp=p.archive+'.fairy-ui-new';const stage=p.assets+'.new';
  if(fs.existsSync(temp)||fs.existsSync(stage))throw Error('Temporary startup files already exist; inspect them before retrying');
  const removeOwnedTree=dir=>{
@@ -106,7 +119,7 @@ function install(root){
   return {installed:true,...state};
  }catch(e){
   if(changedArchive)fs.copyFileSync(p.backup,p.archive);
-  if(!p.stateData){if(fs.existsSync(p.state))fs.unlinkSync(p.state);if(backedUp&&sha(fs.readFileSync(p.archive))===ORIGINAL_SHA)fs.unlinkSync(p.backup);}
+  if(!p.stateData){if(fs.existsSync(p.state))fs.unlinkSync(p.state);if(backedUp&&sha(fs.readFileSync(p.archive))===p.host.archiveSha256)fs.unlinkSync(p.backup);}
   if(createdAssets)removeOwnedTree(p.assets);
   if(fs.existsSync(stage))removeOwnedTree(stage);if(fs.existsSync(temp))fs.unlinkSync(temp);
   throw e;
@@ -116,7 +129,7 @@ function restore(root){
  const p=validate(root);if(!p.stateData)return {restored:true,notInstalled:true};
  const temp=p.archive+'.fairy-ui-restore';if(fs.existsSync(temp))throw Error('Restore temporary file already exists');
  fs.copyFileSync(p.backup,temp,fs.constants.COPYFILE_EXCL);
- if(sha(fs.readFileSync(temp))!==ORIGINAL_SHA){fs.unlinkSync(temp);throw Error('Restore verification failed');}
+ if(sha(fs.readFileSync(temp))!==p.host.archiveSha256){fs.unlinkSync(temp);throw Error('Restore verification failed');}
  fs.renameSync(temp,p.archive);
  // Delete only files still matching our recorded hashes. Preserve edited/unowned files.
  for(const [name,hash] of Object.entries(p.stateData.assetHashes)){
@@ -131,8 +144,8 @@ function restore(root){
 if(require.main===module){
  try{
   const [action,root]=process.argv.slice(2);if(!root||!['check','install','restore'].includes(action))throw Error('Usage: desktop-patch.cjs check|install|restore <DSH root>');
-  const result=action==='check'?{supported:true,installed:!!validate(root).stateData}:action==='install'?install(root):restore(root);
+  const result=action==='check'?(()=>{const p=validate(root);return {supported:true,hostVersion:p.host.version,installed:!!p.stateData}})():action==='install'?install(root):restore(root);
   console.log(JSON.stringify(result,null,2));
  }catch(e){console.error(e.message);process.exitCode=1;}
 }
-module.exports={sha,parseAsar,entry,readEntry,patchMain,buildArchive,install,restore,validate,ORIGINAL_SHA};
+module.exports={sha,parseAsar,entry,readEntry,patchMain,buildArchive,install,restore,validate,identifyOriginal,SUPPORTED_HOSTS,ORIGINAL_SHA};

@@ -1,6 +1,6 @@
 {
   "name": "dsh-fairy-ui",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "Fairy HDD UI with classic video or video-free interactive HDD/Fairy startup overlay and optional Fairy Agent preset.",
   "type": "module",
   "main": "./lib/index.js",
@@ -169,7 +169,8 @@
   ],
   "scripts": {
     "test": "node --test test/*.test.cjs desktop-startup/*.test.cjs",
-    "build:model-control": "node scripts/build-model-control.cjs"
+    "build:model-control": "node scripts/build-model-control.cjs",
+    "build:startup-mascot": "node scripts/build-startup-mascot.cjs"
   },
   "devDependencies": {
     "esbuild": "0.25.12"

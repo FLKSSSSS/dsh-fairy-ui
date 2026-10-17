@@ -12,7 +12,7 @@ class CDP{
 }
 function browserFixture(dir){
  const source=fs.readFileSync(process.env.FAIRY_BROWSER_SOURCE||path.join(__dirname,'../lib/client.js'),'utf8');
- const modules=['dom-adapter','composer-attachments','composer-marker-projection','composer-branch-position','composer-material-layer'].map(name=>{const begin=source.indexOf('//#region src/client/'+name+'.js');return source.slice(begin,source.indexOf('//#endregion',begin))});
+ const modules=['dom-adapter','composer-attachments','composer-marker-projection','composer-branch-position','composer-material-layer','settings-write','mascot-scale-control','native-width-boundary'].map(name=>{const begin=source.indexOf('//#region src/client/'+name+'.js');return source.slice(begin,source.indexOf('//#endregion',begin))});
  const begin=source.indexOf('\tfunction injectStyles()'),end=source.indexOf('\n\tvar init_style',begin);
  const setup=fs.readFileSync(path.join(__dirname,'fixtures/composer-setup.js'),'utf8');
  const runtime=`const __commonJSMin=cb=>{let m;return()=>{if(!m){m={exports:{}};cb(m.exports,m)}return m.exports}};const require_client_dom=()=>({FAIRY_VOICE_CONTROL_ATTRIBUTE:'data-dsh-fairy-voice-control'});const STYLE_ID='dsh-fairy-visual-style';\n`;
@@ -60,6 +60,27 @@ test('native composer keeps painted, clickable controls and editable text throug
    assert.equal(await c.eval(`card.hasAttribute('data-dsh-fairy-composer-attachments-active')`),false);
    assert.equal(await c.eval('seat.getBoundingClientRect().height===beforeHeight'),true,'state switch does not grow dock');
   }
+ }
+ // Native 0.2.1 gutters must not claim the Fairy console; its zero-size range
+ // thumb must still support a continuous track drag and commit only on release.
+ for(const width of [1380,900])for(const attachments of [false,true]){
+  await c.call('Emulation.setDeviceMetricsOverride',{width,height:900,deviceScaleFactor:1,mobile:false});
+  await c.eval(`setup({height:${attachments?240:132},hero:false,attachments:${attachments},text:'continuous drag'});window.scaleBinding?.dispose();window.widthBoundary?.clear();document.querySelectorAll('[data-dsh-fairy-mascot-scale-base]').forEach(n=>n.remove());window.scaleWrites=[];window.scaleValue=.55;window.scaleBinding=require_mascot_scale_control().createMascotScaleBase(card,{getSnapshot:()=>({settings:{mascotScale:scaleValue}}),subscribe:()=>()=>{},set:(field,value)=>{scaleWrites.push({field,value});scaleValue=value;return Promise.resolve()}});document.querySelector('[data-width-handle]')?.remove();window.nativeHandle=document.createElement('div');nativeHandle.dataset.widthHandle='right';nativeHandle.style.cssText='position:absolute;top:0;right:30px;bottom:0;width:16px;cursor:col-resize';document.body.style.cssText='position:relative;height:'+innerHeight+'px';document.body.append(nativeHandle);window.widthBoundary=require_native_width_boundary().createNativeWidthBoundary(()=>document.body,()=>seat);widthBoundary.sync();window.scaleInput=document.querySelector('[data-dsh-fairy-mascot-scale-input]');window.scaleDownNode=null;scaleInput.addEventListener('pointerdown',()=>scaleDownNode=scaleInput);`);
+  const b=await c.eval('scaleInput.getBoundingClientRect().toJSON()'),y=b.top+b.height/2;
+  assert(await c.eval(`scaleInput===document.elementFromPoint(${b.left+b.width/2},${y})`),'transparent native range remains hit-testable');
+  assert(await c.eval('nativeHandle.getBoundingClientRect().bottom<=seat.getBoundingClientRect().top+1'),'width handle ends at the top of dock');
+  await c.call('Input.dispatchMouseEvent',{type:'mousePressed',button:'left',clickCount:1,x:b.left+b.width*.1,y});
+  for(const progress of [.25,.5,.8]){
+   await c.call('Input.dispatchMouseEvent',{type:'mouseMoved',button:'left',buttons:1,x:b.left+b.width*progress,y});
+   const state=await c.eval('({value:Number(scaleInput.value),same:scaleDownNode===scaleInput,writes:scaleWrites.length})');
+   assert(Math.abs(state.value-(.55+.45*progress))<.015,JSON.stringify({width,attachments,progress,state}));assert(state.same);assert.equal(state.writes,0);
+  }
+  // Captured movement outside the tiny painted track still updates/clamps.
+  await c.call('Input.dispatchMouseEvent',{type:'mouseMoved',button:'left',buttons:1,x:b.right+30,y:y-30});
+  assert.equal(await c.eval('Number(scaleInput.value)'),1);
+  await c.call('Input.dispatchMouseEvent',{type:'mouseReleased',button:'left',clickCount:1,x:b.right+30,y:y-30});
+  assert.equal(await c.eval('scaleWrites.length'),1);assert.equal(await c.eval('scaleValue'),1);
+  await c.eval('widthBoundary.clear();nativeHandle.remove();scaleBinding.dispose()');
  }
  assert.deepEqual(c.errors,[]);
  if(process.env.FAIRY_BROWSER_ARTIFACTS)fs.writeFileSync(path.join(process.env.FAIRY_BROWSER_ARTIFACTS,'composer-145-regression.json'),JSON.stringify({cases:results.length,scope:'Isolated native DOM/CSS, actual plugin projection and styles; physical browser clicks and text input; no live model requests',results},null,2)+'\n');
