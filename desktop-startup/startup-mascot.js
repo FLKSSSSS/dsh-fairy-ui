@@ -780,6 +780,7 @@ html[data-dsh-fairy-startup-visual][data-dsh-fairy-startup-theme="light"] [data-
 				let visualActiveInitialized = false;
 				let lifecycleResumeFrame = 0;
 				let motionFrame = 0;
+				let lastMotionPaint = 0;
 				let lifecycleToken = 0;
 				let motionChangeListener = null;
 				let lifecycleVisibilityListener = null;
@@ -901,11 +902,17 @@ html[data-dsh-fairy-startup-visual][data-dsh-fairy-startup-theme="light"] [data-
 					}
 				}
 				function startMotionLoop() {
-					if (motionFrame || visualSuspended || !root) return;
-					const tick = () => {
+					if (motionFrame || visualSuspended || !root || motionQuery?.matches) return;
+					const tick = (timestamp) => {
 						motionFrame = 0;
-						if (!root || visualSuspended) return;
-						renderMotionFrame();
+						if (!root || visualSuspended || motionQuery?.matches) return;
+						// Preserve the clock/speed, but do not repaint this multilayer SVG at monitor Hz.
+						const interval = 1000 / (root.hasAttribute("data-low-power") ? 15 : 30);
+						const elapsed = timestamp - lastMotionPaint;
+						if (elapsed >= interval - .5) {
+							lastMotionPaint = timestamp - Math.max(0, elapsed % interval);
+							renderMotionFrame();
+						}
 						motionFrame = requestAnimationFrame(tick);
 					};
 					renderMotionFrame();
@@ -914,6 +921,7 @@ html[data-dsh-fairy-startup-visual][data-dsh-fairy-startup-theme="light"] [data-
 				function stopMotionLoop() {
 					if (motionFrame) cancelAnimationFrame(motionFrame);
 					motionFrame = 0;
+					lastMotionPaint = 0;
 				}
 				function alignEyeLayersToClock() {
 					renderMotionFrame();
@@ -1142,10 +1150,12 @@ html[data-dsh-fairy-startup-visual][data-dsh-fairy-startup-theme="light"] [data-
 						motionChangeListener = function() {
 							if (!isCurrentMount(owner, generation)) return;
 							if (motionQuery.matches) {
+								stopMotionLoop();
 								stopGlitch();
 								synchronizeActiveClipPhase("normal");
 							} else {
 								synchronizeActiveClipPhase(root && root.getAttribute("data-state"));
+								startMotionLoop();
 								scheduleGlitch(owner, generation);
 							}
 						};

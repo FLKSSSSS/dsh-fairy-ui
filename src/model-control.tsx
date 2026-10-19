@@ -235,6 +235,9 @@ function EffortSlider({ directory, t, locked }: { directory: ModelDirectory; t: 
     let width = 1
     let height = 1
     let frame = 0
+    let timer = 0
+    let intersecting = true
+    let disposed = false
 
     const resize = () => {
       const bounds = canvas.getBoundingClientRect()
@@ -250,32 +253,53 @@ function EffortSlider({ directory, t, locked }: { directory: ModelDirectory; t: 
       drawRadiation(context, width, height, time, radiationRef.current)
     }
 
-    const loop = (time: number) => {
-      draw(time)
-      frame = window.requestAnimationFrame(loop)
+    const visible = () => !disposed && intersecting && document.visibilityState !== 'hidden' && width > 0 && height > 0
+    const stop = () => {
+      window.cancelAnimationFrame(frame)
+      window.clearTimeout(timer)
+      frame = timer = 0
     }
-
+    const schedule = () => {
+      if (!visible() || reducedMotion.matches || frame || timer) return
+      // Decorative idle waves need 24 fps, not one expensive canvas paint per display refresh.
+      // Pointer previews still redraw on the very next animation frame.
+      timer = window.setTimeout(() => {
+        timer = 0
+        if (!visible() || reducedMotion.matches) return
+        frame = window.requestAnimationFrame((time) => { frame = 0; if (visible()) draw(time); schedule() })
+      }, radiationRef.current.dragging ? 16 : 1000 / 24)
+    }
     const redraw = () => {
-      if (reducedMotion.matches) draw()
+      stop()
+      if (!visible()) return
+      frame = window.requestAnimationFrame((time) => { frame = 0; if (visible()) draw(time); schedule() })
     }
 
     const resizeObserver = new ResizeObserver(() => {
       resize()
-      draw()
+      redraw()
     })
-    const themeObserver = new MutationObserver(() => draw())
+    const themeObserver = new MutationObserver(redraw)
+    const intersectionObserver = typeof IntersectionObserver === 'function'
+      ? new IntersectionObserver(entries => { intersecting = entries.some(entry => entry.isIntersecting); redraw() }) : null
+    intersectionObserver?.observe(canvas)
     resizeObserver.observe(canvas)
     themeObserver.observe(document.body, { attributes: true, attributeFilter: ['data-ds-dark-theme'] })
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-dsh-fairy-theme'] })
     redrawRef.current = redraw
     resize()
-    draw()
-    if (!reducedMotion.matches) frame = window.requestAnimationFrame(loop)
+    redraw()
+    document.addEventListener('visibilitychange', redraw)
+    reducedMotion.addEventListener('change', redraw)
 
     return () => {
-      window.cancelAnimationFrame(frame)
+      disposed = true
+      stop()
       resizeObserver.disconnect()
       themeObserver.disconnect()
+      intersectionObserver?.disconnect()
+      document.removeEventListener('visibilitychange', redraw)
+      reducedMotion.removeEventListener('change', redraw)
       redrawRef.current = null
     }
   }, [])
