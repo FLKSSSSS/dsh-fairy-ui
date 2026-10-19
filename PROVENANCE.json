@@ -91,7 +91,7 @@
     "resources/app/startup.css": "b6c8a7cbcb1aaf77af964d095fbc204707e4f52788dc56d25828416dc1c9f063",
     "resources/app/startup.html": "6fa2e490a787fdb371b9811e2e38d63cb43c2036a6640d6aefe5a02fbcbdb8dd"
   },
-  "version": "1.4.6",
+  "version": "1.4.7",
   "startupPolicy": {
     "pauseDuringPlayback": false,
     "playOnce": true,
@@ -287,5 +287,15 @@
         "buildCommit": "332895e0f7c9d4dbfb29729f5eb367fa263ff986"
       }
     ]
+  },
+  "layout147": {
+    "date": "2026-10-19",
+    "source": "Existing native DSH UI slots, Windows titlebar CSS and composer attachment/input geometry",
+    "fixes": [
+      "Preserve native fixed positioning for collapsed Windows sidebar controls",
+      "Measure persistent header/corner for hero toggle clearance and vertical alignment, with 0.2.0 fallback",
+      "Single measured attachment/input well paints substrate, grid and contact shadow in every state"
+    ],
+    "ownership": "Native React nodes and handlers stay in place; decorative layer has pointer-events:none; no model, voice, agent or permission configuration changes"
   }
 }

@@ -47,6 +47,11 @@ test('native composer keeps painted, clickable controls and editable text throug
     assert(r.sendMarked&&r.sendHit,context);assert(inside(r.send,r.input),context);assert(r.commandHit,context);assert(r.modelHit,context);assert(!r.nativeModelDuplicate,context);assert(r.parentPreserved,context);
     assert(inside(r.command,r.input),context);assert(r.model.right<(r.secondary?.left??r.send.left)+1,context);
     if(attachments){assert(r.inputZ>r.afterZ,context);assert(r.rowZ>r.afterZ,context)}
+    const paint=await c.eval(`(()=>{const style=getComputedStyle(input),well=getComputedStyle(card,'::after'),b=card.getBoundingClientRect(),rail=card.querySelector('[data-slot="conversation.input.attachments"]')?.firstElementChild;return {inputColor:style.backgroundColor,inputImage:style.backgroundImage,inputShadow:style.boxShadow,wellColor:well.backgroundColor,wellImage:well.backgroundImage,pointerEvents:well.pointerEvents,top:b.top+card.clientTop+parseFloat(well.top),bottom:b.top+card.clientTop+parseFloat(well.top)+parseFloat(well.height),rail:rail?.getBoundingClientRect().toJSON()}})()`);
+    assert.equal(paint.inputColor,'rgba(0, 0, 0, 0)',context);assert.equal(paint.inputImage,'none',context);assert.equal(paint.inputShadow,'none',context);
+    assert.notEqual(paint.wellColor,'rgba(0, 0, 0, 0)',context);assert(paint.wellImage.includes('gradient'),context);assert.equal(paint.pointerEvents,'none',context);
+    assert(paint.top<=r.input.top+1&&paint.bottom>=r.input.bottom-1,context);
+    if(paint.rail)assert(paint.top<=paint.rail.top+1&&paint.bottom>=paint.rail.bottom-1,context);
     const before=await c.eval('nativeClicks');await c.click(r.send);assert.equal(await c.eval('nativeClicks'),before+1,context);
     if(dual){assert(r.stopHit,context);const count=await c.eval('window.stopClicks||0');await c.click(r.secondary);assert.equal(await c.eval('stopClicks'),count+1,context)}
     await c.click({left:r.editor.left+20,top:r.editor.top+4,width:12,height:16});assert(await c.eval('document.activeElement===editor'),context);

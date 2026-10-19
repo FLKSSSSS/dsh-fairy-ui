@@ -1,0 +1,182 @@
+{
+  "version": "1.4.7",
+  "host": "0.2.1-rc.2",
+  "scope": "Fresh isolated home and Electron user-data. Light and dark themes, native sidebar actions, image paste/remove, physical text input, control hit-testing. No live model requests.",
+  "passed": true,
+  "actions": [
+    {
+      "theme": "light",
+      "left": false,
+      "leftCollapsed": true,
+      "open": {
+        "x": 12,
+        "y": 6,
+        "width": 28,
+        "height": 28,
+        "top": 6,
+        "right": 40,
+        "bottom": 34,
+        "left": 12
+      },
+      "position": "fixed",
+      "group": {
+        "x": 1139,
+        "y": 51,
+        "width": 93.34375,
+        "height": 28,
+        "top": 51,
+        "right": 1232.34375,
+        "bottom": 79,
+        "left": 1139
+      },
+      "right": {
+        "x": 1240,
+        "y": 51,
+        "width": 28,
+        "height": 28,
+        "top": 51,
+        "right": 1268,
+        "bottom": 79,
+        "left": 1240
+      }
+    },
+    {
+      "theme": "light",
+      "left": true,
+      "leftCollapsed": false,
+      "position": null,
+      "group": {
+        "x": 1139,
+        "y": 51,
+        "width": 93.34375,
+        "height": 28,
+        "top": 51,
+        "right": 1232.34375,
+        "bottom": 79,
+        "left": 1139
+      },
+      "right": {
+        "x": 1240,
+        "y": 51,
+        "width": 28,
+        "height": 28,
+        "top": 51,
+        "right": 1268,
+        "bottom": 79,
+        "left": 1240
+      }
+    },
+    {
+      "theme": "light",
+      "attachment": {
+        "active": "true",
+        "images": 1,
+        "color": "rgba(0, 0, 0, 0)",
+        "image": "none",
+        "well": "rgb(247, 250, 252)",
+        "text": "输入与附件回归测试",
+        "controls": [
+          {
+            "label": "添加文件或调用指令",
+            "clickable": true
+          },
+          {
+            "label": "模型 deepseek-flash，推理强度 默认",
+            "clickable": true
+          },
+          {
+            "label": "发送消息",
+            "clickable": true
+          }
+        ]
+      }
+    },
+    {
+      "theme": "dark",
+      "left": false,
+      "leftCollapsed": true,
+      "open": {
+        "x": 12,
+        "y": 6,
+        "width": 28,
+        "height": 28,
+        "top": 6,
+        "right": 40,
+        "bottom": 34,
+        "left": 12
+      },
+      "position": "fixed",
+      "group": {
+        "x": 1139,
+        "y": 51,
+        "width": 93.34375,
+        "height": 28,
+        "top": 51,
+        "right": 1232.34375,
+        "bottom": 79,
+        "left": 1139
+      },
+      "right": {
+        "x": 1240,
+        "y": 51,
+        "width": 28,
+        "height": 28,
+        "top": 51,
+        "right": 1268,
+        "bottom": 79,
+        "left": 1240
+      }
+    },
+    {
+      "theme": "dark",
+      "left": true,
+      "leftCollapsed": false,
+      "position": null,
+      "group": {
+        "x": 1139,
+        "y": 51,
+        "width": 93.34375,
+        "height": 28,
+        "top": 51,
+        "right": 1232.34375,
+        "bottom": 79,
+        "left": 1139
+      },
+      "right": {
+        "x": 1240,
+        "y": 51,
+        "width": 28,
+        "height": 28,
+        "top": 51,
+        "right": 1268,
+        "bottom": 79,
+        "left": 1240
+      }
+    },
+    {
+      "theme": "dark",
+      "attachment": {
+        "active": "true",
+        "images": 1,
+        "color": "rgba(0, 0, 0, 0)",
+        "image": "none",
+        "well": "rgb(7, 16, 28)",
+        "text": "输输入与附件回归测试入与附件回归测试",
+        "controls": [
+          {
+            "label": "添加文件或调用指令",
+            "clickable": true
+          },
+          {
+            "label": "模型 deepseek-flash，推理强度 默认",
+            "clickable": true
+          },
+          {
+            "label": "发送消息",
+            "clickable": true
+          }
+        ]
+      }
+    }
+  ]
+}

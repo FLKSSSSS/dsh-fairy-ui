@@ -10,7 +10,7 @@ const SUPPORTED_HOSTS=Object.freeze([
 ]);
 // Kept for callers auditing the original 0.2.0 fixture, not used as a restore target.
 const ORIGINAL_SHA=SUPPORTED_HOSTS[0].archiveSha256;
-const VERSION='1.4.6';
+const VERSION='1.4.7';
 const sha=b=>crypto.createHash('sha256').update(b).digest('hex');
 function parseAsar(bytes){
  if(bytes.length<16||bytes.readUInt32LE(0)!==4)throw Error('Unsupported ASAR header');
